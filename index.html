@@ -126,45 +126,62 @@
             50% { transform: translate(-50%, -56%); }
         }
 
-        /* Caixa de Presente VERDE */
+        /* Caixa de Presente VERDE CUSTOMIZADO */
         .caixa-madeira {
             width: 220px; height: 220px; 
-            background: linear-gradient(135deg, #2ecc71, #27ae60); /* Verde Vibrante */
-            border: 6px solid #1e8449; position: relative; cursor: pointer;
-            box-shadow: 0 20px 35px rgba(0,0,0,0.3), inset 0 0 20px rgba(0,0,0,0.2);
+            background: linear-gradient(135deg, #06402b, #032418); /* Verde solicitado */
+            border: 6px solid #02140e; position: relative; cursor: pointer;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.35), inset 0 0 25px rgba(0,0,0,0.4);
             border-radius: 15px;
             animation: brilharCaixa 2s infinite alternate;
         }
         .caixa-madeira:hover { transform: scale(1.04) rotate(1deg); }
         
-        /* Fitas do Presente (Vermelho Aveludado) */
+        /* Fitas do Presente (Vermelho Customizado #FF0000) */
         .caixa-madeira::before { 
-            content: ""; position: absolute; left: 42%; top: 0; width: 16%; height: 100%; background: #990000; 
-            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            content: ""; position: absolute; left: 43%; top: 0; width: 14%; height: 100%; background: #FF0000; 
+            box-shadow: 2px 0 5px rgba(0,0,0,0.15);
         }
         .caixa-madeira::after { 
-            content: ""; position: absolute; top: 42%; left: 0; height: 16%; width: 100%; background: #990000; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            content: ""; position: absolute; top: 43%; left: 0; height: 14%; width: 100%; background: #FF0000; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
         }
 
-        /* Laço de Fita (Interno para acompanhar todo o movimento) */
+        /* DESIGN DO NOVO LAÇO REALISTA */
         .laco-presente {
-            position: absolute; top: -35px; left: 50%; transform: translateX(-50%);
-            width: 70px; height: 40px; background: #990000; border-radius: 50% 50% 0 0;
-            box-shadow: 0 5px 10px rgba(0,0,0,0.2); z-index: 35;
+            position: absolute; top: -28px; left: 50%; transform: translateX(-50%);
+            width: 40px; height: 30px; z-index: 35;
         }
+        /* Orelha esquerda do laço */
         .laco-presente::before {
-            content: ""; position: absolute; left: -25px; top: 5px; width: 40px; height: 30px;
-            background: #990000; border-radius: 50%; transform: rotate(-30deg);
+            content: ""; position: absolute; left: -42px; top: -12px; width: 55px; height: 42px;
+            background: #FF0000; border-radius: 50% 50% 12% 50%; transform: rotate(-20deg);
+            box-shadow: -3px 5px 8px rgba(0,0,0,0.25);
         }
+        /* Orelha direita do laço */
         .laco-presente::after {
-            content: ""; position: absolute; right: -25px; top: 5px; width: 40px; height: 30px;
-            background: #990000; border-radius: 50%; transform: rotate(30deg);
+            content: ""; position: absolute; right: -42px; top: -12px; width: 55px; height: 42px;
+            background: #FF0000; border-radius: 50% 50% 50% 12%; transform: rotate(20deg);
+            box-shadow: 3px 5px 8px rgba(0,0,0,0.25);
         }
+        /* Nó central do laço */
+        .no-laco {
+            position: absolute; left: 50%; top: -5px; transform: translateX(-50%);
+            width: 26px; height: 26px; background: #FF0000; border-radius: 8px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.3); z-index: 40;
+            border: 1px solid #d90000;
+        }
+        /* Pontas caídas da fita sobre a caixa */
+        .ponta-laco-esq, .ponta-laco-dir {
+            position: absolute; top: 16px; width: 18px; height: 45px; background: #FF0000; z-index: 34;
+            clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 50% 82%, 0% 100%);
+        }
+        .ponta-laco-esq { left: -14px; transform: rotate(28deg); }
+        .ponta-laco-dir { right: -14px; transform: rotate(-28deg); }
 
         @keyframes brilharCaixa {
-            0% { box-shadow: 0 20px 35px rgba(0,0,0,0.3), 0 0 10px rgba(255, 234, 167, 0.2); }
-            100% { box-shadow: 0 20px 35px rgba(0,0,0,0.3), 0 0 35px rgba(255, 234, 167, 0.6); }
+            0% { box-shadow: 0 20px 35px rgba(0,0,0,0.3), 0 0 10px rgba(255, 234, 167, 0.1); }
+            100% { box-shadow: 0 20px 35px rgba(0,0,0,0.3), 0 0 35px rgba(255, 234, 167, 0.4); }
         }
 
         /* Corrida Suave da Laila */
@@ -200,23 +217,28 @@
         <div id="laila-corpo">
             <img id="laila-img" src="laila.png" style="width: 180px;" alt="Jacaré Laila" onclick="clicouNaLaila()">
         </div>
-        <div id="balao-jacare" class="balao-fala">[Oiee mamãe??!! Quanto tempo que não te vejo que saudades, faz tanto tempo que você nem deve saber que agora eu tenho superpoderes tecnológicos heheheh]<br><small style="font-size:12px; color: #c13b2b; font-weight:bold; display:block; margin-top:5px;">(Me dá a mão e vem comigoo)</small></div>
+        <div id="balao-jacare" class="balao-fala"></div>
     </div>
 
     <div id="cena-caixa">
         <div class="caixa-madeira" onclick="abrirCaixa()">
-            <div class="laco-presente"></div>
+            <div class="laco-presente">
+                <div class="no-laco"></div>
+                <div class="ponta-laco-esq"></div>
+                <div class="ponta-laco-dir"></div>
+            </div>
         </div>
     </div>
 
     <script>
         let contadorCliques = 0;
+        let etapaFalaLaila = 1; // Controla a sequência de falas da Laila
         let historicoFrasesBotao = [
             "Descobrir de verdade!",
             "Descobrir mesmo!",
             "Aqui tem coisas que não podem ser desvistas...",
             "Já deu né, só clicar de novo que agora vai",
-            "Brincadeira, só clica num emoji risonho no fundo e vai em frente"
+            "Brincadeira, só clica num emoji risonho no fundo e vai em frente e antes disso, aumenta o som!"
         ];
 
         const svgPepperoni = `
@@ -328,7 +350,6 @@
                     setTimeout(() => {
                         document.body.classList.remove('tremendo');
                         typeWriter(parte2, 'texto-parte2', 90, () => {
-                            // NOVO: Espera exatamente 5 segundos (5000ms) após o fim do texto
                             setTimeout(iniciarCenaJacare, 3000);
                         });
                     }, 400); 
@@ -344,19 +365,29 @@
             audioBongos.currentTime = 0;
             audioBongos.play().catch(e => {});
 
-            // Surge correndo de forma limpa
             jacare.style.display = 'flex';
             jacare.classList.add('correndo');
 
             setTimeout(() => {
+                // Primeira fala inserida de forma limpa
+                balao.innerHTML = "Oiee mamãe??!! Quanto tempo que não te vejo que saudades, faz tanto tempo que você nem deve saber que agora eu tenho superpoderes tecnológicos heheheh";
                 balao.style.display = 'block';
-                lailaProntaParaClicar = true; 
+                lailaProntaParaClicar = true;
             }, 1500);
         }
 
         function clicouNaLaila() {
             if (lailaProntaParaClicar) {
-                mudarParaCenaCaixa();
+                const balao = document.getElementById('balao-jacare');
+                
+                if (etapaFalaLaila === 1) {
+                    // Limpa o balão e insere a segunda fala pedindo a mão
+                    etapaFalaLaila = 2;
+                    balao.innerHTML = "Me dá a mão e vem comigoo <br><small style='font-size:12px; color: #c13b2b; font-weight:bold; display:block; margin-top:5px;'>(Clique em mim de novo pra gente ir!)</small>";
+                } else if (etapaFalaLaila === 2) {
+                    // Avança para a cena da caixa de presentes
+                    mudarParaCenaCaixa();
+                }
             }
         }
 
@@ -367,16 +398,13 @@
             const jacare = document.getElementById('jacare-container');
             const balao = document.getElementById('balao-jacare');
             
-            // Move a Laila de forma limpa para o extremo esquerdo da página
             jacare.style.left = '2vw';
             balao.style.display = 'none';
             
             setTimeout(() => {
-                // Altera o texto mantendo o balão no topo, 100% livre do presente central
                 balao.innerHTML = "[Acho que isso daqui é pra você mamãe, chegou aqui faz pouco tempo e tá com um cheirinho do papai certeza que foi ele que fez! Abre abre abre]";
                 balao.style.display = 'block';
                 
-                // Exibe a elegante caixa verde com fita vermelha perfeitamente centralizada
                 document.getElementById('cena-caixa').style.display = 'flex';
             }, 1000);
         }
