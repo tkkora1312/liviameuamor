@@ -92,7 +92,7 @@
             display: none; 
             flex-direction: column-reverse;
             align-items: center; z-index: 20;
-            gap: 15px; transition: all 1s ease-in-out;
+            gap: 15px; transition: left 1s ease-in-out;
         }
         #laila-img { transition: transform 0.3s; z-index: 25; }
         #laila-img:hover { transform: scale(1.05); }
@@ -265,7 +265,6 @@
             padding-bottom: 25px; box-sizing: border-box;
         }
         
-        /* Ajuste fino: Subiu o adesivo de leve em relação ao destinatário */
         .selo-container {
             cursor: pointer; text-align: center;
             transition: transform 0.2s;
@@ -291,6 +290,7 @@
             padding: 30px; border-radius: 4px; color: #333;
             font-size: 18px; line-height: 1.6; overflow-y: auto;
             box-sizing: border-box; animation: abrirFolha 0.5s ease-out forwards;
+            display: flex; flex-direction: column;
         }
         @keyframes abrirFolha {
             0% { opacity: 0; transform: scale(0.85) translateY(30px); }
@@ -298,6 +298,17 @@
         }
         .folha-carta h3 { margin-top: 0; color: #5a4b75; font-size: 24px; }
         .assinatura { margin-top: 30px; text-align: right; font-weight: bold; color: #5a4b75; }
+
+        /* Botão estilizado para voltar para a Laila */
+        #btn-voltar-laila {
+            font-family: 'Fredoka', sans-serif;
+            margin-top: 25px; padding: 12px 30px; font-size: 16px; font-weight: 700;
+            background-color: #008000; color: white; border: none; border-radius: 50px;
+            cursor: pointer; box-shadow: 0 5px 15px rgba(0, 128, 0, 0.3);
+            transition: transform 0.2s, background-color 0.2s;
+            align-self: center;
+        }
+        #btn-voltar-laila:hover { transform: scale(1.05); background-color: #005c00; }
 
     </style>
 </head>
@@ -358,12 +369,10 @@
             <!-- Conteúdo Interativo Organizado Embaixo -->
             <div class="envelope-conteudo" id="envelope-interativo">
                 
-                <!-- O Selo de Foca reposicionado perfeitamente um pouco mais para cima -->
                 <div class="selo-container" onclick="animarEAbrirCarta()">
                     <img id="foca-selo-img" src="foca-selo.png" alt="Selo Foca">
                 </div>
                 
-                <!-- O destinatário estático e bem posicionado -->
                 <div class="destinatario">Para: <span>Escreva o Nome Aqui</span></div>
                 
             </div>
@@ -377,6 +386,9 @@
             <p>Feliz 6 meses de namoro! Escreva aqui toda a sua linda mensagem personalizada para o seu amor.</p>
             <p>Esse espaço foi feito especialmente para caber um texto bem detalhado e romântico. Você pode adicionar quantos parágrafos quiser!</p>
             <div class="assinatura">Com todo o meu amor, do seu namorado.</div>
+            
+            <!-- Botão adicionado na parte inferior da carta -->
+            <button id="btn-voltar-laila" onclick="voltarParaLaila()">Voltar para Laila</button>
         </div>
     </div>
 
@@ -471,7 +483,6 @@
         const parte2 = "amor!";
         let lailaProntaParaClicar = false;
         
-        // Ajustado para 70ms para rodar um pouco bem pouco mais rápido
         function typeWriter(texto, elementoId, velocidade = 70, callback) {
             let index = 0;
             const elemento = document.getElementById(elementoId);
@@ -541,6 +552,10 @@
                     balao.innerHTML = "Me dá a mão e vem comigoo";
                 } else if (etapaFalaLaila === 2) {
                     mudarParaCenaCaixa();
+                } else if (etapaFalaLaila === 3) {
+                    // Nova fala adicionada após a pergunta inicial da caixa aberta
+                    etapaFalaLaila = 4;
+                    balao.innerHTML = "Uiaa uma carta quero ler também";
                 }
             }
         }
@@ -566,20 +581,27 @@
             }, 1000);
         }
 
-        /* ETAPA: ABRE A CAIXA - MOSTRA A NOVA FALA DA LAILA NO MOMENTO DA RETIRADA DA TAMPA */
+        /* ETAPA: ABRE A CAIXA */
         function abrirCaixa() {
             document.getElementById('cena-caixa').style.display = 'none';
             document.getElementById('cena-caixa-aberta').style.display = 'flex';
             
-            // Laila fala no exato momento que a tampa sai, antes de ir pro envelope
             const balao = document.getElementById('balao-jacare');
             balao.innerHTML = "O que éé??? tava tão curiosa quase que abri o presente várias vezes D:";
+            
+            // Permite clicar na Laila novamente para ver a próxima fala antes de puxar a carta
+            etapaFalaLaila = 3;
+            lailaProntaParaClicar = true;
+            document.getElementById('laila-img').style.cursor = 'pointer';
         }
 
-        /* ETAPA: CLICOU NA CARTA INTERNA - ENVELOPE SURGE NA TELA */
+        /* ETAPA: CLICOU NA CARTA INTERNA - LAILA E BALÃO SOMEM AQUI */
         function revelarEnvelopePrincipal() {
             document.getElementById('cena-caixa-aberta').style.display = 'none';
             document.getElementById('cena-envelope').style.display = 'flex';
+            
+            // Laila e o balão de fala somem completamente para focar na carta
+            document.getElementById('jacare-container').style.display = 'none';
         }
 
         function animarEAbrirCarta() {
@@ -591,6 +613,33 @@
                 document.getElementById('cena-envelope').style.display = 'none';
                 document.getElementById('cena-carta-aberta').style.display = 'flex';
             }, 600);
+        }
+
+        /* ETAPA: VOLTAR PARA A LAILA E REVELAR SUPERPODERES */
+        function voltarParaLaila() {
+            // Esconde a folha da carta aberta
+            document.getElementById('cena-carta-aberta').style.display = 'none';
+            
+            // Reseta as animações visuais do envelope para caso ela queira abrir de novo
+            document.getElementById('envelope-tampa').classList.remove('aberto');
+            document.getElementById('envelope-interativo').style.opacity = '1';
+
+            // Volta para a cena da caixa aberta com a mini-carta dentro
+            document.getElementById('cena-caixa-aberta').style.display = 'flex';
+            
+            // Traz a Laila e o balão de volta para a tela
+            const jacare = document.getElementById('jacare-container');
+            const balao = document.getElementById('balao-jacare');
+            jacare.style.display = 'flex';
+            balao.style.display = 'block';
+            
+            // Nova fala detalhada da Laila preparando os próximos passos
+            balao.innerHTML = "Eaii gostou da cartinha? Eu amei e tem muito mais coisa mamãe, sabia que nesse lugar estranho eu sou super poderosa? olha só o que eu consigo fazer.";
+            
+            // Deixa a Laila configurada e pronta para os novos cliques/ações que você planejar
+            etapaFalaLaila = 5;
+            lailaProntaParaClicar = true;
+            document.getElementById('laila-img').style.cursor = 'pointer';
         }
 
         gerarFundoInicial();
