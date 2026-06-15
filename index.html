@@ -4,91 +4,84 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Feliz Dia dos Namorados!</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+
     <style>
         body {
             background-color: #ffcccc; /* Fundo vermelho claro */
             margin: 0;
             overflow: hidden;
-            font-family: 'Verdana', sans-serif;
+            font-family: 'Fredoka', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
         }
 
-        /* Telinha de Início para liberar o Áudio */
+        /* Telinha de Início */
         #tela-inicio {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background-color: #ffcccc; z-index: 100;
             display: flex; justify-content: center; align-items: center; flex-direction: column;
         }
         #btn-comecar {
-            padding: 15px 30px; font-size: 20px; font-weight: bold; background-color: #d32f2f;
-            color: white; border: none; border-radius: 10px; cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: 0.2s;
+            font-family: 'Fredoka', sans-serif;
+            padding: 15px 40px; font-size: 24px; font-weight: 700; background-color: #c13b2b;
+            color: white; border: none; border-radius: 50px; cursor: pointer;
+            box-shadow: 0 8px 20px rgba(193, 59, 43, 0.4); transition: transform 0.2s;
         }
         #btn-comecar:hover { transform: scale(1.1); }
 
-        /* Pepperonis Formato Coração no Fundo */
+        /* Pepperonis SVGs Voados no Fundo */
         #background-coracoes {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             z-index: 1; pointer-events: none;
         }
         .heart-wrapper {
-            position: absolute; bottom: -50px;
+            position: absolute; bottom: -80px;
             animation: floatUp linear infinite;
+            opacity: 0.85; /* Opacidade ajustada */
         }
-        .pepperoni-heart {
-            position: relative; width: 30px; height: 30px;
-            background-color: #c13b2b; transform: rotate(-45deg);
-            opacity: 0.3; /* Opacidade menor */
-            background-image: radial-gradient(circle at 10px 10px, #8a251c 3px, transparent 3px),
-                              radial-gradient(circle at 20px 20px, #8a251c 2px, transparent 2px);
-        }
-        .pepperoni-heart::before, .pepperoni-heart::after {
-            content: ""; position: absolute; width: 30px; height: 30px;
-            background-color: #c13b2b; border-radius: 50%;
-            background-image: radial-gradient(circle at 15px 5px, #8a251c 2px, transparent 2px);
-        }
-        .pepperoni-heart::before { top: -15px; left: 0; }
-        .pepperoni-heart::after { top: 0; left: 15px; }
-
         @keyframes floatUp {
             0% { transform: translateY(0) rotate(0deg); }
-            100% { transform: translateY(-120vh) rotate(30deg); }
+            100% { transform: translateY(-120vh) rotate(45deg); }
         }
 
         /* Efeito de Tremida na Tela */
         @keyframes shake {
             0%, 100% { transform: translate(0, 0); }
-            10%, 30%, 50%, 70%, 90% { transform: translate(-5px, 5px); }    
-            20%, 40%, 60%, 80% { transform: translate(5px, -5px); }
+            10%, 30%, 50%, 70%, 90% { transform: translate(-8px, 8px); }
+            20%, 40%, 60%, 80% { transform: translate(8px, -8px); }
         }
         .tremendo {
             animation: shake 0.4s ease-in-out;
         }
 
-        /* Textos Melhorados */
+        /* Textos Lindos e Formatados */
         #texto-container {
-            font-size: 30px;
-            color: #4a0000;
+            font-size: 38px; /* Texto maior */
+            color: #7a1010; /* Vermelho escuro/vinho elegante */
             text-align: center;
             z-index: 10;
-            position: relative;
-            max-width: 90%;
-            line-height: 1.6;
-            font-weight: bold;
+            position: absolute;
+            top: 20%;
+            width: 80%;
+            line-height: 1.4;
+            font-weight: 600;
         }
         .palavra-grande {
-            font-size: 100px;
-            color: #d32f2f;
-            font-weight: 900;
+            font-size: 130px; /* Bem GRANDE */
+            color: #d32f2f; /* Vermelho vivo */
+            font-weight: 700;
             display: inline-block;
-            opacity: 0; /* Escondido no começo */
+            opacity: 0;
             text-transform: uppercase;
-            margin: 0 10px;
-            text-shadow: 3px 3px 0px #fff, 5px 5px 15px rgba(0,0,0,0.4);
-            transform: translateY(-100vh); /* Fica lá no céu */
+            margin: 0 15px;
+            text-shadow: 4px 4px 0px #fff, 8px 8px 20px rgba(0,0,0,0.3); /* Sombra bonita */
+            transform: translateY(-100vh);
         }
         .caindo-do-ceu {
             animation: dropDown 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards;
@@ -102,40 +95,69 @@
         #jacare-container {
             position: absolute; left: -300px; bottom: 20%;
             display: none; flex-direction: column; align-items: center; z-index: 20;
+            transition: left 1s ease-in-out; /* Suavidade para mover na cena 2 */
         }
         
-        /* Estrelinhas girando (Atordoada) */
+        /* Estrelinhas girando */
         #estrelas {
-            display: none; font-size: 35px;
-            animation: girar 1s linear infinite; margin-bottom: -10px;
+            display: none; font-size: 45px;
+            animation: girar 1s linear infinite; margin-bottom: -15px;
         }
         @keyframes girar { 100% { transform: rotate(360deg); } }
 
-        /* Caixa de fala */
+        /* Caixa de fala atualizada */
         .balao-fala {
-            display: none; background: white; padding: 15px; border-radius: 15px;
-            border: 2px solid #333; margin-bottom: 15px; max-width: 250px;
-            text-align: center; font-weight: bold; box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+            display: none; background: white; padding: 20px; border-radius: 20px;
+            border: 3px solid #7a1010; margin-bottom: 20px; max-width: 300px;
+            text-align: center; font-weight: 600; color: #333; font-size: 20px;
+            box-shadow: 4px 4px 15px rgba(0,0,0,0.15);
+            position: relative;
+        }
+        /* Triângulo do balão */
+        .balao-fala::after {
+            content: ''; position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%);
+            border-width: 15px 15px 0; border-style: solid; border-color: #7a1010 transparent transparent transparent;
         }
 
         /* Cena 2: Caixa de Madeira */
         #cena-caixa {
-            display: none; flex-direction: column; align-items: center; z-index: 30;
+            position: absolute;
+            right: 15%; /* Fica na direita */
+            bottom: 20%;
+            display: none; 
+            flex-direction: column; 
+            align-items: center; 
+            z-index: 30;
+            animation: fadeIn 1s forwards;
         }
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: scale(0.5); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
         .caixa-madeira {
-            width: 200px; height: 200px; background-color: #8b5a2b;
-            border: 5px solid #5c3a21; position: relative; cursor: pointer;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.3); transition: transform 0.2s;
+            width: 220px; height: 220px; background-color: #8b5a2b;
+            border: 8px solid #5c3a21; position: relative; cursor: pointer;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.4); transition: transform 0.2s;
+            border-radius: 10px;
         }
-        .caixa-madeira:hover { transform: scale(1.05); }
-        .caixa-madeira::before { content: ""; position: absolute; left: 45%; top: 0; width: 10%; height: 100%; background: #ff4081; }
-        .caixa-madeira::after { content: ""; position: absolute; top: 45%; left: 0; height: 10%; width: 100%; background: #ff4081; }
+        .caixa-madeira:hover { transform: scale(1.08); }
+        
+        /* Fita da Caixa */
+        .caixa-madeira::before { 
+            content: ""; position: absolute; left: 42%; top: 0; width: 16%; height: 100%; background: #ff4081; 
+            box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+        }
+        .caixa-madeira::after { 
+            content: ""; position: absolute; top: 42%; left: 0; height: 16%; width: 100%; background: #ff4081; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
 
         /* Animações Laila */
         .correndo { animation: correr 1.5s forwards; }
         @keyframes correr {
             0% { left: -300px; }
-            100% { left: 40%; }
+            100% { left: 40%; } /* Fica no meio pra bater */
         }
         .caindo { transform: rotate(-90deg); transition: transform 0.3s ease-in; }
         .levantando { transform: rotate(0deg); transition: transform 0.5s ease-out; }
@@ -145,52 +167,66 @@
 <body>
 
     <div id="tela-inicio">
-        <h2 style="color: #d32f2f;">Você tem um presente...</h2>
+        <h2 style="color: #c13b2b; font-size: 40px; margin-bottom: 30px;">Você tem um presente...</h2>
         <button id="btn-comecar" onclick="comecarTudo()">Abrir Presente</button>
     </div>
 
-    <audio id="audio-correndo" src="passos.mp3"></audio>
+    <audio id="audio-correndo" src="passos.mp3" preload="auto"></audio>
 
     <div id="background-coracoes"></div>
 
     <div id="texto-container">
-        <span id="texto-parte1"></span>
-        <span id="palavra-alvo" class="palavra-grande">grande</span>
+        <span id="texto-parte1"></span><br>
+        <span id="palavra-alvo" class="palavra-grande">grande</span><br>
         <span id="texto-parte2"></span>
     </div>
 
     <div id="jacare-container">
-        <div id="balao-jacare" class="balao-fala">[SUA FRASE AQUI]</div>
+        <div id="balao-jacare" class="balao-fala">[SUA PRIMEIRA FRASE AQUI]</div>
         <div id="estrelas">💫✨💫</div>
-        <img id="laila-img" src="laila.png" style="width: 150px; z-index: 25;" alt="Jacaré Laila">
-        <div style="background: pink; color: white; padding: 2px 10px; border-radius: 10px; font-size: 14px; margin-top: -10px; font-weight: bold; z-index: 26;">Laila</div>
+        <img id="laila-img" src="laila.png" style="width: 180px; z-index: 25;" alt="Jacaré Laila">
+        <div style="background: pink; color: #7a1010; padding: 4px 15px; border-radius: 15px; font-size: 16px; margin-top: -10px; font-weight: 700; z-index: 26; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">Laila</div>
     </div>
 
     <div id="cena-caixa">
-        <div id="balao-caixa" class="balao-fala">[SUA SEGUNDA FRASE AQUI]</div>
         <div class="caixa-madeira" onclick="abrirCaixa()"></div>
     </div>
 
     <script>
-        // Gera os corações aleatórios pelo fundo
+        // Gera os corações de pepperoni perfeitos com SVG
         const containerCoracoes = document.getElementById('background-coracoes');
-        for (let i = 0; i < 25; i++) {
+        
+        // Este é um desenho de um coração preenchido com textura de pepperoni!
+        const svgPepperoni = `
+        <svg viewBox="0 0 100 100" width="50" height="50">
+          <defs>
+            <pattern id="pepperoni-pattern" patternUnits="userSpaceOnUse" width="25" height="25">
+               <rect width="25" height="25" fill="#c13b2b"/> <circle cx="6" cy="6" r="3.5" fill="#8a251c"/> <circle cx="18" cy="15" r="2.5" fill="#8a251c"/>
+               <circle cx="8" cy="20" r="2" fill="#8a251c"/>
+            </pattern>
+          </defs>
+          <path d="M50,90 C50,90 10,60 10,30 A20,20 0 0,1 50,30 A20,20 0 0,1 90,30 C90,60 50,90 50,90 Z" fill="url(#pepperoni-pattern)"/>
+        </svg>`;
+
+        for (let i = 0; i < 20; i++) {
             let wrapper = document.createElement('div');
             wrapper.className = 'heart-wrapper';
             wrapper.style.left = Math.random() * 100 + 'vw';
-            wrapper.style.animationDuration = (5 + Math.random() * 6) + 's';
+            
+            // Tamanhos aleatórios para os corações
+            let escala = 0.5 + Math.random() * 1.5;
+            wrapper.style.transform = `scale(${escala})`;
+            
+            wrapper.style.animationDuration = (6 + Math.random() * 6) + 's';
             wrapper.style.animationDelay = (Math.random() * 5) + 's';
             
-            let heart = document.createElement('div');
-            heart.className = 'pepperoni-heart';
-            
-            wrapper.appendChild(heart);
+            wrapper.innerHTML = svgPepperoni;
             containerCoracoes.appendChild(wrapper);
         }
 
-        // Configuração dos Textos
-        const parte1 = "Feliz dia dos namorados e Feliz 6 meses de namoro meu ";
-        const parte2 = " amoooor!";
+        // Textos
+        const parte1 = "Feliz dia dos namorados e 6 meses atrasados meu ";
+        const parte2 = "amor!";
         
         function typeWriter(texto, elementoId, velocidade, callback) {
             let index = 0;
@@ -207,33 +243,28 @@
             digitar();
         }
 
-        // Função chamada no botão inicial
         function comecarTudo() {
             document.getElementById('tela-inicio').style.display = 'none';
             
-            // Inicia digitação da parte 1 (bem rapidinho: 40ms)
+            // Força o carregamento do áudio pra evitar bugs
+            const audio = document.getElementById('audio-correndo');
+            audio.load();
+
             typeWriter(parte1, 'texto-parte1', 40, () => {
-                
-                // Faz a palavra GRANDE cair
                 const palavraGrande = document.getElementById('palavra-alvo');
                 palavraGrande.classList.add('caindo-do-ceu');
                 
-                // Espera ela terminar de cair (0.5s) para tremer a tela
                 setTimeout(() => {
                     document.body.classList.add('tremendo');
                     
-                    // Terminou de tremer, digita o resto
                     setTimeout(() => {
                         document.body.classList.remove('tremendo');
                         typeWriter(parte2, 'texto-parte2', 40, () => {
-                            
-                            // Chama a Laila 1 segundo após terminar de escrever tudo
                             setTimeout(iniciarCenaJacare, 1000);
-                            
                         });
-                    }, 400); // tempo do shake
+                    }, 400); 
                     
-                }, 500); // tempo de queda
+                }, 500); 
             });
         }
 
@@ -244,7 +275,10 @@
             const lailaImg = document.getElementById('laila-img');
             const balao = document.getElementById('balao-jacare');
 
-            audio.play();
+            // Toca o som (com tratamento de erro no console)
+            audio.currentTime = 0;
+            audio.play().catch(e => console.error("Erro ao tocar áudio. Verifique se o nome do arquivo é passos.mp3", e));
+
             jacare.style.display = 'flex';
             jacare.classList.add('correndo');
 
@@ -260,29 +294,41 @@
                     setTimeout(() => {
                         balao.style.display = 'block';
 
+                        // Troca de cena após 5 segundos lendo a frase
                         setTimeout(() => {
                             mudarParaCenaCaixa();
                         }, 5000);
 
                     }, 500);
-                }, 3000);
-            }, 1500);
+                }, 3000); // Laila fica 3s atordoada
+            }, 1500); // Tempo da corrida até bater
         }
 
         function mudarParaCenaCaixa() {
-            document.getElementById('texto-container').style.display = 'none';
-            document.getElementById('jacare-container').style.display = 'none';
+            // Esconde apenas o texto de trás
+            document.getElementById('texto-container').style.opacity = '0';
+            setTimeout(() => { document.getElementById('texto-container').style.display = 'none'; }, 500);
             
-            const cenaCaixa = document.getElementById('cena-caixa');
-            cenaCaixa.style.display = 'flex';
+            // Move a Laila um pouco para a esquerda para abrir espaço
+            const jacare = document.getElementById('jacare-container');
+            jacare.style.left = '15%'; 
+
+            // Muda o texto do balão dela para a SEGUNDA frase
+            const balao = document.getElementById('balao-jacare');
+            balao.style.display = 'none'; // esconde rapidinho
             
             setTimeout(() => {
-                document.getElementById('balao-caixa').style.display = 'block';
-            }, 500);
+                balao.innerHTML = "[SUA SEGUNDA FRASE AQUI]";
+                balao.style.display = 'block'; // mostra a nova frase
+                
+                // Faz a caixa aparecer do lado direito
+                const cenaCaixa = document.getElementById('cena-caixa');
+                cenaCaixa.style.display = 'flex';
+            }, 1000);
         }
 
         function abrirCaixa() {
-            alert("A caixa abriu! Aqui você adicionará o restante das surpresas!");
+            alert("A caixa abriu! Aqui adicionaremos o restante!");
         }
     </script>
 </body>
