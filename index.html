@@ -112,26 +112,44 @@
             border-right: 3px solid #7a1010; border-bottom: 3px solid #7a1010;
         }
 
-        /* Blocos das Cenas do Presente (Flutuação) */
-        #cena-caixa, #cena-caixa-aberta {
+        /* Container de Elementos Interativos do Menu Mágico */
+        #grid-menu-magico {
             position: absolute;
-            left: 50%; top: 50%; 
+            left: 55%; top: 50%;
             transform: translate(-50%, -50%);
-            display: none; flex-direction: column; align-items: center; z-index: 30;
+            display: none;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            z-index: 30;
+        }
+
+        /* Blocos das Cenas do Presente e Botões Mágicos (Flutuação) */
+        #cena-caixa, #cena-caixa-aberta, .botao-magico-item {
             animation: flutuarContainer 3s ease-in-out infinite;
         }
+        /* Defasagem na animação dos botões para um efeito mais natural */
+        .grid-item-1 { animation-delay: 0s; }
+        .grid-item-2 { animation-delay: 0.2s; }
+        .grid-item-3 { animation-delay: 0.4s; }
+        .grid-item-4 { animation-delay: 0.6s; }
+
         @keyframes flutuarContainer {
-            0%, 100% { transform: translate(-50%, -50%); }
-            50% { transform: translate(-50%, -56%); }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        /* Estilo Base dos Cubos Interativos (Tamanho exato do presente: 220x220) */
+        .caixa-madeira, .caixa-aberta, .item-magico-cubo {
+            width: 220px; height: 220px;
+            border-radius: 15px;
+            box-sizing: border-box;
         }
 
         /* Caixa de Presente Verde (#008000) */
         .caixa-madeira {
-            width: 220px; height: 220px; 
             background: #008000; 
             border: 6px solid #014d01; position: relative; cursor: pointer;
             box-shadow: 0 20px 35px rgba(0,0,0,0.35), inset 0 0 35px rgba(0,0,0,0.7);
-            border-radius: 15px;
             animation: brilharCaixa 2s infinite alternate;
         }
         .caixa-madeira:hover { transform: scale(1.04) rotate(1deg); }
@@ -174,18 +192,12 @@
         .ponta-laco-esq { left: -14px; transform: rotate(28deg); }
         .ponta-laco-dir { right: -14px; transform: rotate(-28deg); }
 
-        /* ESTILO DA CAIXA ABERTA (SEM TAMPA) */
+        /* ESTILO DA CAIXA ABERTA (SEM TAMPA E SEM LINHA VERMELHA) */
         .caixa-aberta {
-            width: 220px; height: 220px; 
             background: #005c00; 
             border: 6px solid #014d01; position: relative;
             box-shadow: 0 20px 35px rgba(0,0,0,0.35), inset 0 0 45px rgba(0,0,0,0.85);
-            border-radius: 15px;
             display: flex; justify-content: center; align-items: center;
-        }
-        .caixa-aberta::before { 
-            content: ""; position: absolute; left: 43%; top: 0; width: 14%; height: 100%; background: #ff2c2c; 
-            box-shadow: 2px 0 5px rgba(0,0,0,0.15); z-index: 1;
         }
         
         /* Mini Carta Escondida dentro da Caixa Aberta */
@@ -203,6 +215,31 @@
             border-top: 48px solid #ebe3d5;
         }
 
+        /* NOVOS BOTÕES MÁGICOS (Estilizados no mesmo tamanho e padrão do presente) */
+        .item-magico-cubo {
+            border: 6px solid #4a2818;
+            position: relative; cursor: pointer;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.25), inset 0 0 35px rgba(0,0,0,0.5);
+            display: flex; flex-direction: column; justify-content: center;
+            align-items: center; text-align: center; color: white;
+            padding: 15px; font-weight: 700; transition: transform 0.2s;
+        }
+        .item-magico-cubo:hover { transform: scale(1.04) rotate(-1deg); }
+        
+        .cubo-album { background: #b33939; border-color: #8c1c1c; }
+        .cubo-tv { background: #2c3e50; border-color: #1a252f; }
+        .cubo-planilha { background: #27ae60; border-color: #1e7e43; }
+
+        .item-magico-cubo .icone-magico { font-size: 55px; margin-bottom: 10px; display: block; }
+        .item-magico-cubo .titulo-magico { font-size: 18px; text-transform: uppercase; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+
+        /* Animação de Surgimento do Menu Mágico */
+        .surgimento-magico { animation: popMagico 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        @keyframes popMagico {
+            0% { opacity: 0; transform: scale(0.5); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
         @keyframes brilharCaixa {
             0% { box-shadow: 0 20px 35px rgba(0,0,0,0.3), inset 0 0 35px rgba(0,0,0,0.7), 0 0 10px rgba(255, 234, 167, 0.1); }
             100% { box-shadow: 0 20px 35px rgba(0,0,0,0.3), inset 0 0 35px rgba(0,0,0,0.7), 0 0 35px rgba(255, 234, 167, 0.4); }
@@ -212,7 +249,7 @@
         .correndo { animation: correrLaila 1.5s forwards ease-out; }
         @keyframes correrLaila {
             0% { left: -500px; }
-            100% { left: 25%; } 
+            100% { left: 10%; } /* Puxado levemente para a esquerda para acomodar o menu maior */
         }
 
         /* ARQUITETURA DO ENVELOPE COM DOBRAS */
@@ -323,8 +360,10 @@
         </div>
     </div>
 
+    <!-- Efeitos Sonoros -->
     <audio id="audio-boing" src="cartoon-boig.mp3" preload="auto"></audio>
     <audio id="audio-bongos" src="bongo-feet.mp3" preload="auto"></audio>
+    <audio id="audio-magia" src="magia.mp3" preload="auto"></audio>
 
     <div id="texto-container">
         <span id="texto-parte1"></span><br>
@@ -350,31 +389,53 @@
         </div>
     </div>
 
-    <!-- CENA DA CAIXA ABERTA (SEM TAMPA) -->
-    <div id="cena-caixa-aberta">
-        <div class="caixa-aberta">
-            <div class="mini-carta" onclick="revelarEnvelopePrincipal()"></div>
+    <!-- GRID INTEGRADO DO MENU MÁGICO (Contém a caixa aberta e os novos botões clonados com o mesmo tamanho) -->
+    <div id="grid-menu-magico">
+        <!-- Item 1: Caixa de Presente Aberta (Sem fita vermelha no fundo) -->
+        <div class="botao-magico-item grid-item-1" id="cena-caixa-aberta">
+            <div class="caixa-aberta">
+                <div class="mini-carta" onclick="revelarEnvelopePrincipal()"></div>
+            </div>
+        </div>
+
+        <!-- Item 2: Botão Álbum de Fotos -->
+        <div class="botao-magico-item grid-item-2" id="btn-magico-album" style="display:none;" onclick="clicouNoAlbum()">
+            <div class="item-magico-cubo cubo-album">
+                <span class="icone-magico">📸</span>
+                <span class="titulo-magico">Álbum de Fotos</span>
+            </div>
+        </div>
+
+        <!-- Item 3: Botão Televisão -->
+        <div class="botao-magico-item grid-item-3" id="btn-magico-tv" style="display:none;" onclick="clicouNaTv()">
+            <div class="item-magico-cubo cubo-tv">
+                <span class="icone-magico">📺</span>
+                <span class="titulo-magico">Cine Laila TV</span>
+            </div>
+        </div>
+
+        <!-- Item 4: Botão Planilha com Gráficos -->
+        <div class="botao-magico-item grid-item-4" id="btn-magico-planilha" style="display:none;" onclick="clicouNaPlanilha()">
+            <div class="item-magico-cubo cubo-planilha">
+                <span class="icone-magico">📊</span>
+                <span class="titulo-magico">Nossos Gráficos</span>
+            </div>
         </div>
     </div>
 
     <!-- CENA DO ENVELOPE DOBRÁVEL REALISTA -->
     <div id="cena-envelope">
         <div class="envelope-wrapper">
-            <!-- Dobras Visuais -->
             <div class="flap-top" id="envelope-tampa"></div>
             <div class="flap-left"></div>
             <div class="flap-right"></div>
             <div class="flap-bottom"></div>
             
-            <!-- Conteúdo Interativo Organizado Embaixo -->
             <div class="envelope-conteudo" id="envelope-interativo">
-                
                 <div class="selo-container" onclick="animarEAbrirCarta()">
                     <img id="foca-selo-img" src="foca-selo.png" alt="Selo Foca">
                 </div>
-                
                 <div class="destinatario">Para: <span>Escreva o Nome Aqui</span></div>
-                
             </div>
         </div>
     </div>
@@ -387,7 +448,6 @@
             <p>Esse espaço foi feito especialmente para caber um texto bem detalhado e romântico. Você pode adicionar quantos parágrafos quiser!</p>
             <div class="assinatura">Com todo o meu amor, do seu namorado.</div>
             
-            <!-- Botão adicionado na parte inferior da carta -->
             <button id="btn-voltar-laila" onclick="voltarParaLaila()">Voltar para Laila</button>
         </div>
     </div>
@@ -395,6 +455,7 @@
     <script>
         let contadorCliques = 0;
         let etapaFalaLaila = 1;
+        let jaAbriuCartaUmaVez = false; 
         let historicoFrasesBotao = [
             "Descobrir de verdade!",
             "Descobrir mesmo!",
@@ -416,7 +477,7 @@
         </svg>`;
 
         function preCarregarAudios() {
-            ['audio-boing', 'audio-bongos'].forEach(id => {
+            ['audio-boing', 'audio-bongos', 'audio-magia'].forEach(id => {
                 const a = document.getElementById(id);
                 a.volume = 0; 
                 a.play().then(() => { 
@@ -483,14 +544,14 @@
         const parte2 = "amor!";
         let lailaProntaParaClicar = false;
         
-        function typeWriter(texto, elementoId, velocidade = 70, callback) {
+        function typeWriter(texto, elementoId, velocidad = 70, callback) {
             let index = 0;
             const elemento = document.getElementById(elementoId);
             function digitar() {
                 if (index < texto.length) {
                     elemento.innerHTML += texto.charAt(index);
                     index++;
-                    setTimeout(digitar, velocidade);
+                    setTimeout(digitar, velocidad);
                 } else if (callback) {
                     callback();
                 }
@@ -549,13 +610,14 @@
                 
                 if (etapaFalaLaila === 1) {
                     etapaFalaLaila = 2;
-                    balao.innerHTML = "Me dá a mão e vem comigoo";
+                    balao.innerHTML = "Me dá a mano e vem comigoo";
                 } else if (etapaFalaLaila === 2) {
                     mudarParaCenaCaixa();
                 } else if (etapaFalaLaila === 3) {
-                    // Nova fala adicionada após a pergunta inicial da caixa aberta
                     etapaFalaLaila = 4;
                     balao.innerHTML = "Uiaa uma carta quero ler também";
+                } else if (etapaFalaLaila === 5) {
+                    executarMagiaLaila();
                 }
             }
         }
@@ -584,23 +646,23 @@
         /* ETAPA: ABRE A CAIXA */
         function abrirCaixa() {
             document.getElementById('cena-caixa').style.display = 'none';
-            document.getElementById('cena-caixa-aberta').style.display = 'flex';
+            
+            // Ativa o container de Grid e exibe apenas a caixa aberta dentro dele
+            document.getElementById('grid-menu-magico').style.display = 'grid';
+            document.getElementById('cena-caixa-aberta').style.display = 'block';
             
             const balao = document.getElementById('balao-jacare');
             balao.innerHTML = "O que éé??? tava tão curiosa quase que abri o presente várias vezes D:";
             
-            // Permite clicar na Laila novamente para ver a próxima fala antes de puxar a carta
             etapaFalaLaila = 3;
             lailaProntaParaClicar = true;
             document.getElementById('laila-img').style.cursor = 'pointer';
         }
 
-        /* ETAPA: CLICOU NA CARTA INTERNA - LAILA E BALÃO SOMEM AQUI */
+        /* ETAPA: CLICOU NA CARTA INTERNA */
         function revelarEnvelopePrincipal() {
-            document.getElementById('cena-caixa-aberta').style.display = 'none';
+            document.getElementById('grid-menu-magico').style.display = 'none';
             document.getElementById('cena-envelope').style.display = 'flex';
-            
-            // Laila e o balão de fala somem completamente para focar na carta
             document.getElementById('jacare-container').style.display = 'none';
         }
 
@@ -615,31 +677,78 @@
             }, 600);
         }
 
-        /* ETAPA: VOLTAR PARA A LAILA E REVELAR SUPERPODERES */
+        /* ETAPA: VOLTAR PARA A LAILA */
         function voltarParaLaila() {
-            // Esconde a folha da carta aberta
             document.getElementById('cena-carta-aberta').style.display = 'none';
             
-            // Reseta as animações visuais do envelope para caso ela queira abrir de novo
             document.getElementById('envelope-tampa').classList.remove('aberto');
             document.getElementById('envelope-interativo').style.opacity = '1';
 
-            // Volta para a cena da caixa aberta com a mini-carta dentro
-            document.getElementById('cena-caixa-aberta').style.display = 'flex';
+            // Mostra o menu de grid novamente
+            document.getElementById('grid-menu-magico').style.display = 'grid';
             
-            // Traz a Laila e o balão de volta para a tela
             const jacare = document.getElementById('jacare-container');
             const balao = document.getElementById('balao-jacare');
             jacare.style.display = 'flex';
             balao.style.display = 'block';
             
-            // Nova fala detalhada da Laila preparando os próximos passos
-            balao.innerHTML = "Eaii gostou da cartinha? Eu amei e tem muito mais coisa mamãe, sabia que nesse lugar estranho eu sou super poderosa? olha só o que eu consigo fazer.";
-            
-            // Deixa a Laila configurada e pronta para os novos cliques/ações que você planejar
-            etapaFalaLaila = 5;
-            lailaProntaParaClicar = true;
-            document.getElementById('laila-img').style.cursor = 'pointer';
+            // Condicional de clique único: Se já abriu a carta antes, mantém o menu mágico completo ou avança
+            if (!jaAbriuCartaUmaVez) {
+                balao.innerHTML = "Eaii gostou da cartinha? Eu amei e tem muito mais coisa mamãe, sabia que nesse lugar estranho eu sou super poderosa? olha só o que eu consigo fazer.";
+                etapaFalaLaila = 5;
+                lailaProntaParaClicar = true;
+                document.getElementById('laila-img').style.cursor = 'pointer';
+                jaAbriuCartaUmaVez = true;
+            } else {
+                // Caso retorne novamente depois de tudo liberado, mantém a Laila em modo de espera
+                balao.innerHTML = "Viu só?! Tem mais tudo isso pra você ver";
+                lailaProntaParaClicar = false;
+                document.getElementById('laila-img').style.cursor = 'default';
+            }
+        }
+
+        /* ETAPA: REVELAÇÃO MÁGICA DOS 3 BOTÕES CLONADOS */
+        function executarMagiaLaila() {
+            lailaProntaParaClicar = false;
+            document.getElementById('laila-img').style.cursor = 'default';
+
+            // Toca o som de magia solicitado
+            const audioMagia = document.getElementById('audio-magia');
+            audioMagia.currentTime = 0;
+            audioMagia.play().catch(e => {});
+
+            // Torna visíveis os 3 blocos novos dentro do grid
+            const btnAlbum = document.getElementById('btn-magico-album');
+            const btnTv = document.getElementById('btn-magico-tv');
+            const btnPlanilha = document.getElementById('btn-magico-planilha');
+
+            btnAlbum.style.display = 'block';
+            btnTv.style.display = 'block';
+            btnPlanilha.style.display = 'block';
+
+            // Aplica a classe de animação para surgirem magicamente com impacto
+            btnAlbum.classList.add('surgimento-magico');
+            btnTv.classList.add('surgimento-magico');
+            btnPlanilha.classList.add('surgimento-magico');
+
+            // Atualiza o balão de falas da Laila imediatamente após a aparição
+            setTimeout(() => {
+                const balao = document.getElementById('balao-jacare');
+                balao.innerHTML = "Viu só?! Tem mais tudo isso pra você ver";
+            }, 600);
+        }
+
+        /* FUNÇÕES DE SUPORTE PARA OS SEUS PRÓXIMOS PASSOS (BOTÕES DO MENU MÁGICO) */
+        function clicouNoAlbum() {
+            alert("Espaço reservado para o seu Álbum de Fotos! Você poderá customizar isso na próxima etapa.");
+        }
+
+        function clicouNaTv() {
+            alert("Espaço reservado para a sua Televisão/Vídeos! Você poderá customizar isso na próxima etapa.");
+        }
+
+        function clicouNaPlanilha() {
+            alert("Espaço reservado para os seus Gráficos/Planilhas! Você poderá customizar isso na próxima etapa.");
         }
 
         gerarFundoInicial();
