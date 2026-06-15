@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz Dia dos Namorados!</title>
+    <style>
+        body {
+            background-color: #ffcccc; /* Fundo vermelho claro */
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Corações de Pepperoni no Fundo */
+        .heart {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: #c13b2b; /* Cor de pepperoni */
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: floatUp 5s linear infinite;
+        }
+        .heart::before, .heart::after {
+            content: "";
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #8a251c; /* Textura/manchas do pepperoni */
+            border-radius: 50%;
+        }
+        .heart::before { top: 5px; left: 5px; }
+        .heart::after { bottom: 5px; right: 8px; }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(1); }
+            100% { transform: translateY(-10vh) scale(1.5); }
+        }
+
+        /* Texto Máquina de Escrever */
+        #texto-container {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+            z-index: 10;
+        }
+        .palavra-grande {
+            font-size: 80px; /* A palavra GRANDE bem grande */
+            color: #d32f2f;
+            display: inline-block;
+        }
+        
+        /* Personagem Jacaré */
+        #jacare-container {
+            position: absolute;
+            left: -200px;
+            bottom: 20%;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            z-index: 20;
+        }
+        
+        /* Estrelinhas girando (Atordoada) */
+        #estrelas {
+            display: none;
+            font-size: 30px;
+            animation: girar 1s linear infinite;
+            margin-bottom: -10px;
+        }
+        @keyframes girar {
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Caixa de fala */
+        .balao-fala {
+            display: none;
+            background: white;
+            padding: 15px;
+            border-radius: 15px;
+            border: 2px solid #333;
+            margin-bottom: 15px;
+            max-width: 250px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        /* Cena 2: Caixa de Madeira */
+        #cena-caixa {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            z-index: 30;
+        }
+        .caixa-madeira {
+            width: 200px;
+            height: 200px;
+            background-color: #8b5a2b;
+            border: 5px solid #5c3a21;
+            position: relative;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            transition: transform 0.2s;
+        }
+        .caixa-madeira:hover {
+            transform: scale(1.05);
+        }
+        /* Fita da caixa */
+        .caixa-madeira::before {
+            content: ""; position: absolute; left: 45%; top: 0; width: 10%; height: 100%; background: #ff4081;
+        }
+        .caixa-madeira::after {
+            content: ""; position: absolute; top: 45%; left: 0; height: 10%; width: 100%; background: #ff4081;
+        }
+
+        /* Animações do Jacaré via JS Classes */
+        .correndo { animation: correr 1.5s forwards; }
+        @keyframes correr {
+            0% { left: -200px; }
+            100% { left: 40%; } /* Posição onde bate na palavra grande */
+        }
+        .caindo { transform: rotate(-90deg); transition: transform 0.5s; }
+        .levantando { transform: rotate(0deg); transition: transform 0.5s; }
+
+    </style>
+</head>
+<body>
+
+    <audio id="audio-correndo" src="passos.mp3"></audio>
+
+    <div id="texto-container"></div>
+
+    <div id="jacare-container">
+        <div id="balao-jacare" class="balao-fala">[SUA FRASE AQUI]</div>
+        <div id="estrelas">💫✨💫</div>
+        <div id="laila-img" style="font-size: 100px;">🐊</div> 
+        <div style="background: pink; color: white; padding: 2px 10px; border-radius: 10px; font-size: 12px; margin-top: -10px;">Laila</div>
+    </div>
+
+    <div id="cena-caixa">
+        <div id="balao-caixa" class="balao-fala">[SUA SEGUNDA FRASE AQUI]</div>
+        <div class="caixa-madeira" onclick="abrirCaixa()"></div>
+    </div>
+
+    <script>
+        // Criação dos corações de pepperoni no fundo
+        for (let i = 0; i < 15; i++) {
+            let heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDelay = Math.random() * 5 + 's';
+            document.body.appendChild(heart);
+        }
+
+        // Configuração do texto inicial
+        const textoCompleto = "feliz dia dos namorados e 6 meses atrasados meu <span class='palavra-grande' id='palavra-alvo'>grande</span> amor";
+        const textoContainer = document.getElementById('texto-container');
+        
+        // Efeito máquina de escrever
+        let index = 0;
+        let isTag = false;
+        let tagBuffer = "";
+        
+        function typeWriter() {
+            if (index < textoCompleto.length) {
+                let char = textoCompleto.charAt(index);
+                
+                if (char === '<') isTag = true;
+                
+                if (isTag) {
+                    tagBuffer += char;
+                    if (char === '>') {
+                        isTag = false;
+                        textoContainer.innerHTML += tagBuffer;
+                        tagBuffer = "";
+                    }
+                } else {
+                    textoContainer.innerHTML += char;
+                }
+                
+                index++;
+                setTimeout(typeWriter, 100); // Velocidade da digitação
+            } else {
+                // Quando terminar de digitar, inicia a sequência do jacaré
+                iniciarCenaJacare();
+            }
+        }
+
+        function iniciarCenaJacare() {
+            const jacare = document.getElementById('jacare-container');
+            const audio = document.getElementById('audio-correndo');
+            const estrelas = document.getElementById('estrelas');
+            const lailaImg = document.getElementById('laila-img');
+            const balao = document.getElementById('balao-jacare');
+
+            // Toca o áudio (Nota: navegadores exigem interação do usuário antes de tocar áudio, 
+            // talvez você precise adicionar um botão de "Começar Presente" na versão final)
+            audio.play().catch(e => console.log("O navegador bloqueou o autoplay do áudio."));
+
+            jacare.style.display = 'flex';
+            jacare.classList.add('correndo');
+
+            // Após 1.5s (tempo da corrida), Laila bate na palavra grande
+            setTimeout(() => {
+                const palavraGrande = document.getElementById('palavra-alvo');
+                palavraGrande.style.transform = "rotate(10deg)"; // Palavra treme
+                
+                // Laila cai atordoada
+                lailaImg.classList.add('caindo');
+                estrelas.style.display = 'block';
+
+                // Fica no chão por 3 segundos
+                setTimeout(() => {
+                    estrelas.style.display = 'none';
+                    lailaImg.classList.remove('caindo');
+                    lailaImg.classList.add('levantando');
+                    
+                    // Levanta e fala
+                    setTimeout(() => {
+                        balao.style.display = 'block';
+
+                        // Troca de cena após 5 segundos lendo a frase
+                        setTimeout(() => {
+                            mudarParaCenaCaixa();
+                        }, 5000);
+
+                    }, 500);
+
+                }, 3000);
+
+            }, 1500);
+        }
+
+        function mudarParaCenaCaixa() {
+            document.getElementById('texto-container').style.display = 'none';
+            document.getElementById('jacare-container').style.display = 'none';
+            
+            const cenaCaixa = document.getElementById('cena-caixa');
+            cenaCaixa.style.display = 'flex';
+            
+            setTimeout(() => {
+                document.getElementById('balao-caixa').style.display = 'block';
+            }, 500);
+        }
+
+        function abrirCaixa() {
+            alert("A caixa abriu! Aqui você adicionará o restante das surpresas!");
+            // Aqui adicionaremos as próximas funções depois!
+        }
+
+        // Inicia a mágica
+        window.onload = typeWriter;
+
+    </script>
+</body>
+</html>
