@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>O que será que é isso...</title>
+    <title>Para a minha gatinha</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -88,9 +88,9 @@
         /* Container do Jacaré Laila Organizado Verticalmente */
         #jacare-container {
             position: absolute; left: -500px; 
-            top: calc(50% - 130px); /* Alinhamento centralizado vertical estável */
+            top: calc(50% - 130px);
             display: none; 
-            flex-direction: column-reverse; /* Balão fica sempre no topo nativamente */
+            flex-direction: column-reverse;
             align-items: center; z-index: 20;
             gap: 15px; transition: all 1s ease-in-out;
         }
@@ -105,7 +105,6 @@
             text-align: center; font-weight: 600; color: #333; font-size: 18px;
             box-shadow: 4px 4px 15px rgba(0,0,0,0.15); position: relative;
         }
-        /* Seta apontando para baixo diretamente para a Laila */
         .balao-fala::after {
             content: ''; position: absolute; 
             bottom: -11px; left: 50%; transform: translateX(-50%) rotate(45deg);
@@ -126,18 +125,19 @@
             50% { transform: translate(-50%, -56%); }
         }
 
-        /* Caixa de Presente VERDE CUSTOMIZADO */
+        /* Caixa de Presente VERDE SÓLIDA COM BEIRADAS ESCURAS */
         .caixa-madeira {
             width: 220px; height: 220px; 
-            background: linear-gradient(135deg, #00FF00, #013220); /* Verde solicitado */
+            background: #06402b; /* Cor verde sólida */
             border: 6px solid #02140e; position: relative; cursor: pointer;
-            box-shadow: 0 20px 35px rgba(0,0,0,0.35), inset 0 0 25px rgba(0,0,0,0.4);
+            /* Sombreamento interno (inset) agressivo para escurecer bem as beiradas */
+            box-shadow: 0 20px 35px rgba(0,0,0,0.35), inset 0 0 35px rgba(0,0,0,0.7);
             border-radius: 15px;
             animation: brilharCaixa 2s infinite alternate;
         }
         .caixa-madeira:hover { transform: scale(1.04) rotate(1deg); }
         
-        /* Fitas do Presente (Vermelho Customizado #FF0000) */
+        /* Fitas do Presente (Vermelho Puro #FF0000) */
         .caixa-madeira::before { 
             content: ""; position: absolute; left: 43%; top: 0; width: 14%; height: 100%; background: #FF0000; 
             box-shadow: 2px 0 5px rgba(0,0,0,0.15);
@@ -147,31 +147,27 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.15);
         }
 
-        /* DESIGN DO NOVO LAÇO REALISTA */
+        /* DESIGN DO LAÇO REALISTA */
         .laco-presente {
             position: absolute; top: -28px; left: 50%; transform: translateX(-50%);
             width: 40px; height: 30px; z-index: 35;
         }
-        /* Orelha esquerda do laço */
         .laco-presente::before {
             content: ""; position: absolute; left: -42px; top: -12px; width: 55px; height: 42px;
             background: #FF0000; border-radius: 50% 50% 12% 50%; transform: rotate(-20deg);
             box-shadow: -3px 5px 8px rgba(0,0,0,0.25);
         }
-        /* Orelha direita do laço */
         .laco-presente::after {
             content: ""; position: absolute; right: -42px; top: -12px; width: 55px; height: 42px;
             background: #FF0000; border-radius: 50% 50% 50% 12%; transform: rotate(20deg);
             box-shadow: 3px 5px 8px rgba(0,0,0,0.25);
         }
-        /* Nó central do laço */
         .no-laco {
             position: absolute; left: 50%; top: -5px; transform: translateX(-50%);
             width: 26px; height: 26px; background: #FF0000; border-radius: 8px;
             box-shadow: 0 3px 6px rgba(0,0,0,0.3); z-index: 40;
             border: 1px solid #d90000;
         }
-        /* Pontas caídas da fita sobre a caixa */
         .ponta-laco-esq, .ponta-laco-dir {
             position: absolute; top: 16px; width: 18px; height: 45px; background: #FF0000; z-index: 34;
             clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 50% 82%, 0% 100%);
@@ -180,8 +176,8 @@
         .ponta-laco-dir { right: -14px; transform: rotate(-28deg); }
 
         @keyframes brilharCaixa {
-            0% { box-shadow: 0 20px 35px rgba(0,0,0,0.3), 0 0 10px rgba(255, 234, 167, 0.1); }
-            100% { box-shadow: 0 20px 35px rgba(0,0,0,0.3), 0 0 35px rgba(255, 234, 167, 0.4); }
+            0% { box-shadow: 0 20px 35px rgba(0,0,0,0.3), inset 0 0 35px rgba(0,0,0,0.7), 0 0 10px rgba(255, 234, 167, 0.1); }
+            100% { box-shadow: 0 20px 35px rgba(0,0,0,0.3), inset 0 0 35px rgba(0,0,0,0.7), 0 0 35px rgba(255, 234, 167, 0.4); }
         }
 
         /* Corrida Suave da Laila */
@@ -190,6 +186,59 @@
             0% { left: -500px; }
             100% { left: 25%; } 
         }
+
+        /* ESTILOS DA CARTA E DO ENVELOPE */
+        #cena-envelope, #cena-carta-aberta {
+            position: absolute; left: 50%; top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 40; display: none; flex-direction: column; align-items: center;
+        }
+        
+        .envelope-bloco {
+            width: 340px; height: 230px; background: #fffcf7;
+            border: 4px solid #7a1010; border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+            position: relative; display: flex; flex-direction: column;
+            justify-content: space-between; align-items: center;
+            padding: 25px 20px; box-sizing: border-box;
+        }
+        
+        .destinatario {
+            font-size: 22px; color: #7a1010; font-weight: 600;
+            border-bottom: 2px dashed #7a1010; width: 90%;
+            text-align: center; padding-bottom: 8px; margin-top: 5px;
+        }
+        
+        .selo-container {
+            cursor: pointer; text-align: center; margin-bottom: 5px;
+            transition: transform 0.2s;
+        }
+        .selo-container:hover { transform: scale(1.1); }
+        
+        #foca-selo-img {
+            width: 65px; height: 65px; object-fit: contain;
+            background: #FF0000; border-radius: 50%; padding: 6px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.25); border: 2px solid #b30000;
+        }
+        
+        .dica-selo {
+            margin: 6px 0 0 0; font-size: 11px; color: #7a1010; font-weight: bold;
+        }
+
+        /* Folha de Carta Limpa Reat */
+        .folha-carta {
+            width: 350px; max-height: 75vh; background: #fffdf0;
+            border-left: 8px solid #FF0000; box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+            padding: 30px; border-radius: 4px; color: #333;
+            font-size: 18px; line-height: 1.6; overflow-y: auto;
+            box-sizing: border-box; animation: abrirFolha 0.5s ease-out forwards;
+        }
+        @keyframes abrirFolha {
+            0% { opacity: 0; transform: scale(0.85) translateY(30px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .folha-carta h3 { margin-top: 0; color: #7a1010; font-size: 24px; }
+        .assinatura { margin-top: 30px; text-align: right; font-weight: bold; color: #7a1010; }
 
     </style>
 </head>
@@ -220,6 +269,7 @@
         <div id="balao-jacare" class="balao-fala"></div>
     </div>
 
+    <!-- Cena da Caixa -->
     <div id="cena-caixa">
         <div class="caixa-madeira" onclick="abrirCaixa()">
             <div class="laco-presente">
@@ -230,9 +280,31 @@
         </div>
     </div>
 
+    <!-- CENA DO ENVELOPE FECHADO -->
+    <div id="cena-envelope">
+        <div class="envelope-bloco">
+            <!-- Escreva o nome da pessoa aqui dentro do span -->
+            <div class="destinatario">Para: <span style="color: #FF0000;">Meu Amor</span></div>
+            <div class="selo-container" onclick="abrirCartaReal()">
+                <img id="foca-selo-img" src="foca-selo.png" alt="Selo Foca">
+                <p class="dica-selo">(Clique na foca para abrir)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- CENA DA CARTA EM SI (CONTEÚDO REAL) -->
+    <div id="cena-carta-aberta">
+        <div class="folha-carta">
+            <h3>Meu amor, ❤️</h3>
+            <p>Feliz 6 meses de namoro! Escreva aqui toda a sua linda mensagem personalizada para o seu amor.</p>
+            <p>Esse espaço foi feito especialmente para caber um texto bem detalhado e romântico. Você pode adicionar quantos parágrafos quiser!</p>
+            <div class="assinatura">Com todo o meu amor, do seu namorado.</div>
+        </div>
+    </div>
+
     <script>
         let contadorCliques = 0;
-        let etapaFalaLaila = 1; // Controla a sequência de falas da Laila
+        let etapaFalaLaila = 1;
         let historicoFrasesBotao = [
             "Descobrir de verdade!",
             "Descobrir mesmo!",
@@ -369,7 +441,6 @@
             jacare.classList.add('correndo');
 
             setTimeout(() => {
-                // Primeira fala inserida de forma limpa
                 balao.innerHTML = "Oiee mamãe??!! Quanto tempo que não te vejo que saudades, faz tanto tempo que você nem deve saber que agora eu tenho superpoderes tecnológicos heheheh";
                 balao.style.display = 'block';
                 lailaProntaParaClicar = true;
@@ -381,17 +452,19 @@
                 const balao = document.getElementById('balao-jacare');
                 
                 if (etapaFalaLaila === 1) {
-                    // Limpa o balão e insere a segunda fala pedindo a mão
                     etapaFalaLaila = 2;
                     balao.innerHTML = "Me dá a mão e vem comigoo <br><small style='font-size:12px; color: #c13b2b; font-weight:bold; display:block; margin-top:5px;'>(Clique em mim de novo pra gente ir!)</small>";
                 } else if (etapaFalaLaila === 2) {
-                    // Avança para a cena da caixa de presentes
                     mudarParaCenaCaixa();
                 }
             }
         }
 
         function mudarParaCenaCaixa() {
+            // Desativa a interação de cliques com a Laila permanentemente para a última página
+            lailaProntaParaClicar = false;
+            document.getElementById('laila-img').style.cursor = 'default';
+
             document.getElementById('texto-container').style.opacity = '0';
             setTimeout(() => { document.getElementById('texto-container').style.display = 'none'; }, 500);
             
@@ -410,7 +483,15 @@
         }
 
         function abrirCaixa() {
-            alert("A fita vermelha se soltou e a grande surpresa se abriu!");
+            // Removeu a notificação em janela (alert) e faz a transição direto pro envelope
+            document.getElementById('cena-caixa').style.display = 'none';
+            document.getElementById('cena-envelope').style.display = 'flex';
+        }
+
+        function abrirCartaReal() {
+            // Esconde o bloco do envelope fechado e revela a folha interna da carta aberta
+            document.getElementById('cena-envelope').style.display = 'none';
+            document.getElementById('cena-carta-aberta').style.display = 'flex';
         }
 
         gerarFundoInicial();
