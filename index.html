@@ -21,10 +21,10 @@
             height: 100vh;
         }
 
-        /* Telinha de Início Inteligente */
+        /* Telinha de Início */
         #tela-inicio {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background-color: #ffcccc; z-index: 100;
+            background-color: transparent; z-index: 100;
             display: flex; justify-content: center; align-items: center; flex-direction: column;
         }
         #btn-comecar {
@@ -32,13 +32,13 @@
             padding: 15px 40px; font-size: 22px; font-weight: 700; background-color: #c13b2b;
             color: white; border: none; border-radius: 50px; cursor: pointer;
             box-shadow: 0 8px 20px rgba(193, 59, 43, 0.4); transition: transform 0.2s;
-            max-width: 80%; text-align: center;
+            max-width: 80%; text-align: center; z-index: 105;
         }
         #btn-comecar:hover { transform: scale(1.05); }
 
-        /* Emoji Feliz Secreto no Canto Esquerdo */
+        /* Emoji Feliz no Canto Esquerdo */
         #emoji-feliz {
-            position: fixed; bottom: 30px; left: 30px; font-size: 60px;
+            position: fixed; bottom: 40px; left: 40px; font-size: 65px;
             cursor: pointer; display: none; z-index: 110;
         }
         .bounce-anim {
@@ -49,7 +49,7 @@
             100% { transform: translateY(-20px) scale(1.1); }
         }
 
-        /* Elementos Decorativos Voados no Fundo */
+        /* Elementos Decorativos Ricos no Fundo */
         #background-coracoes {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             z-index: 1; pointer-events: none;
@@ -110,8 +110,8 @@
         /* Caixa de fala Ajustada */
         .balao-fala {
             display: none; background: white; padding: 20px; border-radius: 20px;
-            border: 3px solid #7a1010; max-width: 280px;
-            text-align: center; font-weight: 600; color: #333; font-size: 20px;
+            border: 3px solid #7a1010; max-width: 240px;
+            text-align: center; font-weight: 600; color: #333; font-size: 18px;
             box-shadow: 4px 4px 15px rgba(0,0,0,0.15); position: relative;
         }
         .balao-fala::after {
@@ -121,23 +121,23 @@
             border-left: 3px solid #7a1010; border-bottom: 3px solid #7a1010;
         }
 
-        /* Cena 2: Caixa de Presente no MEIO Especial */
+        /* Cena Final: Caixa de Presente Centralizada */
         #cena-caixa {
             position: absolute;
-            left: 50%; top: 55%; transform: translate(-50%, -50%);
+            left: 55%; top: 50%; transform: translate(-50%, -50%);
             display: none; flex-direction: column; align-items: center; z-index: 30;
         }
 
-        /* Caixa de Presente Bonita e Flutuante */
+        /* Caixa de Presente Gourmet Estilizada */
         .caixa-madeira {
             width: 220px; height: 220px; 
-            background: linear-gradient(135deg, #e67e22, #d35400); /* Degradê vibrante */
+            background: linear-gradient(135deg, #e67e22, #d35400);
             border: 6px solid #b33939; position: relative; cursor: pointer;
             box-shadow: 0 20px 35px rgba(0,0,0,0.3), inset 0 0 20px rgba(0,0,0,0.2);
             border-radius: 15px;
             animation: flutuar 3s ease-in-out infinite, brilharCaixa 2s infinite alternate;
         }
-        .caixa-madeira:hover { transform: scale(1.05) rotate(3deg); }
+        .caixa-madeira:hover { transform: scale(1.05) rotate(2deg); }
         
         /* Fitas do Presente */
         .caixa-madeira::before { 
@@ -149,7 +149,7 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
-        /* Laço de fita no topo do presente */
+        /* Laço Volumoso */
         .laco-presente {
             position: absolute; top: -35px; left: 50%; transform: translateX(-50%);
             width: 70px; height: 40px; background: #ff4081; border-radius: 50% 50% 0 0;
@@ -170,7 +170,7 @@
         }
         @keyframes brilharCaixa {
             0% { box-shadow: 0 20px 35px rgba(0,0,0,0.3), 0 0 10px rgba(255, 234, 167, 0.2); }
-            100% { box-shadow: 0 20px 35px rgba(0,0,0,0.3), 0 0 30px rgba(255, 234, 167, 0.8); }
+            100% { box-shadow: 0 20px 35px rgba(0,0,0,0.3), 0 0 35px rgba(255, 234, 167, 0.7); }
         }
 
         /* Animações Físicas da Laila */
@@ -186,16 +186,16 @@
 </head>
 <body>
 
+    <div id="background-coracoes"></div>
+
     <div id="tela-inicio">
-        <h2 id="titulo-inicio" style="color: #c13b2b; font-size: 40px; margin-bottom: 30px; text-align: center; max-width: 80%;">O que será que é isso...</h2>
+        <h2 id="titulo-inicio" style="color: #c13b2b; font-size: 40px; margin-bottom: 30px; text-align: center; max-width: 80%; text-shadow: 2px 2px 10px rgba(255,255,255,0.6);">O que será que é isso...</h2>
         <button id="btn-comecar" onclick="lidarComClique()">Descobrir!</button>
     </div>
 
     <div id="emoji-feliz" class="bounce-anim" onclick="comecarTudo()">😊</div>
 
     <audio id="audio-correndo" src="YTDown_YouTube_Tom-and-Jerry-running-sound-effect_Media_yMRmV4O-F00_008_128k.mp3" preload="auto"></audio>
-
-    <div id="background-coracoes"></div>
 
     <div id="texto-container">
         <span id="texto-parte1"></span><br>
@@ -209,7 +209,7 @@
             <img id="laila-img" src="laila.png" style="width: 180px; z-index: 25;" alt="Jacaré Laila" onclick="clicouNaLaila()">
             <div style="background: pink; color: #7a1010; padding: 4px 15px; border-radius: 15px; font-size: 16px; margin-top: -10px; font-weight: 700; z-index: 26; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">Laila</div>
         </div>
-        <div id="balao-jacare" class="balao-fala">[SUA PRIMEIRA FRASE AQUI]<br><small style="font-size:12px; color: #777; font-weight:normal;">(Clique em mim para continuar!)</small></div>
+        <div id="balao-jacare" class="balao-fala">[SUA PRIMEIRA FRASE AQUI]<br><small style="font-size:12px; color: #c13b2b; font-weight:bold; display:block; margin-top:5px;">(Clique em mim para avançar!)</small></div>
     </div>
 
     <div id="cena-caixa">
@@ -218,31 +218,34 @@
     </div>
 
     <script>
-        // Sistema do botão de 10 cliques
+        // Sistema do botão de 5 cliques exatos com pré-carregamento do som
         let contadorCliques = 0;
         function lidarComClique() {
             contadorCliques++;
             const btn = document.getElementById('btn-comecar');
+            const audio = document.getElementById('audio-correndo');
             
-            if (contadorCliques === 2) {
+            // Força o navegador a dar permissão ao áudio no primeiro clique do usuário!
+            audio.play().then(() => {
+                audio.pause();
+                audio.currentTime = 0;
+            }).catch(e => console.log("Desbloqueador ativo"));
+
+            if (contadorCliques === 1) {
                 btn.innerHTML = "Descobrir de verdade!";
-            } else if (contadorCliques === 4) {
+            } else if (contadorCliques === 2) {
                 btn.innerHTML = "Descobrir mesmo!";
-            } else if (contadorCliques === 6) {
+            } else if (contadorCliques === 3) {
                 btn.innerHTML = "Aqui tem coisas que não podem ser desvistas...";
-            } else if (contadorCliques >= 9) {
+            } else if (contadorCliques >= 4) {
                 btn.innerHTML = "Já deu né, é só clicar no emoji feliz no canto esquerdo";
                 btn.style.backgroundColor = "#7f8c8d";
-                // Faz o emoji feliz surgir pulando no canto
-                const emoji = document.getElementById('emoji-feliz');
-                emoji.style.display = 'block';
+                document.getElementById('emoji-feliz').style.display = 'block';
             }
         }
 
-        // Gerador de Emojis de Fundo Ricos (Corações, Estrelas, Focas, Brilhos, Chocolates, Flores)
+        // Gerador de Fundo Ricos (Executado imediatamente na inicialização)
         const containerCoracoes = document.getElementById('background-coracoes');
-        
-        // Estrutura do coração de pepperoni original em SVG
         const svgPepperoni = `
         <svg viewBox="0 0 100 100" width="45" height="45" style="display:inline-block; vertical-align:middle;">
           <defs>
@@ -261,7 +264,7 @@
             let wrapper = document.createElement('div');
             wrapper.className = 'element-wrapper';
             
-            // Distribuição reforçada para preencher bem a esquerda
+            // Força um excelente preenchimento no lado esquerdo da tela
             let posicaoX = (i % 2 === 0) ? (Math.random() * 45) : (Math.random() * 100);
             wrapper.style.left = posicaoX + 'vw';
             
@@ -271,7 +274,6 @@
             wrapper.style.animationDuration = (5 + Math.random() * 7) + 's';
             wrapper.style.animationDelay = (Math.random() * 6) + 's';
             
-            // Mistura os Pepperonis com os novos Emojis pedidos
             if (i % 3 === 0) {
                 wrapper.innerHTML = svgPepperoni;
             } else {
@@ -279,11 +281,10 @@
                 wrapper.innerText = itemAleatorio;
                 wrapper.style.fontSize = "35px";
             }
-            
             containerCoracoes.appendChild(wrapper);
         }
 
-        // Configurações de Texto Principal
+        // Lógica das Cenas Principais
         const parte1 = "Feliz dia dos namorados e 6 meses atrasados meu ";
         const parte2 = "amor!";
         let lailaProntaParaClicar = false;
@@ -303,14 +304,10 @@
             digitar();
         }
 
-        // Só inicia quando o emoji do canto esquerdo for clicado
         function comecarTudo() {
             document.getElementById('tela-inicio').style.display = 'none';
             document.getElementById('emoji-feliz').style.display = 'none';
             
-            const audio = document.getElementById('audio-correndo');
-            audio.load();
-
             typeWriter(parte1, 'texto-parte1', 40, () => {
                 const palavraGrande = document.getElementById('palavra-alvo');
                 palavraGrande.classList.add('caindo-do-ceu');
@@ -336,8 +333,9 @@
             const lailaImg = document.getElementById('laila-img');
             const balao = document.getElementById('balao-jacare');
 
+            // Toca com segurança total, pois já foi desbloqueado no clique inicial
             audio.currentTime = 0;
-            audio.play().catch(e => console.error("Erro no áudio:", e));
+            audio.play().catch(e => console.log("Erro de codec de áudio ou arquivo inexistente:", e));
 
             jacare.style.display = 'flex';
             jacare.classList.add('correndo');
@@ -353,13 +351,12 @@
                     
                     setTimeout(() => {
                         balao.style.display = 'block';
-                        lailaProntaParaClicar = true; // Agora o usuário pode clicar nela!
+                        lailaProntaParaClicar = true; 
                     }, 500);
                 }, 3000); 
             }, 1500); 
         }
 
-        // Função de clique na Laila para avançar de página
         function clicouNaLaila() {
             if (lailaProntaParaClicar) {
                 mudarParaCenaCaixa();
@@ -367,16 +364,16 @@
         }
 
         function mudarParaCenaCaixa() {
-            // Some o texto antigo de dia dos namorados
+            // Some o cabeçalho de texto
             document.getElementById('texto-container').style.opacity = '0';
             setTimeout(() => { document.getElementById('texto-container').style.display = 'none'; }, 500);
             
-            // Posiciona a Laila perfeitamente fixada na esquerda da tela
+            // Move a Laila de forma limpa e isolada para o extremo esquerdo da tela
             const jacare = document.getElementById('jacare-container');
-            jacare.style.left = '5%';
-            jacare.style.bottom = '35%';
+            jacare.style.left = '5vw';
+            jacare.style.bottom = '20%';
 
-            // Troca a mensagem do balão dela para a SEGUNDA FRASE
+            // Ajusta o balão de fala da Laila para a segunda etapa
             const balao = document.getElementById('balao-jacare');
             balao.style.display = 'none';
             
@@ -384,14 +381,14 @@
                 balao.innerHTML = "[SUA SEGUNDA FRASE AQUI]";
                 balao.style.display = 'block';
                 
-                // Faz a linda caixa de presente surgir exatamente no meio da tela
+                // Exibe a elegante caixa de presente centralizada na tela
                 const cenaCaixa = document.getElementById('cena-caixa');
                 cenaCaixa.style.display = 'flex';
             }, 1000);
         }
 
         function abrirCaixa() {
-            alert("A fita se desfez e a surpresa se abriu! O que você quer colocar aqui dentro agora?");
+            alert("A caixa abriu! O que você quer colocar aqui dentro agora?");
         }
     </script>
 </body>
