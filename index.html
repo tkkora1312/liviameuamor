@@ -98,7 +98,7 @@
         #laila-img:hover { transform: scale(1.05); }
         #laila-corpo { display: flex; flex-direction: column; align-items: center; }
 
-        /* Balão de Fala Universal e Seguro */
+        /* Balão de Fala Universal */
         .balao-fala {
             display: none; background: white; padding: 15px 20px; border-radius: 20px;
             border: 3px solid #7a1010; max-width: 220px;
@@ -112,8 +112,8 @@
             border-right: 3px solid #7a1010; border-bottom: 3px solid #7a1010;
         }
 
-        /* Cena Final: Flutuação Unificada do Bloco do Presente */
-        #cena-caixa {
+        /* Blocos das Cenas do Presente (Flutuação) */
+        #cena-caixa, #cena-caixa-aberta {
             position: absolute;
             left: 50%; top: 50%; 
             transform: translate(-50%, -50%);
@@ -125,7 +125,7 @@
             50% { transform: translate(-50%, -56%); }
         }
 
-        /* Caixa de Presente VERDE SOLICITADO (#008000) COM BEIRADAS ESCURAS */
+        /* Caixa de Presente Verde (#008000) */
         .caixa-madeira {
             width: 220px; height: 220px; 
             background: #008000; 
@@ -136,43 +136,72 @@
         }
         .caixa-madeira:hover { transform: scale(1.04) rotate(1deg); }
         
-        /* Fitas do Presente (Vermelho Muted/Suave #df6767) */
+        /* Fitas do Presente Alteradas para Vermelho Vibrante #ff2c2c */
         .caixa-madeira::before { 
-            content: ""; position: absolute; left: 43%; top: 0; width: 14%; height: 100%; background: #9b111e; 
+            content: ""; position: absolute; left: 43%; top: 0; width: 14%; height: 100%; background: #ff2c2c; 
             box-shadow: 2px 0 5px rgba(0,0,0,0.15);
         }
         .caixa-madeira::after { 
-            content: ""; position: absolute; top: 43%; left: 0; height: 14%; width: 100%; background: #9b111e; 
+            content: ""; position: absolute; top: 43%; left: 0; height: 14%; width: 100%; background: #ff2c2c; 
             box-shadow: 0 2px 5px rgba(0,0,0,0.15);
         }
 
-        /* DESIGN DO LAÇO SUAVE */
+        /* DESIGN DO LAÇO ALTERADO PARA #ff2c2c */
         .laco-presente {
             position: absolute; top: -28px; left: 50%; transform: translateX(-50%);
             width: 40px; height: 30px; z-index: 35;
         }
         .laco-presente::before {
             content: ""; position: absolute; left: -42px; top: -12px; width: 55px; height: 42px;
-            background: #9b111e; border-radius: 50% 50% 12% 50%; transform: rotate(-20deg);
+            background: #ff2c2c; border-radius: 50% 50% 12% 50%; transform: rotate(-20deg);
             box-shadow: -3px 5px 8px rgba(0,0,0,0.25);
         }
         .laco-presente::after {
             content: ""; position: absolute; right: -42px; top: -12px; width: 55px; height: 42px;
-            background: #9b111e; border-radius: 50% 50% 50% 12%; transform: rotate(20deg);
+            background: #ff2c2c; border-radius: 50% 50% 50% 12%; transform: rotate(20deg);
             box-shadow: 3px 5px 8px rgba(0,0,0,0.25);
         }
         .no-laco {
             position: absolute; left: 50%; top: -5px; transform: translateX(-50%);
-            width: 26px; height: 26px; background: #9b111e; border-radius: 8px;
+            width: 26px; height: 26px; background: #ff2c2c; border-radius: 8px;
             box-shadow: 0 3px 6px rgba(0,0,0,0.3); z-index: 40;
-            border: 1px solid #c95353;
+            border: 1px solid #cc1b1b;
         }
         .ponta-laco-esq, .ponta-laco-dir {
-            position: absolute; top: 16px; width: 18px; height: 45px; background: #9b111e; z-index: 34;
+            position: absolute; top: 16px; width: 18px; height: 45px; background: #ff2c2c; z-index: 34;
             clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 50% 82%, 0% 100%);
         }
         .ponta-laco-esq { left: -14px; transform: rotate(28deg); }
         .ponta-laco-dir { right: -14px; transform: rotate(-28deg); }
+
+        /* ESTILO DA CAIXA ABERTA (SEM TAMPA) */
+        .caixa-aberta {
+            width: 220px; height: 220px; 
+            background: #005c00; 
+            border: 6px solid #014d01; position: relative;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.35), inset 0 0 45px rgba(0,0,0,0.85);
+            border-radius: 15px;
+            display: flex; justify-content: center; align-items: center;
+        }
+        .caixa-aberta::before { 
+            content: ""; position: absolute; left: 43%; top: 0; width: 14%; height: 100%; background: #ff2c2c; 
+            box-shadow: 2px 0 5px rgba(0,0,0,0.15); z-index: 1;
+        }
+        
+        /* Mini Carta Escondida dentro da Caixa Aberta */
+        .mini-carta {
+            width: 130px; height: 95px; background: #fdfbf7;
+            border-radius: 6px; box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            cursor: pointer; z-index: 5; transition: transform 0.2s, rotate 0.2s;
+            position: relative; overflow: hidden;
+            border: 1px solid #e3dac9; transform: rotate(-6deg);
+        }
+        .mini-carta:hover { transform: scale(1.1) rotate(-2deg); }
+        .mini-carta::after {
+            content: ""; position: absolute; top: 0; left: 0; width: 0; height: 0;
+            border-left: 65px solid transparent; border-right: 65px solid transparent;
+            border-top: 48px solid #ebe3d5;
+        }
 
         @keyframes brilharCaixa {
             0% { box-shadow: 0 20px 35px rgba(0,0,0,0.3), inset 0 0 35px rgba(0,0,0,0.7), 0 0 10px rgba(255, 234, 167, 0.1); }
@@ -209,45 +238,38 @@
             transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             border-radius: 12px 12px 0 0;
         }
-        .flap-top.aberto {
-            transform: scaleY(-1); z-index: 1;
-        }
+        .flap-top.aberto { transform: scaleY(-1); z-index: 1; }
 
         /* Dobras do papel */
         .flap-left {
             position: absolute; top: 0; left: 0; width: 0; height: 0;
-            border-left: 175px solid #f4ede2;
-            border-top: 115px solid transparent;
-            border-bottom: 115px solid transparent;
+            border-left: 175px solid #f4ede2; border-top: 115px solid transparent; border-bottom: 115px solid transparent;
             z-index: 2; border-radius: 12px 0 0 12px;
         }
         .flap-right {
             position: absolute; top: 0; right: 0; width: 0; height: 0;
-            border-right: 175px solid #f4ede2;
-            border-top: 115px solid transparent;
-            border-bottom: 115px solid transparent;
+            border-right: 175px solid #f4ede2; border-top: 115px solid transparent; border-bottom: 115px solid transparent;
             z-index: 2; border-radius: 0 12px 12px 0;
         }
         .flap-bottom {
             position: absolute; bottom: 0; left: 0; width: 0; height: 0;
-            border-left: 170px solid transparent;
-            border-right: 170px solid transparent;
-            border-bottom: 125px solid #e3dac9;
+            border-left: 170px solid transparent; border-right: 170px solid transparent; border-bottom: 125px solid #e3dac9;
             z-index: 3; border-radius: 0 0 12px 12px;
         }
 
-        /* Elementos Interativos Centralizados */
+        /* Elementos Interativos Alinhados Abaixo (Mais para baixo) */
         .envelope-conteudo {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             z-index: 5; display: flex; flex-direction: column;
-            justify-content: center; align-items: center;
-            box-sizing: border-box;
+            justify-content: flex-end; align-items: center;
+            padding-bottom: 25px; box-sizing: border-box;
         }
         
+        /* Adesivo e destinatário empurrados mais para baixo */
         .selo-container {
             cursor: pointer; text-align: center;
             transition: transform 0.2s;
-            margin-top: -25px; /* Sobe a foca para alinhar perfeitamente no fechamento da dobra */
+            margin-bottom: 10px; 
         }
         .selo-container:hover { transform: scale(1.08); }
         
@@ -256,10 +278,9 @@
             filter: drop-shadow(0px 5px 8px rgba(0,0,0,0.25));
         }
 
-        /* Destinatário Limpo posicionado EMBAIXO do Adesivo */
         .destinatario {
             font-size: 21px; color: #7a1010; font-weight: 600;
-            text-align: center; margin-top: 15px;
+            text-align: center; margin-bottom: 5px;
         }
 
         /* FOLHA DA CARTA (LILÁS SUAVE) */
@@ -307,7 +328,7 @@
         <div id="balao-jacare" class="balao-fala"></div>
     </div>
 
-    <!-- Cena da Caixa de Presente -->
+    <!-- Cena da Caixa de Presente Fechada -->
     <div id="cena-caixa">
         <div class="caixa-madeira" onclick="abrirCaixa()">
             <div class="laco-presente">
@@ -315,6 +336,14 @@
                 <div class="ponta-laco-esq"></div>
                 <div class="ponta-laco-dir"></div>
             </div>
+        </div>
+    </div>
+
+    <!-- CENA DA CAIXA ABERTA (SEM TAMPA) -->
+    <div id="cena-caixa-aberta">
+        <div class="caixa-aberta">
+            <!-- Ao clicar na mini carta, aciona a revelação do envelope -->
+            <div class="mini-carta" onclick="revelarEnvelopePrincipal()"></div>
         </div>
     </div>
 
@@ -327,15 +356,15 @@
             <div class="flap-right"></div>
             <div class="flap-bottom"></div>
             
-            <!-- Conteúdo Interativo Organizado -->
+            <!-- Conteúdo Interativo Organizado Embaixo -->
             <div class="envelope-conteudo" id="envelope-interativo">
                 
-                <!-- O Selo de Foca fica em cima -->
+                <!-- O Selo de Foca posicionado perfeitamente na parte inferior -->
                 <div class="selo-container" onclick="animarEAbrirCarta()">
                     <img id="foca-selo-img" src="foca-selo.png" alt="Selo Foca">
                 </div>
                 
-                <!-- O destinatário limpo fica embaixo -->
+                <!-- O destinatário limpo posicionado abaixo do adesivo -->
                 <div class="destinatario">Para: <span>Escreva o Nome Aqui</span></div>
                 
             </div>
@@ -537,9 +566,20 @@
             }, 1000);
         }
 
+        /* ETAPA: ABRE A CAIXA - REVELA A CAIXA SEM TAMPA COM A MINI CARTA INSIDE */
         function abrirCaixa() {
             document.getElementById('cena-caixa').style.display = 'none';
+            document.getElementById('cena-caixa-aberta').style.display = 'flex';
+        }
+
+        /* ETAPA: CLICOU NA CARTA INTERNA - ENVELOPE APARECE E LAILA SURGE COM NOVA FALA */
+        function revelarEnvelopePrincipal() {
+            document.getElementById('cena-caixa-aberta').style.display = 'none';
             document.getElementById('cena-envelope').style.display = 'flex';
+            
+            // Atualiza dinamicamente a fala da Laila expressando sua curiosidade
+            const balao = document.getElementById('balao-jacare');
+            balao.innerHTML = "O que éé??? tava tão curiosa quase que abri o presente várias vezes D:";
         }
 
         function animarEAbrirCarta() {
