@@ -136,7 +136,6 @@
         }
         .caixa-madeira:hover { transform: scale(1.04) rotate(1deg); }
         
-        /* Fitas do Presente em Vermelho Vibrante #ff2c2c */
         .caixa-madeira::before { 
             content: ""; position: absolute; left: 43%; top: 0; width: 14%; height: 100%; background: #ff2c2c; 
             box-shadow: 2px 0 5px rgba(0,0,0,0.15);
@@ -174,7 +173,7 @@
         .ponta-laco-esq { left: -14px; transform: rotate(28deg); }
         .ponta-laco-dir { right: -14px; transform: rotate(-28deg); }
 
-        /* ESTILO DA CAIXA ABERTA (SEM TAMPA) */
+        /* ESTILO DA CAIXA ABERTA */
         .caixa-aberta {
             width: 220px; height: 220px; 
             background: #005c00; 
@@ -183,9 +182,7 @@
             border-radius: 15px;
             display: flex; justify-content: center; align-items: center;
         }
-        /* A fita vermelha interior foi removida a pedido */
         
-        /* Mini Carta Escondida dentro da Caixa Aberta */
         .mini-carta {
             width: 130px; height: 95px; background: #fdfbf7;
             border-radius: 6px; box-shadow: 0 8px 20px rgba(0,0,0,0.4);
@@ -205,11 +202,11 @@
             100% { box-shadow: 0 20px 35px rgba(0,0,0,0.3), inset 0 0 35px rgba(0,0,0,0.7), 0 0 35px rgba(255, 234, 167, 0.4); }
         }
 
-        /* Corrida Suave da Laila */
+        /* CORRIDA SUAVE DA LAILA (Ajustado para ela ficar mais pro meio) */
         .correndo { animation: correrLaila 1.5s forwards ease-out; }
         @keyframes correrLaila {
             0% { left: -500px; }
-            100% { left: 5%; } /* Ajustado levemente para não cobrir tudo */
+            100% { left: 18%; } /* Mudei de 5% para 18% para ela fugir do canto */
         }
 
         /* ARQUITETURA DO ENVELOPE COM DOBRAS */
@@ -225,7 +222,6 @@
             box-shadow: 0 15px 35px rgba(0,0,0,0.2);
         }
 
-        /* Aba Superior */
         .flap-top {
             position: absolute; top: 0; left: 0; width: 0; height: 0;
             border-left: 170px solid transparent;
@@ -237,7 +233,6 @@
         }
         .flap-top.aberto { transform: scaleY(-1); z-index: 1; }
 
-        /* Dobras do papel */
         .flap-left {
             position: absolute; top: 0; left: 0; width: 0; height: 0;
             border-left: 175px solid #f4ede2; border-top: 115px solid transparent; border-bottom: 115px solid transparent;
@@ -254,7 +249,6 @@
             z-index: 3; border-radius: 0 0 12px 12px;
         }
 
-        /* Elementos Interativos Alinhados Abaixo */
         .envelope-conteudo {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             z-index: 5; display: flex; flex-direction: column;
@@ -279,7 +273,7 @@
             text-align: center; margin-bottom: 5px;
         }
 
-        /* FOLHA DA CARTA (LILÁS SUAVE) */
+        /* FOLHA DA CARTA */
         .folha-carta {
             width: 350px; max-height: 75vh; background: #fffdf0;
             border-left: 8px solid #e1d5f5; 
@@ -296,7 +290,6 @@
         .folha-carta h3 { margin-top: 0; color: #5a4b75; font-size: 24px; }
         .assinatura { margin-top: 30px; text-align: right; font-weight: bold; color: #5a4b75; }
 
-        /* Botão estilizado para voltar para a Laila */
         #btn-voltar-laila {
             font-family: 'Fredoka', sans-serif;
             margin-top: 25px; padding: 12px 30px; font-size: 16px; font-weight: 700;
@@ -307,35 +300,79 @@
         }
         #btn-voltar-laila:hover { transform: scale(1.05); background-color: #005c00; }
 
-        /* MÁGICA: ITENS ADICIONAIS DO MESMO TAMANHO DA CAIXA */
+        /* MÁGICA: NOVOS ÍCONES BONITOS */
         #cena-itens-magicos {
             position: absolute;
             top: 15%; left: 0; width: 100%;
             display: none;
-            justify-content: space-evenly;
+            justify-content: center;
             align-items: center;
-            z-index: 25;
+            z-index: 50; /* Z-index alto pra ficar por cima de tudo */
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 25px;
         }
+        
+        /* Formato de Cartão/Ícone Clean */
         .item-magico {
-            width: 220px; height: 220px;
-            border-radius: 15px; cursor: pointer;
-            box-shadow: 0 20px 35px rgba(0,0,0,0.35);
+            width: 120px; height: 120px;
+            border-radius: 20px; cursor: pointer;
+            background: #ffffff; 
+            border: 4px solid #ddd;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            font-size: 24px; font-weight: bold; color: white; text-align: center;
-            transition: transform 0.2s;
+            font-size: 45px; color: #333; text-align: center;
+            transition: transform 0.3s;
             animation: flutuarItem 3s ease-in-out infinite alternate;
         }
-        .item-magico:hover { transform: scale(1.05) rotate(2deg); }
+        .item-magico span {
+            font-size: 15px; font-weight: 700; color: #555; margin-top: 5px;
+            font-family: 'Fredoka', sans-serif;
+        }
+        .item-magico:hover { transform: scale(1.1) translateY(-5px); }
+        
         @keyframes flutuarItem {
             0% { transform: translateY(0); }
             100% { transform: translateY(-15px); }
         }
         
-        .item-magico.album { background: #ff9ff3; border: 6px solid #f368e0; animation-delay: 0s; }
-        .item-magico.tv { background: #54a0ff; border: 6px solid #2e86de; animation-delay: 0.5s; }
-        .item-magico.planilha { background: #1dd1a1; border: 6px solid #10ac84; animation-delay: 1s; }
+        .item-magico.album { border-color: #ff9ff3; animation-delay: 0s; }
+        .item-magico.tv { border-color: #54a0ff; animation-delay: 0.5s; }
+        .item-magico.planilha { border-color: #1dd1a1; animation-delay: 1s; }
+
+        /* ========================================================= */
+        /* RESPONSIVIDADE PARA CELULARES (MÁGICA DO MOBILE AQUI) */
+        /* ========================================================= */
+        @media (max-width: 600px) {
+            /* Diminui a Laila e ajusta a posição para não cobrir a caixa */
+            #jacare-container { transform: scale(0.7); }
+            @keyframes correrLaila {
+                0% { left: -500px; }
+                100% { left: -5%; } /* No mobile ela fica um pouco mais pra esquerda pra caber junto com a caixa */
+            }
+            
+            /* Diminui a Caixa */
+            .caixa-madeira, .caixa-aberta { width: 170px; height: 170px; }
+            .laco-presente { transform: translateX(-50%) scale(0.8); top: -20px; }
+            
+            /* Diminui o Envelope para caber na tela */
+            .envelope-wrapper { width: 300px; height: 200px; }
+            .flap-top { border-left-width: 150px; border-right-width: 150px; border-top-width: 105px; }
+            .flap-left { border-left-width: 150px; border-top-width: 100px; border-bottom-width: 100px; }
+            .flap-right { border-right-width: 150px; border-top-width: 100px; border-bottom-width: 100px; }
+            .flap-bottom { border-left-width: 150px; border-right-width: 150px; border-bottom-width: 110px; }
+            
+            /* Ajusta a folha da carta */
+            .folha-carta { width: 90vw; padding: 20px; font-size: 16px; }
+            
+            /* Ajusta os botões mágicos pro mobile */
+            #cena-itens-magicos { top: 5%; gap: 15px; }
+            .item-magico { width: 95px; height: 95px; font-size: 35px; border-radius: 15px; }
+            .item-magico span { font-size: 13px; }
+            
+            /* Ajusta os textos iniciais */
+            #texto-container { font-size: 28px; width: 90%; }
+            .palavra-grande { font-size: 80px; }
+        }
 
     </style>
 </head>
@@ -391,13 +428,10 @@
             <div class="flap-bottom"></div>
             
             <div class="envelope-conteudo" id="envelope-interativo">
-                
                 <div class="selo-container" onclick="animarEAbrirCarta()">
                     <img id="foca-selo-img" src="foca-selo.png" alt="Selo Foca">
                 </div>
-                
                 <div class="destinatario">Para: <span>Escreva o Nome Aqui</span></div>
-                
             </div>
         </div>
     </div>
@@ -414,15 +448,21 @@
     </div>
 
     <div id="cena-itens-magicos">
-        <div class="item-magico album" onclick="abrirAlbum()">Álbum de Fotos 📸</div>
-        <div class="item-magico tv" onclick="abrirTV()">Televisão 📺</div>
-        <div class="item-magico planilha" onclick="abrirPlanilha()">Planilha 📊</div>
+        <div class="item-magico album" onclick="abrirAlbum()">
+            🖼️<span>Álbum</span>
+        </div>
+        <div class="item-magico tv" onclick="abrirTV()">
+            📺<span>Televisão</span>
+        </div>
+        <div class="item-magico planilha" onclick="abrirPlanilha()">
+            📊<span>Planilha</span>
+        </div>
     </div>
 
     <script>
         let contadorCliques = 0;
         let etapaFalaLaila = 1;
-        let magiaRevelada = false; // Controle para saber se já tocamos a magia
+        let magiaRevelada = false; 
         
         let historicoFrasesBotao = [
             "Descobrir de verdade!",
@@ -584,6 +624,16 @@
                 } else if (etapaFalaLaila === 3) {
                     etapaFalaLaila = 4;
                     balao.innerHTML = "Uiaa uma carta quero ler também";
+                } else if (etapaFalaLaila === 'esperando_magia') {
+                    // MÁGICA AO CLICAR NA LAILA!
+                    const audioMagia = document.getElementById('audio-magia');
+                    audioMagia.currentTime = 0;
+                    audioMagia.play().catch(e => {});
+
+                    document.getElementById('cena-itens-magicos').style.display = 'flex';
+                    balao.innerHTML = "Viu só?! Tem mais tudo isso pra você ver";
+                    magiaRevelada = true;
+                    etapaFalaLaila = 'fim'; // Trava novos cliques nela
                 }
             }
         }
@@ -598,7 +648,8 @@
             const jacare = document.getElementById('jacare-container');
             const balao = document.getElementById('balao-jacare');
             
-            jacare.style.left = '2vw';
+            // Ajuste de posição dinâmico da Laila para a segunda cena
+            jacare.style.left = window.innerWidth <= 600 ? '-5%' : '18%';
             balao.style.display = 'none';
             
             setTimeout(() => {
@@ -625,7 +676,6 @@
             document.getElementById('cena-caixa-aberta').style.display = 'none';
             document.getElementById('cena-envelope').style.display = 'flex';
             
-            // Laila, balão e os itens mágicos somem momentaneamente para focar na leitura
             document.getElementById('jacare-container').style.display = 'none';
             document.getElementById('cena-itens-magicos').style.display = 'none';
         }
@@ -646,42 +696,28 @@
             document.getElementById('envelope-tampa').classList.remove('aberto');
             document.getElementById('envelope-interativo').style.opacity = '1';
 
-            // Volta a caixa aberta pra tela
             document.getElementById('cena-caixa-aberta').style.display = 'flex';
             
-            // Traz a Laila de volta
             const jacare = document.getElementById('jacare-container');
             const balao = document.getElementById('balao-jacare');
             jacare.style.display = 'flex';
             balao.style.display = 'block';
             
-            // Lógica da Mágica e Fala da Laila
             if (!magiaRevelada) {
-                balao.innerHTML = "Eaii gostou da cartinha? Eu amei e tem muito mais coisa mamãe, sabia que nesse lugar estranho eu sou super poderosa? olha só o que eu consigo fazer.";
+                balao.innerHTML = "Eaii gostou da cartinha? Nesse lugar estranho eu sou super poderosa! Clica em mim pra você ver uma mágica!";
                 
-                // Espera um tempinho pra dar tempo de ler, toca a música e revela tudo!
-                setTimeout(() => {
-                    const audioMagia = document.getElementById('audio-magia');
-                    audioMagia.currentTime = 0;
-                    audioMagia.play().catch(e => {});
-
-                    document.getElementById('cena-itens-magicos').style.display = 'flex';
-                    balao.innerHTML = "Viu só?! Tem mais tudo isso pra você ver";
-                    magiaRevelada = true; // Marca que a magia já aconteceu
-                }, 4000);
-
+                // Agora o sistema ESPERA você clicar na Laila
+                etapaFalaLaila = 'esperando_magia';
             } else {
-                // Se a pessoa abriu a carta pela segunda vez e voltou, já mostra direto os itens sem suspense
                 balao.innerHTML = "Viu só?! Tem mais tudo isso pra você ver";
                 document.getElementById('cena-itens-magicos').style.display = 'flex';
             }
             
-            etapaFalaLaila = 5;
             lailaProntaParaClicar = true;
             document.getElementById('laila-img').style.cursor = 'pointer';
         }
 
-        // Funções provisórias para os botões mágicos (Pode adicionar sua lógica futura aqui)
+        // Funções provisórias para os botões mágicos
         function abrirAlbum() { alert("Você clicou no Álbum de Fotos!"); }
         function abrirTV() { alert("Você clicou na Televisão!"); }
         function abrirPlanilha() { alert("Você clicou na Planilha!"); }
