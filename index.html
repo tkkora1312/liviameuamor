@@ -3,690 +3,176 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>O que será que é isso...</title>
+    <title>Interação Laila</title>
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
-
     <style>
-        body {
-            background-color: #ffcccc; 
+        /* Reset básico */
+        * {
             margin: 0;
-            overflow: hidden;
-            font-family: 'Fredoka', sans-serif;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            background-color: #f0f4f8; /* Cor de fundo suave */
+            overflow: hidden; /* Evita rolagem no celular */
+        }
+
+        /* Telas (Parte 1 e Parte 2) */
+        .tela {
+            width: 100%;
+            height: 100%;
             display: flex;
+            flex-direction: column;
+            align-items: center;
             justify-content: center;
-            align-items: center;
-            height: 100vh;
+            position: relative;
         }
 
-        /* Fundo Dinâmico de Emojis */
-        #background-coracoes {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            z-index: 1; pointer-events: auto; overflow: hidden;
-        }
-        .element-wrapper {
-            position: absolute; bottom: -80px;
-            animation: floatUp linear infinite;
-            cursor: pointer; 
-        }
-        @keyframes floatUp {
-            0% { transform: translateY(0) rotate(0deg); }
-            100% { transform: translateY(-120vh) rotate(360deg); }
-        }
-
-        /* Efeito de Tremida na Tela */
-        @keyframes shake {
-            0%, 100% { transform: translate(0, 0); }
-            10%, 30%, 50%, 70%, 90% { transform: translate(-8px, 8px); }
-            20%, 40%, 60%, 80% { transform: translate(8px, -8px); }
-        }
-        .tremendo { animation: shake 0.4s ease-in-out; }
-
-        /* Telinha de Início */
-        #tela-inicio {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background-color: transparent; z-index: 100;
-            display: flex; justify-content: center; align-items: center; flex-direction: column;
-            pointer-events: none;
-        }
-        #box-comecar {
-            pointer-events: auto; text-align: center; z-index: 105;
-        }
-        #titulo-inicio {
-            color: #c13b2b; font-size: 40px; margin-bottom: 30px; 
-            text-shadow: 2px 2px 10px rgba(255,255,255,0.6);
-        }
-        #btn-comecar {
-            font-family: 'Fredoka', sans-serif;
-            padding: 15px 40px; font-size: 22px; font-weight: 700; background-color: #c13b2b;
-            color: white; border: none; border-radius: 50px; cursor: pointer;
-            box-shadow: 0 8px 20px rgba(193, 59, 43, 0.4); transition: transform 0.2s;
-            max-width: 80%;
-        }
-        #btn-comecar:hover { transform: scale(1.05); }
-
-        /* Textos Principais */
-        #texto-container {
-            font-size: 38px; color: #7a1010; text-align: center;
-            z-index: 10; position: absolute; top: 15%; width: 80%;
-            line-height: 1.4; font-weight: 600; transition: opacity 0.5s;
-        }
-        .palavra-grande {
-            font-size: 130px; color: #d32f2f; font-weight: 700; display: inline-block;
-            opacity: 0; text-transform: uppercase; margin: 10px 15px;
-            text-shadow: 4px 4px 0px #fff, 8px 8px 20px rgba(0,0,0,0.3);
-            transform: translateY(-100vh);
-        }
-        .caindo-do-ceu { animation: dropDown 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards; }
-        @keyframes dropDown {
-            0% { opacity: 1; transform: translateY(-100vh); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-        
-        /* Container do Jacaré Laila Organizado Verticalmente */
-        #jacare-container {
-            position: absolute; left: -500px; 
-            top: calc(50% - 130px);
-            display: none; 
-            flex-direction: column-reverse;
-            align-items: center; z-index: 20;
-            gap: 15px; transition: left 1s ease-in-out;
-        }
-        #laila-img { transition: transform 0.3s; z-index: 25; }
-        #laila-img:hover { transform: scale(1.05); }
-        #laila-corpo { display: flex; flex-direction: column; align-items: center; }
-
-        /* Balão de Fala Universal */
-        .balao-fala {
-            display: none; background: white; padding: 15px 20px; border-radius: 20px;
-            border: 3px solid #7a1010; max-width: 220px;
-            text-align: center; font-weight: 600; color: #333; font-size: 18px;
-            box-shadow: 4px 4px 15px rgba(0,0,0,0.15); position: relative;
-        }
-        .balao-fala::after {
-            content: ''; position: absolute; 
-            bottom: -11px; left: 50%; transform: translateX(-50%) rotate(45deg);
-            width: 18px; height: 18px; background: white;
-            border-right: 3px solid #7a1010; border-bottom: 3px solid #7a1010;
-        }
-
-        /* Blocos das Cenas do Presente (Flutuação) */
-        #cena-caixa, #cena-caixa-aberta {
-            position: absolute;
-            left: 50%; top: 50%; 
-            transform: translate(-50%, -50%);
-            display: none; flex-direction: column; align-items: center; z-index: 30;
-            animation: flutuarContainer 3s ease-in-out infinite;
-        }
-        @keyframes flutuarContainer {
-            0%, 100% { transform: translate(-50%, -50%); }
-            50% { transform: translate(-50%, -56%); }
-        }
-
-        /* Caixa de Presente Verde (#008000) */
-        .caixa-madeira {
-            width: 220px; height: 220px; 
-            background: #008000; 
-            border: 6px solid #014d01; position: relative; cursor: pointer;
-            box-shadow: 0 20px 35px rgba(0,0,0,0.35), inset 0 0 35px rgba(0,0,0,0.7);
-            border-radius: 15px;
-            animation: brilharCaixa 2s infinite alternate;
-        }
-        .caixa-madeira:hover { transform: scale(1.04) rotate(1deg); }
-        
-        /* Fitas do Presente em Vermelho Vibrante #ff2c2c */
-        .caixa-madeira::before { 
-            content: ""; position: absolute; left: 43%; top: 0; width: 14%; height: 100%; background: #ff2c2c; 
-            box-shadow: 2px 0 5px rgba(0,0,0,0.15);
-        }
-        .caixa-madeira::after { 
-            content: ""; position: absolute; top: 43%; left: 0; height: 14%; width: 100%; background: #ff2c2c; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
-        }
-
-        /* DESIGN DO LAÇO #ff2c2c */
-        .laco-presente {
-            position: absolute; top: -28px; left: 50%; transform: translateX(-50%);
-            width: 40px; height: 30px; z-index: 35;
-        }
-        .laco-presente::before {
-            content: ""; position: absolute; left: -42px; top: -12px; width: 55px; height: 42px;
-            background: #ff2c2c; border-radius: 50% 50% 12% 50%; transform: rotate(-20deg);
-            box-shadow: -3px 5px 8px rgba(0,0,0,0.25);
-        }
-        .laco-presente::after {
-            content: ""; position: absolute; right: -42px; top: -12px; width: 55px; height: 42px;
-            background: #ff2c2c; border-radius: 50% 50% 50% 12%; transform: rotate(20deg);
-            box-shadow: 3px 5px 8px rgba(0,0,0,0.25);
-        }
-        .no-laco {
-            position: absolute; left: 50%; top: -5px; transform: translateX(-50%);
-            width: 26px; height: 26px; background: #ff2c2c; border-radius: 8px;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.3); z-index: 40;
-            border: 1px solid #cc1b1b;
-        }
-        .ponta-laco-esq, .ponta-laco-dir {
-            position: absolute; top: 16px; width: 18px; height: 45px; background: #ff2c2c; z-index: 34;
-            clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 50% 82%, 0% 100%);
-        }
-        .ponta-laco-esq { left: -14px; transform: rotate(28deg); }
-        .ponta-laco-dir { right: -14px; transform: rotate(-28deg); }
-
-        /* ESTILO DA CAIXA ABERTA (SEM TAMPA) */
-        .caixa-aberta {
-            width: 220px; height: 220px; 
-            background: #005c00; 
-            border: 6px solid #014d01; position: relative;
-            box-shadow: 0 20px 35px rgba(0,0,0,0.35), inset 0 0 45px rgba(0,0,0,0.85);
-            border-radius: 15px;
-            display: flex; justify-content: center; align-items: center;
-        }
-        /* A fita vermelha interior foi removida a pedido */
-        
-        /* Mini Carta Escondida dentro da Caixa Aberta */
-        .mini-carta {
-            width: 130px; height: 95px; background: #fdfbf7;
-            border-radius: 6px; box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-            cursor: pointer; z-index: 5; transition: transform 0.2s, rotate 0.2s;
-            position: relative; overflow: hidden;
-            border: 1px solid #e3dac9; transform: rotate(-6deg);
-        }
-        .mini-carta:hover { transform: scale(1.1) rotate(-2deg); }
-        .mini-carta::after {
-            content: ""; position: absolute; top: 0; left: 0; width: 0; height: 0;
-            border-left: 65px solid transparent; border-right: 65px solid transparent;
-            border-top: 48px solid #ebe3d5;
-        }
-
-        @keyframes brilharCaixa {
-            0% { box-shadow: 0 20px 35px rgba(0,0,0,0.3), inset 0 0 35px rgba(0,0,0,0.7), 0 0 10px rgba(255, 234, 167, 0.1); }
-            100% { box-shadow: 0 20px 35px rgba(0,0,0,0.3), inset 0 0 35px rgba(0,0,0,0.7), 0 0 35px rgba(255, 234, 167, 0.4); }
-        }
-
-        /* Corrida Suave da Laila */
-        .correndo { animation: correrLaila 1.5s forwards ease-out; }
-        @keyframes correrLaila {
-            0% { left: -500px; }
-            100% { left: 5%; } /* Ajustado levemente para não cobrir tudo */
-        }
-
-        /* ARQUITETURA DO ENVELOPE COM DOBRAS */
-        #cena-envelope, #cena-carta-aberta {
-            position: absolute; left: 50%; top: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 40; display: none; flex-direction: column; align-items: center;
-        }
-        
-        .envelope-wrapper {
-            position: relative; width: 340px; height: 230px;
-            background: #fdfbf7; border-radius: 12px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-        }
-
-        /* Aba Superior */
-        .flap-top {
-            position: absolute; top: 0; left: 0; width: 0; height: 0;
-            border-left: 170px solid transparent;
-            border-right: 170px solid transparent;
-            border-top: 120px solid #ebe3d5;
-            z-index: 4; transform-origin: top;
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            border-radius: 12px 12px 0 0;
-        }
-        .flap-top.aberto { transform: scaleY(-1); z-index: 1; }
-
-        /* Dobras do papel */
-        .flap-left {
-            position: absolute; top: 0; left: 0; width: 0; height: 0;
-            border-left: 175px solid #f4ede2; border-top: 115px solid transparent; border-bottom: 115px solid transparent;
-            z-index: 2; border-radius: 12px 0 0 12px;
-        }
-        .flap-right {
-            position: absolute; top: 0; right: 0; width: 0; height: 0;
-            border-right: 175px solid #f4ede2; border-top: 115px solid transparent; border-bottom: 115px solid transparent;
-            z-index: 2; border-radius: 0 12px 12px 0;
-        }
-        .flap-bottom {
-            position: absolute; bottom: 0; left: 0; width: 0; height: 0;
-            border-left: 170px solid transparent; border-right: 170px solid transparent; border-bottom: 125px solid #e3dac9;
-            z-index: 3; border-radius: 0 0 12px 12px;
-        }
-
-        /* Elementos Interativos Alinhados Abaixo */
-        .envelope-conteudo {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 5; display: flex; flex-direction: column;
-            justify-content: flex-end; align-items: center;
-            padding-bottom: 25px; box-sizing: border-box;
-        }
-        
-        .selo-container {
-            cursor: pointer; text-align: center;
-            transition: transform 0.2s;
-            margin-bottom: 25px; 
-        }
-        .selo-container:hover { transform: scale(1.08); }
-        
-        #foca-selo-img {
-            width: 80px; height: 80px; object-fit: contain;
-            filter: drop-shadow(0px 5px 8px rgba(0,0,0,0.25));
-        }
-
-        .destinatario {
-            font-size: 21px; color: #7a1010; font-weight: 600;
-            text-align: center; margin-bottom: 5px;
-        }
-
-        /* FOLHA DA CARTA (LILÁS SUAVE) */
-        .folha-carta {
-            width: 350px; max-height: 75vh; background: #fffdf0;
-            border-left: 8px solid #e1d5f5; 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-            padding: 30px; border-radius: 4px; color: #333;
-            font-size: 18px; line-height: 1.6; overflow-y: auto;
-            box-sizing: border-box; animation: abrirFolha 0.5s ease-out forwards;
-            display: flex; flex-direction: column;
-        }
-        @keyframes abrirFolha {
-            0% { opacity: 0; transform: scale(0.85) translateY(30px); }
-            100% { opacity: 1; transform: scale(1) translateY(0); }
-        }
-        .folha-carta h3 { margin-top: 0; color: #5a4b75; font-size: 24px; }
-        .assinatura { margin-top: 30px; text-align: right; font-weight: bold; color: #5a4b75; }
-
-        /* Botão estilizado para voltar para a Laila */
-        #btn-voltar-laila {
-            font-family: 'Fredoka', sans-serif;
-            margin-top: 25px; padding: 12px 30px; font-size: 16px; font-weight: 700;
-            background-color: #008000; color: white; border: none; border-radius: 50px;
-            cursor: pointer; box-shadow: 0 5px 15px rgba(0, 128, 0, 0.3);
-            transition: transform 0.2s, background-color 0.2s;
-            align-self: center;
-        }
-        #btn-voltar-laila:hover { transform: scale(1.05); background-color: #005c00; }
-
-        /* MÁGICA: ITENS ADICIONAIS DO MESMO TAMANHO DA CAIXA */
-        #cena-itens-magicos {
-            position: absolute;
-            top: 15%; left: 0; width: 100%;
+        /* Ocultar elementos inicialmente */
+        #parte2, #icones {
             display: none;
-            justify-content: space-evenly;
-            align-items: center;
-            z-index: 25;
-            flex-wrap: wrap;
-            gap: 20px;
         }
-        .item-magico {
-            width: 220px; height: 220px;
-            border-radius: 15px; cursor: pointer;
-            box-shadow: 0 20px 35px rgba(0,0,0,0.35);
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            font-size: 24px; font-weight: bold; color: white; text-align: center;
-            transition: transform 0.2s;
-            animation: flutuarItem 3s ease-in-out infinite alternate;
-        }
-        .item-magico:hover { transform: scale(1.05) rotate(2deg); }
-        @keyframes flutuarItem {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-15px); }
-        }
-        
-        .item-magico.album { background: #ff9ff3; border: 6px solid #f368e0; animation-delay: 0s; }
-        .item-magico.tv { background: #54a0ff; border: 6px solid #2e86de; animation-delay: 0.5s; }
-        .item-magico.planilha { background: #1dd1a1; border: 6px solid #10ac84; animation-delay: 1s; }
 
+        /* POSIÇÃO DA LAILA
+         Agora ela fica centralizada, apenas um pouco mais para baixo, 
+         fugindo dos cantos apertados.
+        */
+        .laila {
+            width: 150px;
+            height: 150px;
+            background-color: #ffb7b2; /* Cor temporária caso não tenha a imagem */
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease;
+            
+            /* Ajuste de posição (mais perto do centro) */
+            margin-bottom: 30px; 
+            
+            /* Se for usar uma imagem real da Laila, descomente a linha abaixo e coloque o link */
+            /* background-image: url('sua-imagem-laila.png'); background-size: cover; */
+        }
+
+        /* Efeito ao tocar/clicar na Laila */
+        .laila:active {
+            transform: scale(0.95);
+        }
+
+        /* Título de instrução */
+        h1 {
+            color: #333;
+            font-size: 1.5rem;
+            text-align: center;
+            padding: 0 20px;
+            margin-bottom: 40px;
+        }
+
+        /* Container dos Ícones */
+        .icones-container {
+            display: flex;
+            gap: 20px; /* Espaço entre os ícones */
+            margin-top: 20px;
+        }
+
+        /* Estilo visual dos Ícones (TV, Fotos, Gráficos) */
+        .icone {
+            font-size: 3rem; /* Tamanho do ícone */
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Efeito de hover/clique nos ícones */
+        .icone:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(0,0,0,0.15);
+        }
+        .icone:active {
+            transform: scale(0.9);
+        }
+
+        /* Ajustes finos para celulares pequenos */
+        @media (max-width: 400px) {
+            .laila {
+                width: 120px;
+                height: 120px;
+            }
+            .icone {
+                font-size: 2.5rem;
+                padding: 15px;
+            }
+            h1 {
+                font-size: 1.2rem;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <div id="background-coracoes"></div>
+    <audio id="som-clique" src="https://www.soundjay.com/buttons/sounds/button-09.mp3"></audio>
 
-    <div id="tela-inicio">
-        <div id="box-comecar">
-            <h2 id="titulo-inicio">O que será que é isso...</h2>
-            <button id="btn-comecar" onclick="lidarComCliqueBotao()">Descobrir!</button>
+    <div id="parte1" class="tela">
+        <h1>Olá! Clique na Laila para iniciar.</h1>
+        <div class="laila" onclick="irParaParte2()">Laila</div>
+    </div>
+
+    <div id="parte2" class="tela">
+        <h1 id="texto-instrucao">Toque na Laila para ver as opções!</h1>
+        
+        <div class="laila" onclick="clicarNaLaila()">Laila</div>
+
+        <div id="icones" class="icones-container">
+            <div class="icone" onclick="acaoIcone('Televisão')">📺</div>
+            <div class="icone" onclick="acaoIcone('Álbum de Fotos')">🖼️</div>
+            <div class="icone" onclick="acaoIcone('Gráficos')">📊</div>
         </div>
-    </div>
-
-    <audio id="audio-boing" src="cartoon-boig.mp3" preload="auto"></audio>
-    <audio id="audio-bongos" src="bongo-feet.mp3" preload="auto"></audio>
-    <audio id="audio-magia" src="magia.mp3" preload="auto"></audio>
-
-    <div id="texto-container">
-        <span id="texto-parte1"></span><br>
-        <span id="palavra-alvo" class="palavra-grande">grande</span><br>
-        <span id="texto-parte2"></span>
-    </div>
-
-    <div id="jacare-container">
-        <div id="laila-corpo">
-            <img id="laila-img" src="laila.png" style="width: 180px;" alt="Jacaré Laila" onclick="clicouNaLaila()">
-        </div>
-        <div id="balao-jacare" class="balao-fala"></div>
-    </div>
-
-    <div id="cena-caixa">
-        <div class="caixa-madeira" onclick="abrirCaixa()">
-            <div class="laco-presente">
-                <div class="no-laco"></div>
-                <div class="ponta-laco-esq"></div>
-                <div class="ponta-laco-dir"></div>
-            </div>
-        </div>
-    </div>
-
-    <div id="cena-caixa-aberta">
-        <div class="caixa-aberta">
-            <div class="mini-carta" onclick="revelarEnvelopePrincipal()"></div>
-        </div>
-    </div>
-
-    <div id="cena-envelope">
-        <div class="envelope-wrapper">
-            <div class="flap-top" id="envelope-tampa"></div>
-            <div class="flap-left"></div>
-            <div class="flap-right"></div>
-            <div class="flap-bottom"></div>
-            
-            <div class="envelope-conteudo" id="envelope-interativo">
-                
-                <div class="selo-container" onclick="animarEAbrirCarta()">
-                    <img id="foca-selo-img" src="foca-selo.png" alt="Selo Foca">
-                </div>
-                
-                <div class="destinatario">Para: <span>Escreva o Nome Aqui</span></div>
-                
-            </div>
-        </div>
-    </div>
-
-    <div id="cena-carta-aberta">
-        <div class="folha-carta">
-            <h3>Meu amor, ❤️</h3>
-            <p>Feliz 6 meses de namoro! Escreva aqui toda a sua linda mensagem personalizada para o seu amor.</p>
-            <p>Esse espaço foi feito especialmente para caber um texto bem detalhado e romântico. Você pode adicionar quantos parágrafos quiser!</p>
-            <div class="assinatura">Com todo o meu amor, do seu namorado.</div>
-            
-            <button id="btn-voltar-laila" onclick="voltarParaLaila()">Voltar para Laila</button>
-        </div>
-    </div>
-
-    <div id="cena-itens-magicos">
-        <div class="item-magico album" onclick="abrirAlbum()">Álbum de Fotos 📸</div>
-        <div class="item-magico tv" onclick="abrirTV()">Televisão 📺</div>
-        <div class="item-magico planilha" onclick="abrirPlanilha()">Planilha 📊</div>
     </div>
 
     <script>
-        let contadorCliques = 0;
-        let etapaFalaLaila = 1;
-        let magiaRevelada = false; // Controle para saber se já tocamos a magia
-        
-        let historicoFrasesBotao = [
-            "Descobrir de verdade!",
-            "Descobrir mesmo!",
-            "Aqui tem coisas que não podem ser desvistas...",
-            "Já deu né, só clicar de novo que agora vai",
-            "Brincadeira, só clica num emoji risonho no fundo e vai em frente e antes disso, aumenta o som!"
-        ];
-
-        const svgPepperoni = `
-        <svg viewBox="0 0 100 100" width="45" height="45" style="display:inline-block; vertical-align:middle;">
-          <defs>
-            <pattern id="pep-pat" patternUnits="userSpaceOnUse" width="25" height="25">
-               <rect width="25" height="25" fill="#c13b2b"/>
-               <circle cx="6" cy="6" r="3.5" fill="#8a251c"/>
-               <circle cx="18" cy="15" r="2.5" fill="#8a251c"/>
-            </pattern>
-          </defs>
-          <path d="M50,90 C50,90 10,60 10,30 A20,20 0 0,1 50,30 A20,20 0 0,1 90,30 C90,60 50,90 50,90 Z" fill="url(#pep-pat)"/>
-        </svg>`;
-
-        function preCarregarAudios() {
-            ['audio-boing', 'audio-bongos', 'audio-magia'].forEach(id => {
-                const a = document.getElementById(id);
-                a.volume = 0; 
-                a.play().then(() => { 
-                    a.pause(); 
-                    a.currentTime = 0; 
-                    a.volume = 1; 
-                }).catch(e => {});
-            });
+        // Função para sair da Parte 1 e ir para a Parte 2
+        function irParaParte2() {
+            document.getElementById('parte1').style.display = 'none';
+            // Usa 'flex' no lugar de 'block' para manter a centralização
+            document.getElementById('parte2').style.display = 'flex'; 
         }
 
-        function lidarComCliqueBotao() {
-            if (contadorCliques === 0) preCarregarAudios();
-            contadorCliques++;
-            const btn = document.getElementById('btn-comecar');
-            if (contadorCliques <= historicoFrasesBotao.length) {
-                btn.innerHTML = historicoFrasesBotao[contadorCliques - 1];
-            } else {
-                btn.innerHTML = "To falando sério amor clica lá kkkkkkkk, n tem mais nada aqui";
-                btn.style.backgroundColor = "#7f8c8d";
-            }
-        }
+        // Função ativada ao clicar na Laila na Parte 2
+        function clicarNaLaila() {
+            // 1. Toca o som
+            let som = document.getElementById('som-clique');
+            // 'currentTime = 0' garante que o som reinicie se clicado rápido
+            som.currentTime = 0; 
+            som.play();
 
-        const containerFundo = document.getElementById('background-coracoes');
-        const emojisIniciais = ['⭐', '💫', '🦭', '✨', '🍫', '💐', '❤️', '😊', '🥳', '😎', '💖'];
-
-        function gerarFundoInicial() {
-            containerFundo.innerHTML = '';
-            for (let i = 0; i < 70; i++) {
-                let wrapper = document.createElement('div');
-                wrapper.className = 'element-wrapper';
-                wrapper.style.left = Math.random() * 100 + 'vw';
-                wrapper.style.transform = `scale(${0.5 + Math.random() * 1.2})`;
-                wrapper.style.animationDuration = (5 + Math.random() * 7) + 's';
-                wrapper.style.animationDelay = (Math.random() * 5) + 's';
-                
-                wrapper.innerText = emojisIniciais[Math.floor(Math.random() * emojisIniciais.length)];
-                wrapper.style.fontSize = "38px";
-
-                wrapper.onclick = function() {
-                    preCarregarAudios();
-                    comecarTudo();
-                };
-                containerFundo.appendChild(wrapper);
-            }
-        }
-
-        function mudarFundoParaPepperoni() {
-            containerFundo.innerHTML = '';
-            containerFundo.style.pointerEvents = 'none'; 
-            for (let i = 0; i < 55; i++) {
-                let wrapper = document.createElement('div');
-                wrapper.className = 'element-wrapper';
-                wrapper.style.left = Math.random() * 100 + 'vw';
-                wrapper.style.transform = `scale(${0.4 + Math.random() * 1.1})`;
-                wrapper.style.animationDuration = (6 + Math.random() * 8) + 's';
-                wrapper.style.animationDelay = (Math.random() * 6) + 's';
-                
-                wrapper.innerHTML = svgPepperoni;
-                containerFundo.appendChild(wrapper);
-            }
-        }
-
-        const parte1 = "Feliz dia dos namorados e 6 meses de namoro meu ";
-        const parte2 = "amor!";
-        let lailaProntaParaClicar = false;
-        
-        function typeWriter(texto, elementoId, velocidade = 70, callback) {
-            let index = 0;
-            const elemento = document.getElementById(elementoId);
-            function digitar() {
-                if (index < texto.length) {
-                    elemento.innerHTML += texto.charAt(index);
-                    index++;
-                    setTimeout(digitar, velocidade);
-                } else if (callback) {
-                    callback();
-                }
-            }
-            digitar();
-        }
-
-        function comecarTudo() {
-            document.getElementById('tela-inicio').style.display = 'none';
-            mudarFundoParaPepperoni(); 
+            // 2. Faz os ícones surgirem
+            document.getElementById('icones').style.display = 'flex';
             
-            typeWriter(parte1, 'texto-parte1', 70, () => {
-                const palavraGrande = document.getElementById('palavra-alvo');
-                palavraGrande.classList.add('caindo-do-ceu');
-                
-                setTimeout(() => {
-                    const audioBoing = document.getElementById('audio-boing');
-                    audioBoing.currentTime = 0;
-                    audioBoing.play().catch(e => {});
-                }, 180);
-                
-                setTimeout(() => {
-                    document.body.classList.add('tremendo');
-                    setTimeout(() => {
-                        document.body.classList.remove('tremendo');
-                        typeWriter(parte2, 'texto-parte2', 70, () => {
-                            setTimeout(iniciarCenaJacare, 3000);
-                        });
-                    }, 400); 
-                }, 500); 
-            });
+            // (Opcional) Muda o texto de instrução
+            document.getElementById('texto-instrucao').innerText = "Escolha um dos ícones abaixo:";
         }
 
-        function iniciarCenaJacare() {
-            const jacare = document.getElementById('jacare-container');
-            const audioBongos = document.getElementById('audio-bongos');
-            const balao = document.getElementById('balao-jacare');
-
-            audioBongos.currentTime = 0;
-            audioBongos.play().catch(e => {});
-
-            jacare.style.display = 'flex';
-            jacare.classList.add('correndo');
-
-            setTimeout(() => {
-                balao.innerHTML = "Oiee mamãe??!! Quanto tempo que não te vejo que saudades, faz tanto tempo que você nem deve saber que agora eu tenho superpoderes tecnológicos heheheh";
-                balao.style.display = 'block';
-                lailaProntaParaClicar = true;
-                document.getElementById('laila-img').style.cursor = 'pointer';
-            }, 1500);
+        // Função para quando o usuário clicar em um ícone
+        function acaoIcone(nomeDoIcone) {
+            alert("Você abriu: " + nomeDoIcone + "!");
+            // Aqui você pode colocar o código para abrir as outras páginas ou imagens.
         }
-
-        function clicouNaLaila() {
-            if (lailaProntaParaClicar) {
-                const balao = document.getElementById('balao-jacare');
-                
-                if (etapaFalaLaila === 1) {
-                    etapaFalaLaila = 2;
-                    balao.innerHTML = "Me dá a mão e vem comigoo";
-                } else if (etapaFalaLaila === 2) {
-                    mudarParaCenaCaixa();
-                } else if (etapaFalaLaila === 3) {
-                    etapaFalaLaila = 4;
-                    balao.innerHTML = "Uiaa uma carta quero ler também";
-                }
-            }
-        }
-
-        function mudarParaCenaCaixa() {
-            lailaProntaParaClicar = false;
-            document.getElementById('laila-img').style.cursor = 'default';
-
-            document.getElementById('texto-container').style.opacity = '0';
-            setTimeout(() => { document.getElementById('texto-container').style.display = 'none'; }, 500);
-            
-            const jacare = document.getElementById('jacare-container');
-            const balao = document.getElementById('balao-jacare');
-            
-            jacare.style.left = '2vw';
-            balao.style.display = 'none';
-            
-            setTimeout(() => {
-                balao.innerHTML = "[Acho que isso daqui é pra você mamãe, chegou aqui faz pouco tempo e tá com um cheirinho do papai certeza que foi ele que fez! Abre abre abre]";
-                balao.style.display = 'block';
-                
-                document.getElementById('cena-caixa').style.display = 'flex';
-            }, 1000);
-        }
-
-        function abrirCaixa() {
-            document.getElementById('cena-caixa').style.display = 'none';
-            document.getElementById('cena-caixa-aberta').style.display = 'flex';
-            
-            const balao = document.getElementById('balao-jacare');
-            balao.innerHTML = "O que éé??? tava tão curiosa quase que abri o presente várias vezes D:";
-            
-            etapaFalaLaila = 3;
-            lailaProntaParaClicar = true;
-            document.getElementById('laila-img').style.cursor = 'pointer';
-        }
-
-        function revelarEnvelopePrincipal() {
-            document.getElementById('cena-caixa-aberta').style.display = 'none';
-            document.getElementById('cena-envelope').style.display = 'flex';
-            
-            // Laila, balão e os itens mágicos somem momentaneamente para focar na leitura
-            document.getElementById('jacare-container').style.display = 'none';
-            document.getElementById('cena-itens-magicos').style.display = 'none';
-        }
-
-        function animarEAbrirCarta() {
-            document.getElementById('envelope-tampa').classList.add('aberto');
-            document.getElementById('envelope-interativo').style.opacity = '0';
-            document.getElementById('envelope-interativo').style.transition = 'opacity 0.3s';
-
-            setTimeout(() => {
-                document.getElementById('cena-envelope').style.display = 'none';
-                document.getElementById('cena-carta-aberta').style.display = 'flex';
-            }, 600);
-        }
-
-        function voltarParaLaila() {
-            document.getElementById('cena-carta-aberta').style.display = 'none';
-            document.getElementById('envelope-tampa').classList.remove('aberto');
-            document.getElementById('envelope-interativo').style.opacity = '1';
-
-            // Volta a caixa aberta pra tela
-            document.getElementById('cena-caixa-aberta').style.display = 'flex';
-            
-            // Traz a Laila de volta
-            const jacare = document.getElementById('jacare-container');
-            const balao = document.getElementById('balao-jacare');
-            jacare.style.display = 'flex';
-            balao.style.display = 'block';
-            
-            // Lógica da Mágica e Fala da Laila
-            if (!magiaRevelada) {
-                balao.innerHTML = "Eaii gostou da cartinha? Eu amei e tem muito mais coisa mamãe, sabia que nesse lugar estranho eu sou super poderosa? olha só o que eu consigo fazer.";
-                
-                // Espera um tempinho pra dar tempo de ler, toca a música e revela tudo!
-                setTimeout(() => {
-                    const audioMagia = document.getElementById('audio-magia');
-                    audioMagia.currentTime = 0;
-                    audioMagia.play().catch(e => {});
-
-                    document.getElementById('cena-itens-magicos').style.display = 'flex';
-                    balao.innerHTML = "Viu só?! Tem mais tudo isso pra você ver";
-                    magiaRevelada = true; // Marca que a magia já aconteceu
-                }, 4000);
-
-            } else {
-                // Se a pessoa abriu a carta pela segunda vez e voltou, já mostra direto os itens sem suspense
-                balao.innerHTML = "Viu só?! Tem mais tudo isso pra você ver";
-                document.getElementById('cena-itens-magicos').style.display = 'flex';
-            }
-            
-            etapaFalaLaila = 5;
-            lailaProntaParaClicar = true;
-            document.getElementById('laila-img').style.cursor = 'pointer';
-        }
-
-        // Funções provisórias para os botões mágicos (Pode adicionar sua lógica futura aqui)
-        function abrirAlbum() { alert("Você clicou no Álbum de Fotos!"); }
-        function abrirTV() { alert("Você clicou na Televisão!"); }
-        function abrirPlanilha() { alert("Você clicou na Planilha!"); }
-
-        gerarFundoInicial();
     </script>
+
 </body>
 </html>
