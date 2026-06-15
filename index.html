@@ -67,15 +67,14 @@
         }
         #btn-comecar:hover { transform: scale(1.05); }
 
-        /* Textos Principais Otimizados para Textos Longos */
+        /* Textos Principais */
         #texto-container {
-            font-size: 34px; color: #7a1010; text-align: center;
-            z-index: 10; position: absolute; top: 8%; width: 85%;
-            max-height: 42vh; overflow-y: auto;
+            font-size: 38px; color: #7a1010; text-align: center;
+            z-index: 10; position: absolute; top: 15%; width: 80%;
             line-height: 1.4; font-weight: 600; transition: opacity 0.5s;
         }
         .palavra-grande {
-            font-size: 110px; color: #d32f2f; font-weight: 700; display: inline-block;
+            font-size: 130px; color: #d32f2f; font-weight: 700; display: inline-block;
             opacity: 0; text-transform: uppercase; margin: 10px 15px;
             text-shadow: 4px 4px 0px #fff, 8px 8px 20px rgba(0,0,0,0.3);
             transform: translateY(-100vh);
@@ -86,34 +85,35 @@
             100% { opacity: 1; transform: translateY(0); }
         }
         
-        /* Container do Jacaré Laila - Horizontal (Balão à Direita) */
+        /* Container do Jacaré Laila Organizado Verticalmente */
         #jacare-container {
             position: absolute; left: -500px; 
-            top: calc(50% - 90px); /* Alinhamento central na mesma altura do presente */
+            top: calc(50% - 130px); /* Alinhamento centralizado vertical estável */
             display: none; 
-            flex-direction: row; 
+            flex-direction: column-reverse; /* Balão fica sempre no topo nativamente */
             align-items: center; z-index: 20;
-            gap: 20px; transition: all 1s ease-in-out;
+            gap: 15px; transition: all 1s ease-in-out;
         }
         #laila-img { cursor: pointer; transition: transform 0.3s; z-index: 25; }
         #laila-img:hover { transform: scale(1.05); }
         #laila-corpo { display: flex; flex-direction: column; align-items: center; }
 
-        /* Balão de Fala à Direita com Seta para a Esquerda */
+        /* Balão de Fala Universal e Seguro */
         .balao-fala {
             display: none; background: white; padding: 15px 20px; border-radius: 20px;
-            border: 3px solid #7a1010; max-width: 240px;
+            border: 3px solid #7a1010; max-width: 220px;
             text-align: center; font-weight: 600; color: #333; font-size: 18px;
             box-shadow: 4px 4px 15px rgba(0,0,0,0.15); position: relative;
         }
+        /* Seta apontando para baixo diretamente para a Laila */
         .balao-fala::after {
             content: ''; position: absolute; 
-            left: -11px; top: 50%; transform: translateY(-50%) rotate(45deg);
+            bottom: -11px; left: 50%; transform: translateX(-50%) rotate(45deg);
             width: 18px; height: 18px; background: white;
-            border-left: 3px solid #7a1010; border-bottom: 3px solid #7a1010;
+            border-right: 3px solid #7a1010; border-bottom: 3px solid #7a1010;
         }
 
-        /* Cena Final: Flutuação Premium do Presente Inteiro */
+        /* Cena Final: Flutuação Unificada do Bloco do Presente */
         #cena-caixa {
             position: absolute;
             left: 50%; top: 50%; 
@@ -126,48 +126,48 @@
             50% { transform: translate(-50%, -56%); }
         }
 
-        /* Caixa de Presente Verde Esmeralda Elegante */
+        /* Caixa de Presente VERDE */
         .caixa-madeira {
             width: 220px; height: 220px; 
-            background: linear-gradient(135deg, #114b29, #1b7943); /* Verde Nobre Profundo */
-            border: 5px solid #0a2916; position: relative; cursor: pointer;
-            box-shadow: 0 20px 35px rgba(0,0,0,0.3), inset 0 0 25px rgba(0,0,0,0.3);
-            border-radius: 12px;
+            background: linear-gradient(135deg, #2ecc71, #27ae60); /* Verde Vibrante */
+            border: 6px solid #1e8449; position: relative; cursor: pointer;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.3), inset 0 0 20px rgba(0,0,0,0.2);
+            border-radius: 15px;
             animation: brilharCaixa 2s infinite alternate;
         }
         .caixa-madeira:hover { transform: scale(1.04) rotate(1deg); }
         
-        /* Fita do Presente (Vermelho Ruby Vivo) */
+        /* Fitas do Presente (Vermelho Aveludado) */
         .caixa-madeira::before { 
-            content: ""; position: absolute; left: 42%; top: 0; width: 16%; height: 100%; background: #d90429; 
-            box-shadow: 2px 0 5px rgba(0,0,0,0.15);
+            content: ""; position: absolute; left: 42%; top: 0; width: 16%; height: 100%; background: #990000; 
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
         }
         .caixa-madeira::after { 
-            content: ""; position: absolute; top: 42%; left: 0; height: 16%; width: 100%; background: #d90429; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+            content: ""; position: absolute; top: 42%; left: 0; height: 16%; width: 100%; background: #990000; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
-        /* Laço Perfeito (Mesma cor exata da fita) */
+        /* Laço de Fita (Interno para acompanhar todo o movimento) */
         .laco-presente {
-            position: absolute; top: -32px; left: 50%; transform: translateX(-50%);
-            width: 75px; height: 35px; background: #d90429; border-radius: 50% 50% 0 0;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2); z-index: 35;
+            position: absolute; top: -35px; left: 50%; transform: translateX(-50%);
+            width: 70px; height: 40px; background: #990000; border-radius: 50% 50% 0 0;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.2); z-index: 35;
         }
         .laco-presente::before {
-            content: ""; position: absolute; left: -22px; top: 2px; width: 38px; height: 32px;
-            background: #d90429; border-radius: 50%; transform: rotate(-25deg);
+            content: ""; position: absolute; left: -25px; top: 5px; width: 40px; height: 30px;
+            background: #990000; border-radius: 50%; transform: rotate(-30deg);
         }
         .laco-presente::after {
-            content: ""; position: absolute; right: -22px; top: 2px; width: 38px; height: 32px;
-            background: #d90429; border-radius: 50%; transform: rotate(25deg);
+            content: ""; position: absolute; right: -25px; top: 5px; width: 40px; height: 30px;
+            background: #990000; border-radius: 50%; transform: rotate(30deg);
         }
 
         @keyframes brilharCaixa {
-            0% { box-shadow: 0 20px 35px rgba(0,0,0,0.3), 0 0 10px rgba(255, 234, 167, 0.1); }
-            100% { box-shadow: 0 20px 35px rgba(0,0,0,0.3), 0 0 30px rgba(255, 234, 167, 0.5); }
+            0% { box-shadow: 0 20px 35px rgba(0,0,0,0.3), 0 0 10px rgba(255, 234, 167, 0.2); }
+            100% { box-shadow: 0 20px 35px rgba(0,0,0,0.3), 0 0 35px rgba(255, 234, 167, 0.6); }
         }
 
-        /* Corrida da Laila */
+        /* Corrida Suave da Laila */
         .correndo { animation: correrLaila 1.5s forwards ease-out; }
         @keyframes correrLaila {
             0% { left: -500px; }
@@ -290,9 +290,8 @@
             }
         }
 
-        // Modifique este texto para o tamanho que você quiser! O container aguenta.
         const parte1 = "Feliz dia dos namorados e 6 meses atrasados meu ";
-        const parte2 = "amor! Aqui você pode continuar escrevendo bastante coisa, adicionar parágrafos extras, contar piadas internas ou fazer declarações gigantescas sem medo de quebrar!";
+        const parte2 = "amor!";
         let lailaProntaParaClicar = false;
         
         function typeWriter(texto, elementoId, velocidade = 90, callback) {
@@ -329,7 +328,7 @@
                     setTimeout(() => {
                         document.body.classList.remove('tremendo');
                         typeWriter(parte2, 'texto-parte2', 90, () => {
-                            // Espera exatamente 5 segundos após acabar a digitação
+                            // NOVO: Espera exatamente 5 segundos (5000ms) após o fim do texto
                             setTimeout(iniciarCenaJacare, 5000);
                         });
                     }, 400); 
@@ -345,6 +344,7 @@
             audioBongos.currentTime = 0;
             audioBongos.play().catch(e => {});
 
+            // Surge correndo de forma limpa
             jacare.style.display = 'flex';
             jacare.classList.add('correndo');
 
@@ -367,22 +367,22 @@
             const jacare = document.getElementById('jacare-container');
             const balao = document.getElementById('balao-jacare');
             
-            // Move a Laila de forma limpa para o canto esquerdo da página
+            // Move a Laila de forma limpa para o extremo esquerdo da página
             jacare.style.left = '2vw';
             balao.style.display = 'none';
             
             setTimeout(() => {
-                // Altera o texto. O balão continua na direita dela, preenchendo o espaço até o presente central de forma limpa
+                // Altera o texto mantendo o balão no topo, 100% livre do presente central
                 balao.innerHTML = "[SUA SEGUNDA FRASE AQUI]";
                 balao.style.display = 'block';
                 
-                // Exibe a linda caixa verde com fita vermelha perfeitamente centralizada
+                // Exibe a elegante caixa verde com fita vermelha perfeitamente centralizada
                 document.getElementById('cena-caixa').style.display = 'flex';
             }, 1000);
         }
 
         function abrirCaixa() {
-            alert("A fita se desfez e o presente abriu!");
+            alert("A fita vermelha se soltou e a grande surpresa se abriu!");
         }
 
         gerarFundoInicial();
