@@ -136,7 +136,7 @@
         }
         .caixa-madeira:hover { transform: scale(1.04) rotate(1deg); }
         
-        /* Fitas do Presente Alteradas para Vermelho Vibrante #ff2c2c */
+        /* Fitas do Presente em Vermelho Vibrante #ff2c2c */
         .caixa-madeira::before { 
             content: ""; position: absolute; left: 43%; top: 0; width: 14%; height: 100%; background: #ff2c2c; 
             box-shadow: 2px 0 5px rgba(0,0,0,0.15);
@@ -146,7 +146,7 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.15);
         }
 
-        /* DESIGN DO LAÇO ALTERADO PARA #ff2c2c */
+        /* DESIGN DO LAÇO #ff2c2c */
         .laco-presente {
             position: absolute; top: -28px; left: 50%; transform: translateX(-50%);
             width: 40px; height: 30px; z-index: 35;
@@ -257,7 +257,7 @@
             z-index: 3; border-radius: 0 0 12px 12px;
         }
 
-        /* Elementos Interativos Alinhados Abaixo (Mais para baixo) */
+        /* Elementos Interativos Alinhados Abaixo */
         .envelope-conteudo {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             z-index: 5; display: flex; flex-direction: column;
@@ -265,11 +265,11 @@
             padding-bottom: 25px; box-sizing: border-box;
         }
         
-        /* Adesivo e destinatário empurrados mais para baixo */
+        /* Ajuste fino: Subiu o adesivo de leve em relação ao destinatário */
         .selo-container {
             cursor: pointer; text-align: center;
             transition: transform 0.2s;
-            margin-bottom: 10px; 
+            margin-bottom: 25px; 
         }
         .selo-container:hover { transform: scale(1.08); }
         
@@ -342,7 +342,6 @@
     <!-- CENA DA CAIXA ABERTA (SEM TAMPA) -->
     <div id="cena-caixa-aberta">
         <div class="caixa-aberta">
-            <!-- Ao clicar na mini carta, aciona a revelação do envelope -->
             <div class="mini-carta" onclick="revelarEnvelopePrincipal()"></div>
         </div>
     </div>
@@ -359,12 +358,12 @@
             <!-- Conteúdo Interativo Organizado Embaixo -->
             <div class="envelope-conteudo" id="envelope-interativo">
                 
-                <!-- O Selo de Foca posicionado perfeitamente na parte inferior -->
+                <!-- O Selo de Foca reposicionado perfeitamente um pouco mais para cima -->
                 <div class="selo-container" onclick="animarEAbrirCarta()">
                     <img id="foca-selo-img" src="foca-selo.png" alt="Selo Foca">
                 </div>
                 
-                <!-- O destinatário limpo posicionado abaixo do adesivo -->
+                <!-- O destinatário estático e bem posicionado -->
                 <div class="destinatario">Para: <span>Escreva o Nome Aqui</span></div>
                 
             </div>
@@ -472,7 +471,8 @@
         const parte2 = "amor!";
         let lailaProntaParaClicar = false;
         
-        function typeWriter(texto, elementoId, velocidade = 90, callback) {
+        // Ajustado para 70ms para rodar um pouco bem pouco mais rápido
+        function typeWriter(texto, elementoId, velocidade = 70, callback) {
             let index = 0;
             const elemento = document.getElementById(elementoId);
             function digitar() {
@@ -491,7 +491,7 @@
             document.getElementById('tela-inicio').style.display = 'none';
             mudarFundoParaPepperoni(); 
             
-            typeWriter(parte1, 'texto-parte1', 90, () => {
+            typeWriter(parte1, 'texto-parte1', 70, () => {
                 const palavraGrande = document.getElementById('palavra-alvo');
                 palavraGrande.classList.add('caindo-do-ceu');
                 
@@ -505,7 +505,7 @@
                     document.body.classList.add('tremendo');
                     setTimeout(() => {
                         document.body.classList.remove('tremendo');
-                        typeWriter(parte2, 'texto-parte2', 90, () => {
+                        typeWriter(parte2, 'texto-parte2', 70, () => {
                             setTimeout(iniciarCenaJacare, 3000);
                         });
                     }, 400); 
@@ -566,20 +566,20 @@
             }, 1000);
         }
 
-        /* ETAPA: ABRE A CAIXA - REVELA A CAIXA SEM TAMPA COM A MINI CARTA INSIDE */
+        /* ETAPA: ABRE A CAIXA - MOSTRA A NOVA FALA DA LAILA NO MOMENTO DA RETIRADA DA TAMPA */
         function abrirCaixa() {
             document.getElementById('cena-caixa').style.display = 'none';
             document.getElementById('cena-caixa-aberta').style.display = 'flex';
+            
+            // Laila fala no exato momento que a tampa sai, antes de ir pro envelope
+            const balao = document.getElementById('balao-jacare');
+            balao.innerHTML = "O que éé??? tava tão curiosa quase que abri o presente várias vezes D:";
         }
 
-        /* ETAPA: CLICOU NA CARTA INTERNA - ENVELOPE APARECE E LAILA SURGE COM NOVA FALA */
+        /* ETAPA: CLICOU NA CARTA INTERNA - ENVELOPE SURGE NA TELA */
         function revelarEnvelopePrincipal() {
             document.getElementById('cena-caixa-aberta').style.display = 'none';
             document.getElementById('cena-envelope').style.display = 'flex';
-            
-            // Atualiza dinamicamente a fala da Laila expressando sua curiosidade
-            const balao = document.getElementById('balao-jacare');
-            balao.innerHTML = "O que éé??? tava tão curiosa quase que abri o presente várias vezes D:";
         }
 
         function animarEAbrirCarta() {
