@@ -85,60 +85,59 @@
             100% { opacity: 1; transform: translateY(0); }
         }
         
-        /* Container do Jacaré Laila */
+        /* Container do Jacaré Laila Organizado Verticalmente */
         #jacare-container {
             position: absolute; left: -500px; 
-            top: calc(50% - 90px); /* Alinhado no meio junto com o presente */
-            display: none; flex-direction: row; align-items: center; z-index: 20;
-            gap: 25px; transition: all 1s ease-in-out;
+            top: calc(50% - 130px); /* Alinhamento centralizado vertical estável */
+            display: none; 
+            flex-direction: column-reverse; /* Balão fica sempre no topo nativamente */
+            align-items: center; z-index: 20;
+            gap: 15px; transition: all 1s ease-in-out;
         }
-        #laila-img { cursor: pointer; transition: transform 0.3s; }
+        #laila-img { cursor: pointer; transition: transform 0.3s; z-index: 25; }
         #laila-img:hover { transform: scale(1.05); }
-        #laila-corpo { position: relative; display: flex; flex-direction: column; align-items: center; }
+        #laila-corpo { display: flex; flex-direction: column; align-items: center; }
 
-        /* Balão de fala dinâmico */
+        /* Balão de Fala Universal e Seguro */
         .balao-fala {
-            display: none; background: white; padding: 20px; border-radius: 20px;
-            border: 3px solid #7a1010; max-width: 240px;
+            display: none; background: white; padding: 15px 20px; border-radius: 20px;
+            border: 3px solid #7a1010; max-width: 220px;
             text-align: center; font-weight: 600; color: #333; font-size: 18px;
-            box-shadow: 4px 4px 15px rgba(0,0,0,0.15);
+            box-shadow: 4px 4px 15px rgba(0,0,0,0.15); position: relative;
         }
-        /* Seta Lateral (Cena 1) */
-        .seta-lateral::after {
-            content: ''; position: absolute; 
-            left: -11px; top: 50%; transform: translateY(-50%) rotate(45deg);
-            width: 18px; height: 18px; background: white;
-            border-left: 3px solid #7a1010; border-bottom: 3px solid #7a1010;
-        }
-        /* Seta para Baixo (Cena Final - Evita sobreposição) */
-        .seta-baixo::after {
+        /* Seta apontando para baixo diretamente para a Laila */
+        .balao-fala::after {
             content: ''; position: absolute; 
             bottom: -11px; left: 50%; transform: translateX(-50%) rotate(45deg);
             width: 18px; height: 18px; background: white;
             border-right: 3px solid #7a1010; border-bottom: 3px solid #7a1010;
         }
 
-        /* Cena Final: Caixa de Presente e Laço flutuam JUNTOS */
+        /* Cena Final: Flutuação Unificada do Bloco do Presente */
         #cena-caixa {
             position: absolute;
             left: 50%; top: 50%; 
             transform: translate(-50%, -50%);
             display: none; flex-direction: column; align-items: center; z-index: 30;
-            animation: flutuarPresente 3s ease-in-out infinite;
+            animation: flutuarContainer 3s ease-in-out infinite;
+        }
+        @keyframes flutuarContainer {
+            0%, 100% { transform: translate(-50%, -50%); }
+            50% { transform: translate(-50%, -56%); }
         }
 
-        /* Caixa de Presente Vermelha Intensa */
+        /* Caixa de Presente VERDE */
         .caixa-madeira {
             width: 220px; height: 220px; 
-            background: linear-gradient(135deg, #ff0000, #cc0000); /* Vermelho Vivo Puro */
-            border: 6px solid #800000; position: relative; cursor: pointer;
+            background: linear-gradient(135deg, #2ecc71, #27ae60); /* Verde Vibrante */
+            border: 6px solid #1e8449; position: relative; cursor: pointer;
             box-shadow: 0 20px 35px rgba(0,0,0,0.3), inset 0 0 20px rgba(0,0,0,0.2);
             border-radius: 15px;
             animation: brilharCaixa 2s infinite alternate;
         }
-        .caixa-madeira:hover { transform: scale(1.05) rotate(2deg); }
+        .caixa-madeira:hover { transform: scale(1.04) rotate(1deg); }
         
-        /* Fitas do Presente (Vermelho Escuro Aveludado) */
+        /* Fitas do Presente (Vermelho Aveludado) */
         .caixa-madeira::before { 
             content: ""; position: absolute; left: 42%; top: 0; width: 16%; height: 100%; background: #990000; 
             box-shadow: 2px 0 5px rgba(0,0,0,0.1);
@@ -148,7 +147,7 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
-        /* Laço Superior (Mesma cor exata da fita) */
+        /* Laço de Fita (Interno para acompanhar todo o movimento) */
         .laco-presente {
             position: absolute; top: -35px; left: 50%; transform: translateX(-50%);
             width: 70px; height: 40px; background: #990000; border-radius: 50% 50% 0 0;
@@ -163,17 +162,12 @@
             background: #990000; border-radius: 50%; transform: rotate(30deg);
         }
 
-        /* Flutuação Unificada */
-        @keyframes flutuarPresente {
-            0%, 100% { transform: translate(-50%, -50%); }
-            50% { transform: translate(-50%, -57%); }
-        }
         @keyframes brilharCaixa {
             0% { box-shadow: 0 20px 35px rgba(0,0,0,0.3), 0 0 10px rgba(255, 234, 167, 0.2); }
-            100% { box-shadow: 0 20px 35px rgba(0,0,0,0.3), 0 0 35px rgba(255, 234, 167, 0.7); }
+            100% { box-shadow: 0 20px 35px rgba(0,0,0,0.3), 0 0 35px rgba(255, 234, 167, 0.6); }
         }
 
-        /* Animação de Corrida Limpa da Laila */
+        /* Corrida Suave da Laila */
         .correndo { animation: correrLaila 1.5s forwards ease-out; }
         @keyframes correrLaila {
             0% { left: -500px; }
@@ -204,15 +198,15 @@
 
     <div id="jacare-container">
         <div id="laila-corpo">
-            <img id="laila-img" src="laila.png" style="width: 180px; z-index: 25;" alt="Jacaré Laila" onclick="clicouNaLaila()">
-            <div style="background: pink; color: #7a1010; padding: 4px 15px; border-radius: 15px; font-size: 16px; margin-top: -10px; font-weight: 700; z-index: 26; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">Laila</div>
+            <img id="laila-img" src="laila.png" style="width: 180px;" alt="Jacaré Laila" onclick="clicouNaLaila()">
         </div>
-        <div id="balao-jacare" class="balao-fala seta-lateral">[SUA PRIMEIRA FRASE AQUI]<br><small style="font-size:12px; color: #c13b2b; font-weight:bold; display:block; margin-top:5px;">(Clique em mim para avançar!)</small></div>
+        <div id="balao-jacare" class="balao-fala">[SUA PRIMEIRA FRASE AQUI]<br><small style="font-size:12px; color: #c13b2b; font-weight:bold; display:block; margin-top:5px;">(Clique em mim para avançar!)</small></div>
     </div>
 
     <div id="cena-caixa">
-        <div class="laco-presente"></div>
-        <div class="caixa-madeira" onclick="abrirCaixa()"></div>
+        <div class="caixa-madeira" onclick="abrirCaixa()">
+            <div class="laco-presente"></div>
+        </div>
     </div>
 
     <script>
@@ -225,7 +219,6 @@
             "É só clicar em qualquer emoji feliz do fundo para ver a mágica!"
         ];
 
-        // Estrutura do coração de pepperoni
         const svgPepperoni = `
         <svg viewBox="0 0 100 100" width="45" height="45" style="display:inline-block; vertical-align:middle;">
           <defs>
@@ -257,7 +250,6 @@
             }
         }
 
-        // Inicializa o fundo com a mistura rica de emojis pedidos
         const containerFundo = document.getElementById('background-coracoes');
         const emojisIniciais = ['⭐', '💫', '🦭', '✨', '🍫', '💐', '❤️', '😊', '🥳', '😎', '💖'];
 
@@ -282,10 +274,9 @@
             }
         }
 
-        // Muda o fundo para conter APENAS os corações de pepperoni após sair da tela inicial
         function mudarFundoParaPepperoni() {
             containerFundo.innerHTML = '';
-            containerFundo.style.pointerEvents = 'none'; // Desativa cliques no fundo durante o jogo
+            containerFundo.style.pointerEvents = 'none'; 
             for (let i = 0; i < 55; i++) {
                 let wrapper = document.createElement('div');
                 wrapper.className = 'element-wrapper';
@@ -299,12 +290,10 @@
             }
         }
 
-        // Lógica dos textos e cenas
         const parte1 = "Feliz dia dos namorados e 6 meses atrasados meu ";
         const parte2 = "amor!";
         let lailaProntaParaClicar = false;
         
-        // Velocidade aumentada para 90ms (letras aparecem bem mais devagar)
         function typeWriter(texto, elementoId, velocidade = 90, callback) {
             let index = 0;
             const elemento = document.getElementById(elementoId);
@@ -322,13 +311,12 @@
 
         function comecarTudo() {
             document.getElementById('tela-inicio').style.display = 'none';
-            mudarFundoParaPepperoni(); // Troca instantaneamente para apenas pepperoni
+            mudarFundoParaPepperoni(); 
             
             typeWriter(parte1, 'texto-parte1', 90, () => {
                 const palavraGrande = document.getElementById('palavra-alvo');
                 palavraGrande.classList.add('caindo-do-ceu');
                 
-                // Atraso de 180ms para o áudio tocar perfeitamente junto ao impacto visual
                 setTimeout(() => {
                     const audioBoing = document.getElementById('audio-boing');
                     audioBoing.currentTime = 0;
@@ -340,7 +328,8 @@
                     setTimeout(() => {
                         document.body.classList.remove('tremendo');
                         typeWriter(parte2, 'texto-parte2', 90, () => {
-                            setTimeout(iniciarCenaJacare, 1000);
+                            // NOVO: Espera exatamente 5 segundos (5000ms) após o fim do texto
+                            setTimeout(iniciarCenaJacare, 5000);
                         });
                     }, 400); 
                 }, 500); 
@@ -355,16 +344,14 @@
             audioBongos.currentTime = 0;
             audioBongos.play().catch(e => {});
 
-            // Laila espera o bongo (2 segundos) antes de começar a correr de forma limpa
-            setTimeout(() => {
-                jacare.style.display = 'flex';
-                jacare.classList.add('correndo');
+            // Surge correndo de forma limpa
+            jacare.style.display = 'flex';
+            jacare.classList.add('correndo');
 
-                setTimeout(() => {
-                    balao.style.display = 'block';
-                    lailaProntaParaClicar = true; 
-                }, 1500);
-            }, 2000);
+            setTimeout(() => {
+                balao.style.display = 'block';
+                lailaProntaParaClicar = true; 
+            }, 1500);
         }
 
         function clicouNaLaila() {
@@ -380,33 +367,24 @@
             const jacare = document.getElementById('jacare-container');
             const balao = document.getElementById('balao-jacare');
             
-            // Laila recua totalmente para a esquerda e se fixa na altura central do presente
+            // Move a Laila de forma limpa para o extremo esquerdo da página
             jacare.style.left = '2vw';
-            
             balao.style.display = 'none';
             
             setTimeout(() => {
-                // Altera o balão para ficar no estilo superior (acima da cabeça da Laila)
-                balao.classList.remove('seta-lateral');
-                balao.classList.add('seta-baixo');
-                balao.style.position = 'absolute';
-                balao.style.bottom = '210px'; 
-                balao.style.left = '50%';
-                balao.style.transform = 'translateX(-50%)';
-                
+                // Altera o texto mantendo o balão no topo, 100% livre do presente central
                 balao.innerHTML = "[SUA SEGUNDA FRASE AQUI]";
                 balao.style.display = 'block';
                 
-                // Faz a linda caixa vermelha surgir no centro absoluto
+                // Exibe a elegante caixa verde com fita vermelha perfeitamente centralizada
                 document.getElementById('cena-caixa').style.display = 'flex';
             }, 1000);
         }
 
         function abrirCaixa() {
-            alert("A fita se desfez e a grande surpresa se abriu!");
+            alert("A fita vermelha se soltou e a grande surpresa se abriu!");
         }
 
-        // Executa na abertura do site
         gerarFundoInicial();
     </script>
 </body>
