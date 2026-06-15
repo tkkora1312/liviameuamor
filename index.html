@@ -200,7 +200,7 @@
         <div id="laila-corpo">
             <img id="laila-img" src="laila.png" style="width: 180px;" alt="Jacaré Laila" onclick="clicouNaLaila()">
         </div>
-        <div id="balao-jacare" class="balao-fala">[SUA PRIMEIRA FRASE AQUI]<br><small style="font-size:12px; color: #c13b2b; font-weight:bold; display:block; margin-top:5px;">(Clique em mim para avançar!)</small></div>
+        <div id="balao-jacare" class="balao-fala">[Oiee mamãe??!! Quanto tempo que não te vejo que saudades, faz tanto tempo que você nem deve saber que agora eu tenho superpoderes tecnológicos heheheh]<br><small style="font-size:12px; color: #c13b2b; font-weight:bold; display:block; margin-top:5px;">(Me dá a mão e vem comigoo)</small></div>
     </div>
 
     <div id="cena-caixa">
@@ -215,8 +215,8 @@
             "Descobrir de verdade!",
             "Descobrir mesmo!",
             "Aqui tem coisas que não podem ser desvistas...",
-            "Tudo bem, você venceu! Mas o segredo não está em mim...",
-            "É só clicar em qualquer emoji feliz do fundo para ver a mágica!"
+            "Já deu né, só clicar de novo que agora vai",
+            "Brincadeira, só clica num emoji risonho no fundo e vai em frente"
         ];
 
         const svgPepperoni = `
@@ -245,7 +245,7 @@
             if (contadorCliques <= historicoFrasesBotao.length) {
                 btn.innerHTML = historicoFrasesBotao[contadorCliques - 1];
             } else {
-                btn.innerHTML = "Sério, é só clicar nos emojis voadores do fundo!";
+                btn.innerHTML = "To falando sério amor clica lá kkkkkkkk, n tem mais nada aqui";
                 btn.style.backgroundColor = "#7f8c8d";
             }
         }
@@ -290,7 +290,7 @@
             }
         }
 
-        const parte1 = "Feliz dia dos namorados e 6 meses atrasados meu ";
+        const parte1 = "Feliz dia dos namorados e 6 meses de namoro meu ";
         const parte2 = "amor!";
         let lailaProntaParaClicar = false;
         
@@ -329,7 +329,7 @@
                         document.body.classList.remove('tremendo');
                         typeWriter(parte2, 'texto-parte2', 90, () => {
                             // NOVO: Espera exatamente 5 segundos (5000ms) após o fim do texto
-                            setTimeout(iniciarCenaJacare, 5000);
+                            setTimeout(iniciarCenaJacare, 3000);
                         });
                     }, 400); 
                 }, 500); 
@@ -373,7 +373,7 @@
             
             setTimeout(() => {
                 // Altera o texto mantendo o balão no topo, 100% livre do presente central
-                balao.innerHTML = "[SUA SEGUNDA FRASE AQUI]";
+                balao.innerHTML = "[Acho que isso daqui é pra você mamãe, chegou aqui faz pouco tempo e tá com um cheirinho do papai certeza que foi ele que fez! Abre abre abre]";
                 balao.style.display = 'block';
                 
                 // Exibe a elegante caixa verde com fita vermelha perfeitamente centralizada
