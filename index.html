@@ -35,7 +35,7 @@
         }
         #btn-comecar:hover { transform: scale(1.1); }
 
-        /* Pepperonis SVGs Voados no Fundo */
+        /* Pepperonis no Fundo */
         #background-coracoes {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             z-index: 1; pointer-events: none;
@@ -43,7 +43,7 @@
         .heart-wrapper {
             position: absolute; bottom: -80px;
             animation: floatUp linear infinite;
-            opacity: 0.85; /* Opacidade ajustada */
+            opacity: 0.85;
         }
         @keyframes floatUp {
             0% { transform: translateY(0) rotate(0deg); }
@@ -56,31 +56,29 @@
             10%, 30%, 50%, 70%, 90% { transform: translate(-8px, 8px); }
             20%, 40%, 60%, 80% { transform: translate(8px, -8px); }
         }
-        .tremendo {
-            animation: shake 0.4s ease-in-out;
-        }
+        .tremendo { animation: shake 0.4s ease-in-out; }
 
-        /* Textos Lindos e Formatados */
+        /* Textos */
         #texto-container {
-            font-size: 38px; /* Texto maior */
-            color: #7a1010; /* Vermelho escuro/vinho elegante */
+            font-size: 38px;
+            color: #7a1010;
             text-align: center;
             z-index: 10;
             position: absolute;
-            top: 20%;
+            top: 15%;
             width: 80%;
             line-height: 1.4;
             font-weight: 600;
         }
         .palavra-grande {
-            font-size: 130px; /* Bem GRANDE */
-            color: #d32f2f; /* Vermelho vivo */
+            font-size: 130px;
+            color: #d32f2f;
             font-weight: 700;
             display: inline-block;
             opacity: 0;
             text-transform: uppercase;
-            margin: 0 15px;
-            text-shadow: 4px 4px 0px #fff, 8px 8px 20px rgba(0,0,0,0.3); /* Sombra bonita */
+            margin: 10px 15px;
+            text-shadow: 4px 4px 0px #fff, 8px 8px 20px rgba(0,0,0,0.3);
             transform: translateY(-100vh);
         }
         .caindo-do-ceu {
@@ -91,38 +89,53 @@
             100% { opacity: 1; transform: translateY(0); }
         }
         
-        /* Personagem Jacaré Laila */
+        /* Container do Jacaré Laila - Agora em Linha (Row) */
         #jacare-container {
-            position: absolute; left: -300px; bottom: 20%;
-            display: none; flex-direction: column; align-items: center; z-index: 20;
-            transition: left 1s ease-in-out; /* Suavidade para mover na cena 2 */
+            position: absolute; left: -500px; bottom: 15%;
+            display: none; 
+            flex-direction: row; /* Elementos um ao lado do outro */
+            align-items: center; 
+            z-index: 20;
+            gap: 25px;
+            transition: left 1s ease-in-out;
+        }
+
+        #laila-corpo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         
         /* Estrelinhas girando */
         #estrelas {
             display: none; font-size: 45px;
             animation: girar 1s linear infinite; margin-bottom: -15px;
+            z-index: 27;
         }
         @keyframes girar { 100% { transform: rotate(360deg); } }
 
-        /* Caixa de fala atualizada */
+        /* Caixa de fala na Direita */
         .balao-fala {
             display: none; background: white; padding: 20px; border-radius: 20px;
-            border: 3px solid #7a1010; margin-bottom: 20px; max-width: 300px;
+            border: 3px solid #7a1010; max-width: 300px;
             text-align: center; font-weight: 600; color: #333; font-size: 20px;
             box-shadow: 4px 4px 15px rgba(0,0,0,0.15);
             position: relative;
         }
-        /* Triângulo do balão */
+        /* Setinha do Balão apontando para a ESQUERDA (em direção à Laila) */
         .balao-fala::after {
-            content: ''; position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%);
-            border-width: 15px 15px 0; border-style: solid; border-color: #7a1010 transparent transparent transparent;
+            content: ''; position: absolute; 
+            left: -11px; top: 50%; transform: translateY(-50%) rotate(45deg);
+            width: 18px; height: 18px;
+            background: white;
+            border-left: 3px solid #7a1010;
+            border-bottom: 3px solid #7a1010;
         }
 
         /* Cena 2: Caixa de Madeira */
         #cena-caixa {
             position: absolute;
-            right: 15%; /* Fica na direita */
+            right: 15%; 
             bottom: 20%;
             display: none; 
             flex-direction: column; 
@@ -153,11 +166,11 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
-        /* Animações Laila */
+        /* Movimentação de Corrida */
         .correndo { animation: correr 1.5s forwards; }
         @keyframes correr {
-            0% { left: -300px; }
-            100% { left: 40%; } /* Fica no meio pra bater */
+            0% { left: -500px; }
+            100% { left: 30%; } /* Ajustado para compensar o balão na direita */
         }
         .caindo { transform: rotate(-90deg); transition: transform 0.3s ease-in; }
         .levantando { transform: rotate(0deg); transition: transform 0.5s ease-out; }
@@ -171,7 +184,7 @@
         <button id="btn-comecar" onclick="comecarTudo()">Abrir Presente</button>
     </div>
 
-    <audio id="audio-correndo" src="YTDown_YouTube_Tom-and-Jerry-running-sound-effect_Media_yMRmV4O-F00_008_128k.mp3" preload="auto"></audio>
+    <audio id="audio-correndo" src="passos.mp3" preload="auto"></audio>
 
     <div id="background-coracoes"></div>
 
@@ -182,10 +195,12 @@
     </div>
 
     <div id="jacare-container">
+        <div id="laila-corpo">
+            <div id="estrelas">💫✨💫</div>
+            <img id="laila-img" src="laila.png" style="width: 180px; z-index: 25;" alt="Jacaré Laila">
+            <div style="background: pink; color: #7a1010; padding: 4px 15px; border-radius: 15px; font-size: 16px; margin-top: -10px; font-weight: 700; z-index: 26; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">Laila</div>
+        </div>
         <div id="balao-jacare" class="balao-fala">[SUA PRIMEIRA FRASE AQUI]</div>
-        <div id="estrelas">💫✨💫</div>
-        <img id="laila-img" src="laila.png" style="width: 180px; z-index: 25;" alt="Jacaré Laila">
-        <div style="background: pink; color: #7a1010; padding: 4px 15px; border-radius: 15px; font-size: 16px; margin-top: -10px; font-weight: 700; z-index: 26; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">Laila</div>
     </div>
 
     <div id="cena-caixa">
@@ -193,32 +208,35 @@
     </div>
 
     <script>
-        // Gera os corações de pepperoni perfeitos com SVG
+        // Gerador de Pepperonis (Aumentado para 50 unidades com reforço na esquerda)
         const containerCoracoes = document.getElementById('background-coracoes');
         
-        // Este é um desenho de um coração preenchido com textura de pepperoni!
         const svgPepperoni = `
         <svg viewBox="0 0 100 100" width="50" height="50">
           <defs>
             <pattern id="pepperoni-pattern" patternUnits="userSpaceOnUse" width="25" height="25">
-               <rect width="25" height="25" fill="#c13b2b"/> <circle cx="6" cy="6" r="3.5" fill="#8a251c"/> <circle cx="18" cy="15" r="2.5" fill="#8a251c"/>
+               <rect width="25" height="25" fill="#c13b2b"/>
+               <circle cx="6" cy="6" r="3.5" fill="#8a251c"/>
+               <circle cx="18" cy="15" r="2.5" fill="#8a251c"/>
                <circle cx="8" cy="20" r="2" fill="#8a251c"/>
             </pattern>
           </defs>
           <path d="M50,90 C50,90 10,60 10,30 A20,20 0 0,1 50,30 A20,20 0 0,1 90,30 C90,60 50,90 50,90 Z" fill="url(#pepperoni-pattern)"/>
         </svg>`;
 
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < 50; i++) {
             let wrapper = document.createElement('div');
             wrapper.className = 'heart-wrapper';
-            wrapper.style.left = Math.random() * 100 + 'vw';
             
-            // Tamanhos aleatórios para os corações
-            let escala = 0.5 + Math.random() * 1.5;
+            // Força metade dos corações a popular estritamente o lado esquerdo (0 a 45vw)
+            let posicaoX = (i % 2 === 0) ? (Math.random() * 45) : (Math.random() * 100);
+            wrapper.style.left = posicaoX + 'vw';
+            
+            let escala = 0.4 + Math.random() * 1.3;
             wrapper.style.transform = `scale(${escala})`;
             
-            wrapper.style.animationDuration = (6 + Math.random() * 6) + 's';
-            wrapper.style.animationDelay = (Math.random() * 5) + 's';
+            wrapper.style.animationDuration = (5 + Math.random() * 7) + 's';
+            wrapper.style.animationDelay = (Math.random() * 6) + 's';
             
             wrapper.innerHTML = svgPepperoni;
             containerCoracoes.appendChild(wrapper);
@@ -245,8 +263,6 @@
 
         function comecarTudo() {
             document.getElementById('tela-inicio').style.display = 'none';
-            
-            // Força o carregamento do áudio pra evitar bugs
             const audio = document.getElementById('audio-correndo');
             audio.load();
 
@@ -275,9 +291,8 @@
             const lailaImg = document.getElementById('laila-img');
             const balao = document.getElementById('balao-jacare');
 
-            // Toca o som (com tratamento de erro no console)
             audio.currentTime = 0;
-            audio.play().catch(e => console.error("Erro ao tocar áudio. Verifique se o nome do arquivo é passos.mp3", e));
+            audio.play().catch(e => console.error("Erro no áudio:", e));
 
             jacare.style.display = 'flex';
             jacare.classList.add('correndo');
@@ -294,34 +309,34 @@
                     setTimeout(() => {
                         balao.style.display = 'block';
 
-                        // Troca de cena após 5 segundos lendo a frase
+                        // Passa para a caixa após 5 segundos
                         setTimeout(() => {
                             mudarParaCenaCaixa();
                         }, 5000);
 
                     }, 500);
-                }, 3000); // Laila fica 3s atordoada
-            }, 1500); // Tempo da corrida até bater
+                }, 3000); 
+            }, 1500); 
         }
 
         function mudarParaCenaCaixa() {
-            // Esconde apenas o texto de trás
+            // Some com o texto de dia dos namorados
             document.getElementById('texto-container').style.opacity = '0';
             setTimeout(() => { document.getElementById('texto-container').style.display = 'none'; }, 500);
             
-            // Move a Laila um pouco para a esquerda para abrir espaço
+            // Move a Laila estrategicamente para a esquerda
             const jacare = document.getElementById('jacare-container');
-            jacare.style.left = '15%'; 
+            jacare.style.left = '10%'; 
 
-            // Muda o texto do balão dela para a SEGUNDA frase
+            // Troca o balão para a segunda frase sem sumir com a Laila
             const balao = document.getElementById('balao-jacare');
-            balao.style.display = 'none'; // esconde rapidinho
+            balao.style.display = 'none';
             
             setTimeout(() => {
                 balao.innerHTML = "[SUA SEGUNDA FRASE AQUI]";
-                balao.style.display = 'block'; // mostra a nova frase
+                balao.style.display = 'block';
                 
-                // Faz a caixa aparecer do lado direito
+                // Faz a caixa de madeira aparecer na direita
                 const cenaCaixa = document.getElementById('cena-caixa');
                 cenaCaixa.style.display = 'flex';
             }, 1000);
