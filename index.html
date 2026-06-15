@@ -94,7 +94,7 @@
             align-items: center; z-index: 20;
             gap: 15px; transition: all 1s ease-in-out;
         }
-        #laila-img { cursor: pointer; transition: transform 0.3s; z-index: 25; }
+        #laila-img { transition: transform 0.3s; z-index: 25; }
         #laila-img:hover { transform: scale(1.05); }
         #laila-corpo { display: flex; flex-direction: column; align-items: center; }
 
@@ -128,48 +128,47 @@
         /* Caixa de Presente VERDE SÓLIDA COM BEIRADAS ESCURAS */
         .caixa-madeira {
             width: 220px; height: 220px; 
-            background: #06402b; /* Cor verde sólida */
+            background: #06402b; 
             border: 6px solid #02140e; position: relative; cursor: pointer;
-            /* Sombreamento interno (inset) agressivo para escurecer bem as beiradas */
             box-shadow: 0 20px 35px rgba(0,0,0,0.35), inset 0 0 35px rgba(0,0,0,0.7);
             border-radius: 15px;
             animation: brilharCaixa 2s infinite alternate;
         }
         .caixa-madeira:hover { transform: scale(1.04) rotate(1deg); }
         
-        /* Fitas do Presente (Vermelho Puro #FF0000) */
+        /* Fitas do Presente (Vermelho Muted/Suave #df6767) */
         .caixa-madeira::before { 
-            content: ""; position: absolute; left: 43%; top: 0; width: 14%; height: 100%; background: #FF0000; 
+            content: ""; position: absolute; left: 43%; top: 0; width: 14%; height: 100%; background: #df6767; 
             box-shadow: 2px 0 5px rgba(0,0,0,0.15);
         }
         .caixa-madeira::after { 
-            content: ""; position: absolute; top: 43%; left: 0; height: 14%; width: 100%; background: #FF0000; 
+            content: ""; position: absolute; top: 43%; left: 0; height: 14%; width: 100%; background: #df6767; 
             box-shadow: 0 2px 5px rgba(0,0,0,0.15);
         }
 
-        /* DESIGN DO LAÇO REALISTA */
+        /* DESIGN DO LAÇO SUAVE */
         .laco-presente {
             position: absolute; top: -28px; left: 50%; transform: translateX(-50%);
             width: 40px; height: 30px; z-index: 35;
         }
         .laco-presente::before {
             content: ""; position: absolute; left: -42px; top: -12px; width: 55px; height: 42px;
-            background: #FF0000; border-radius: 50% 50% 12% 50%; transform: rotate(-20deg);
+            background: #df6767; border-radius: 50% 50% 12% 50%; transform: rotate(-20deg);
             box-shadow: -3px 5px 8px rgba(0,0,0,0.25);
         }
         .laco-presente::after {
             content: ""; position: absolute; right: -42px; top: -12px; width: 55px; height: 42px;
-            background: #FF0000; border-radius: 50% 50% 50% 12%; transform: rotate(20deg);
+            background: #df6767; border-radius: 50% 50% 50% 12%; transform: rotate(20deg);
             box-shadow: 3px 5px 8px rgba(0,0,0,0.25);
         }
         .no-laco {
             position: absolute; left: 50%; top: -5px; transform: translateX(-50%);
-            width: 26px; height: 26px; background: #FF0000; border-radius: 8px;
+            width: 26px; height: 26px; background: #df6767; border-radius: 8px;
             box-shadow: 0 3px 6px rgba(0,0,0,0.3); z-index: 40;
-            border: 1px solid #d90000;
+            border: 1px solid #c95353;
         }
         .ponta-laco-esq, .ponta-laco-dir {
-            position: absolute; top: 16px; width: 18px; height: 45px; background: #FF0000; z-index: 34;
+            position: absolute; top: 16px; width: 18px; height: 45px; background: #df6767; z-index: 34;
             clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 50% 82%, 0% 100%);
         }
         .ponta-laco-esq { left: -14px; transform: rotate(28deg); }
@@ -187,48 +186,95 @@
             100% { left: 25%; } 
         }
 
-        /* ESTILOS DA CARTA E DO ENVELOPE */
+        /* ARQUITETURA DO ENVELOPE COM DOBRAS EM CSS REAIS */
         #cena-envelope, #cena-carta-aberta {
             position: absolute; left: 50%; top: 50%;
             transform: translate(-50%, -50%);
             z-index: 40; display: none; flex-direction: column; align-items: center;
         }
         
-        .envelope-bloco {
-            width: 340px; height: 230px; background: #fffcf7;
-            border: 4px solid #7a1010; border-radius: 12px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.25);
-            position: relative; display: flex; flex-direction: column;
+        .envelope-wrapper {
+            position: relative; width: 340px; height: 230px;
+            background: #fdfbf7; border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        /* Aba Superior (Dobra que abre virando para cima) */
+        .flap-top {
+            position: absolute; top: 0; left: 0; width: 0; height: 0;
+            border-left: 170px solid transparent;
+            border-right: 170px solid transparent;
+            border-top: 120px solid #ebe3d5;
+            z-index: 4; transform-origin: top;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 12px 12px 0 0;
+        }
+        /* Efeito de abertura da dobra */
+        .flap-top.aberto {
+            transform: scaleY(-1); z-index: 1;
+        }
+
+        /* Dobra Lateral Esquerda */
+        .flap-left {
+            position: absolute; top: 0; left: 0; width: 0; height: 0;
+            border-left: 175px solid #f4ede2;
+            border-top: 115px solid transparent;
+            border-bottom: 115px solid transparent;
+            z-index: 2; border-radius: 12px 0 0 12px;
+        }
+        /* Dobra Lateral Direita */
+        .flap-right {
+            position: absolute; top: 0; right: 0; width: 0; height: 0;
+            border-right: 175px solid #f4ede2;
+            border-top: 115px solid transparent;
+            border-bottom: 115px solid transparent;
+            z-index: 2; border-radius: 0 12px 12px 0;
+        }
+        /* Dobra Inferior */
+        .flap-bottom {
+            position: absolute; bottom: 0; left: 0; width: 0; height: 0;
+            border-left: 170px solid transparent;
+            border-right: 170px solid transparent;
+            border-bottom: 125px solid #e3dac9;
+            z-index: 3; border-radius: 0 0 12px 12px;
+        }
+
+        /* Interface Interativa sobre as Dobras */
+        .envelope-conteudo {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 5; display: flex; flex-direction: column;
             justify-content: space-between; align-items: center;
             padding: 25px 20px; box-sizing: border-box;
         }
         
         .destinatario {
-            font-size: 22px; color: #7a1010; font-weight: 600;
-            border-bottom: 2px dashed #7a1010; width: 90%;
-            text-align: center; padding-bottom: 8px; margin-top: 5px;
+            font-size: 20px; color: #7a1010; font-weight: 600;
+            border-bottom: 2px dashed #e3dac9; width: 85%;
+            text-align: center; padding-bottom: 6px; margin-top: 10px;
         }
         
         .selo-container {
-            cursor: pointer; text-align: center; margin-bottom: 5px;
+            cursor: pointer; text-align: center; margin-bottom: 15px;
             transition: transform 0.2s;
         }
-        .selo-container:hover { transform: scale(1.1); }
+        .selo-container:hover { transform: scale(1.08); }
         
+        /* Selo Limpo e sem fundo vermelho */
         #foca-selo-img {
-            width: 65px; height: 65px; object-fit: contain;
-            background: #FF0000; border-radius: 50%; padding: 6px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.25); border: 2px solid #b30000;
+            width: 75px; height: 75px; object-fit: contain;
+            filter: drop-shadow(0px 5px 8px rgba(0,0,0,0.2));
         }
         
         .dica-selo {
-            margin: 6px 0 0 0; font-size: 11px; color: #7a1010; font-weight: bold;
+            margin: 4px 0 0 0; font-size: 11px; color: #7a1010; font-weight: 600;
+            opacity: 0.8;
         }
 
-        /* Folha de Carta Limpa Reat */
+        /* ESTILO DA FOLHA DA CARTA REATUALIZADO COM LILÁS SUAVE */
         .folha-carta {
             width: 350px; max-height: 75vh; background: #fffdf0;
-            border-left: 8px solid #FF0000; box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+            border-left: 8px solid #e1d5f5; /* Mudado para lilás bem delicado */
+            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
             padding: 30px; border-radius: 4px; color: #333;
             font-size: 18px; line-height: 1.6; overflow-y: auto;
             box-sizing: border-box; animation: abrirFolha 0.5s ease-out forwards;
@@ -237,8 +283,8 @@
             0% { opacity: 0; transform: scale(0.85) translateY(30px); }
             100% { opacity: 1; transform: scale(1) translateY(0); }
         }
-        .folha-carta h3 { margin-top: 0; color: #7a1010; font-size: 24px; }
-        .assinatura { margin-top: 30px; text-align: right; font-weight: bold; color: #7a1010; }
+        .folha-carta h3 { margin-top: 0; color: #5a4b75; font-size: 24px; }
+        .assinatura { margin-top: 30px; text-align: right; font-weight: bold; color: #5a4b75; }
 
     </style>
 </head>
@@ -269,7 +315,6 @@
         <div id="balao-jacare" class="balao-fala"></div>
     </div>
 
-    <!-- Cena da Caixa -->
     <div id="cena-caixa">
         <div class="caixa-madeira" onclick="abrirCaixa()">
             <div class="laco-presente">
@@ -280,19 +325,24 @@
         </div>
     </div>
 
-    <!-- CENA DO ENVELOPE FECHADO -->
     <div id="cena-envelope">
-        <div class="envelope-bloco">
-            <!-- Escreva o nome da pessoa aqui dentro do span -->
-            <div class="destinatario">Para: <span style="color: #FF0000;">Meu Amor</span></div>
-            <div class="selo-container" onclick="abrirCartaReal()">
-                <img id="foca-selo-img" src="foca-selo.png" alt="Selo Foca">
-                <p class="dica-selo">(Clique na foca para abrir)</p>
+        <div class="envelope-wrapper">
+            <div class="flap-top" id="envelope-tampa"></div>
+            <div class="flap-left"></div>
+            <div class="flap-right"></div>
+            <div class="flap-bottom"></div>
+            
+            <div class="envelope-conteudo" id="envelope-interativo">
+                <div class="destinatario">Para: <span>Escreva o Nome Aqui</span></div>
+                
+                <div class="selo-container" onclick="animarEAbrirCarta()">
+                    <img id="foca-selo-img" src="foca-selo.png" alt="Selo Foca">
+                    <p class="dica-selo">(Clique na foca para abrir)</p>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- CENA DA CARTA EM SI (CONTEÚDO REAL) -->
     <div id="cena-carta-aberta">
         <div class="folha-carta">
             <h3>Meu amor, ❤️</h3>
@@ -328,7 +378,12 @@
         function preCarregarAudios() {
             ['audio-boing', 'audio-bongos'].forEach(id => {
                 const a = document.getElementById(id);
-                a.play().then(() => { a.pause(); a.currentTime = 0; }).catch(e => {});
+                a.volume = 0; // Deixa mudo no clique inicial para evitar barulhos abruptos
+                a.play().then(() => { 
+                    a.pause(); 
+                    a.currentTime = 0; 
+                    a.volume = 1; // Devolve o volume para quando o áudio rodar nas cenas certas
+                }).catch(e => {});
             });
         }
 
@@ -441,9 +496,11 @@
             jacare.classList.add('correndo');
 
             setTimeout(() => {
+                // Sem textos vermelhos
                 balao.innerHTML = "Oiee mamãe??!! Quanto tempo que não te vejo que saudades, faz tanto tempo que você nem deve saber que agora eu tenho superpoderes tecnológicos heheheh";
                 balao.style.display = 'block';
                 lailaProntaParaClicar = true;
+                document.getElementById('laila-img').style.cursor = 'pointer';
             }, 1500);
         }
 
@@ -453,7 +510,8 @@
                 
                 if (etapaFalaLaila === 1) {
                     etapaFalaLaila = 2;
-                    balao.innerHTML = "Me dá a mão e vem comigoo <br><small style='font-size:12px; color: #c13b2b; font-weight:bold; display:block; margin-top:5px;'>(Clique em mim de novo pra gente ir!)</small>";
+                    // Limpo e sem pequenos textos explicativos vermelhos
+                    balao.innerHTML = "Me dá a mão e vem comigoo";
                 } else if (etapaFalaLaila === 2) {
                     mudarParaCenaCaixa();
                 }
@@ -461,7 +519,6 @@
         }
 
         function mudarParaCenaCaixa() {
-            // Desativa a interação de cliques com a Laila permanentemente para a última página
             lailaProntaParaClicar = false;
             document.getElementById('laila-img').style.cursor = 'default';
 
@@ -483,15 +540,22 @@
         }
 
         function abrirCaixa() {
-            // Removeu a notificação em janela (alert) e faz a transição direto pro envelope
             document.getElementById('cena-caixa').style.display = 'none';
             document.getElementById('cena-envelope').style.display = 'flex';
         }
 
-        function abrirCartaReal() {
-            // Esconde o bloco do envelope fechado e revela a folha interna da carta aberta
-            document.getElementById('cena-envelope').style.display = 'none';
-            document.getElementById('cena-carta-aberta').style.display = 'flex';
+        function animarEAbrirCarta() {
+            // Executa a animação física da dobra abrindo para cima
+            document.getElementById('envelope-tampa').classList.add('aberto');
+            // Oculta o conteúdo interno para focar na abertura
+            document.getElementById('envelope-interativo').style.opacity = '0';
+            document.getElementById('envelope-interativo').style.transition = 'opacity 0.3s';
+
+            // Aguarda a dobra terminar de subir para trocar o envelope pela folha real da carta
+            setTimeout(() => {
+                document.getElementById('cena-envelope').style.display = 'none';
+                document.getElementById('cena-carta-aberta').style.display = 'flex';
+            }, 600);
         }
 
         gerarFundoInicial();
