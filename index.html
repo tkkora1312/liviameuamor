@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feliz Dia dos Namorados!</title>
+    <title>O que será que é isso...</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,7 +11,7 @@
 
     <style>
         body {
-            background-color: #ffcccc; /* Fundo vermelho claro */
+            background-color: #ffcccc; 
             margin: 0;
             overflow: hidden;
             font-family: 'Fredoka', sans-serif;
@@ -21,7 +21,7 @@
             height: 100vh;
         }
 
-        /* Telinha de Início */
+        /* Telinha de Início Inteligente */
         #tela-inicio {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background-color: #ffcccc; z-index: 100;
@@ -29,25 +29,38 @@
         }
         #btn-comecar {
             font-family: 'Fredoka', sans-serif;
-            padding: 15px 40px; font-size: 24px; font-weight: 700; background-color: #c13b2b;
+            padding: 15px 40px; font-size: 22px; font-weight: 700; background-color: #c13b2b;
             color: white; border: none; border-radius: 50px; cursor: pointer;
             box-shadow: 0 8px 20px rgba(193, 59, 43, 0.4); transition: transform 0.2s;
+            max-width: 80%; text-align: center;
         }
-        #btn-comecar:hover { transform: scale(1.1); }
+        #btn-comecar:hover { transform: scale(1.05); }
 
-        /* Pepperonis no Fundo */
+        /* Emoji Feliz Secreto no Canto Esquerdo */
+        #emoji-feliz {
+            position: fixed; bottom: 30px; left: 30px; font-size: 60px;
+            cursor: pointer; display: none; z-index: 110;
+        }
+        .bounce-anim {
+            animation: bounce 0.6s infinite alternate;
+        }
+        @keyframes bounce {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(-20px) scale(1.1); }
+        }
+
+        /* Elementos Decorativos Voados no Fundo */
         #background-coracoes {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             z-index: 1; pointer-events: none;
         }
-        .heart-wrapper {
+        .element-wrapper {
             position: absolute; bottom: -80px;
             animation: floatUp linear infinite;
-            opacity: 0.85;
         }
         @keyframes floatUp {
             0% { transform: translateY(0) rotate(0deg); }
-            100% { transform: translateY(-120vh) rotate(45deg); }
+            100% { transform: translateY(-120vh) rotate(360deg); }
         }
 
         /* Efeito de Tremida na Tela */
@@ -58,33 +71,19 @@
         }
         .tremendo { animation: shake 0.4s ease-in-out; }
 
-        /* Textos */
+        /* Textos Principais */
         #texto-container {
-            font-size: 38px;
-            color: #7a1010;
-            text-align: center;
-            z-index: 10;
-            position: absolute;
-            top: 15%;
-            width: 80%;
-            line-height: 1.4;
-            font-weight: 600;
-            transition: opacity 0.5s ease;
+            font-size: 38px; color: #7a1010; text-align: center;
+            z-index: 10; position: absolute; top: 15%; width: 80%;
+            line-height: 1.4; font-weight: 600; transition: opacity 0.5s;
         }
         .palavra-grande {
-            font-size: 130px;
-            color: #d32f2f;
-            font-weight: 700;
-            display: inline-block;
-            opacity: 0;
-            text-transform: uppercase;
-            margin: 10px 15px;
+            font-size: 130px; color: #d32f2f; font-weight: 700; display: inline-block;
+            opacity: 0; text-transform: uppercase; margin: 10px 15px;
             text-shadow: 4px 4px 0px #fff, 8px 8px 20px rgba(0,0,0,0.3);
             transform: translateY(-100vh);
         }
-        .caindo-do-ceu {
-            animation: dropDown 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards;
-        }
+        .caindo-do-ceu { animation: dropDown 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards; }
         @keyframes dropDown {
             0% { opacity: 1; transform: translateY(-100vh); }
             100% { opacity: 1; transform: translateY(0); }
@@ -93,134 +92,94 @@
         /* Container do Jacaré Laila */
         #jacare-container {
             position: absolute; left: -500px; bottom: 15%;
-            display: none; 
-            flex-direction: row; 
-            align-items: center; 
-            z-index: 20;
-            gap: 25px;
-            transition: all 1s ease-in-out; /* Transiciona suavemente posição e estilos */
+            display: none; flex-direction: row; align-items: center; z-index: 20;
+            gap: 25px; transition: all 1s ease-in-out;
         }
+        #laila-img { cursor: pointer; transition: transform 0.3s; }
+        #laila-img:hover { transform: scale(1.05); }
 
-        #laila-corpo {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            cursor: pointer; /* Indica que é clicável */
-        }
+        #laila-corpo { display: flex; flex-direction: column; align-items: center; }
         
         /* Estrelinhas girando */
         #estrelas {
             display: none; font-size: 45px;
-            animation: girar 1s linear infinite; margin-bottom: -15px;
-            z-index: 27;
+            animation: girar 1s linear infinite; margin-bottom: -15px; z-index: 27;
         }
         @keyframes girar { 100% { transform: rotate(360deg); } }
 
-        /* Caixa de fala na Direita */
+        /* Caixa de fala Ajustada */
         .balao-fala {
             display: none; background: white; padding: 20px; border-radius: 20px;
-            border: 3px solid #7a1010; max-width: 300px;
+            border: 3px solid #7a1010; max-width: 280px;
             text-align: center; font-weight: 600; color: #333; font-size: 20px;
-            box-shadow: 4px 4px 15px rgba(0,0,0,0.15);
-            position: relative;
+            box-shadow: 4px 4px 15px rgba(0,0,0,0.15); position: relative;
         }
-        /* Setinha do Balão padrão (Direita) */
         .balao-fala::after {
             content: ''; position: absolute; 
             left: -11px; top: 50%; transform: translateY(-50%) rotate(45deg);
-            width: 18px; height: 18px;
-            background: white;
-            border-left: 3px solid #7a1010;
-            border-bottom: 3px solid #7a1010;
+            width: 18px; height: 18px; background: white;
+            border-left: 3px solid #7a1010; border-bottom: 3px solid #7a1010;
         }
 
-        /* --- Estilos da Cena 2 (Centralizada) --- */
-        
-        /* Classe aplicada via JS no jacare-container para reorganizar a Laila abaixo do presente */
-        #jacare-container.cena-dois {
-            left: 50% !important;
-            bottom: 5% !important;
-            transform: translateX(-50%);
-            flex-direction: column-reverse !important; /* Coloca o balão ACIMA da Laila */
-            gap: 10px;
-        }
-        /* Ajusta a setinha do balão para apontar para baixo na cena 2 */
-        #jacare-container.cena-dois .balao-fala::after {
-            left: 50%; bottom: -11px; top: auto;
-            transform: translateX(-50%) rotate(45deg);
-            border-left: none; border-bottom: 3px solid #7a1010;
-            border-right: 3px solid #7a1010;
-        }
-
+        /* Cena 2: Caixa de Presente no MEIO Especial */
         #cena-caixa {
             position: absolute;
-            left: 50%; top: 40%;
-            transform: translate(-50%, -50%) scale(0.5);
-            display: none; 
-            flex-direction: column; 
-            align-items: center; 
-            z-index: 30;
-            opacity: 0;
-            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        #cena-caixa.mostrar {
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1.2); /* Presente um pouco maior e centralizado */
+            left: 50%; top: 55%; transform: translate(-50%, -50%);
+            display: none; flex-direction: column; align-items: center; z-index: 30;
         }
 
-        /* Linda Caixa de Presente de Madeira Realista */
+        /* Caixa de Presente Bonita e Flutuante */
         .caixa-madeira {
-            width: 240px; height: 240px; 
-            background: linear-gradient(135deg, #a66f3c 0%, #73461d 100%); /* Degradê de madeira */
-            border: 6px solid #4a2c11; 
-            position: relative; cursor: pointer;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.4), 0 20px 40px rgba(0,0,0,0.4); 
-            border-radius: 14px;
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            width: 220px; height: 220px; 
+            background: linear-gradient(135deg, #e67e22, #d35400); /* Degradê vibrante */
+            border: 6px solid #b33939; position: relative; cursor: pointer;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.3), inset 0 0 20px rgba(0,0,0,0.2);
+            border-radius: 15px;
+            animation: flutuar 3s ease-in-out infinite, brilharCaixa 2s infinite alternate;
         }
-        .caixa-madeira:hover { transform: scale(1.06) rotate(2deg); }
+        .caixa-madeira:hover { transform: scale(1.05) rotate(3deg); }
         
-        /* Fitas Rosas Volumosas */
+        /* Fitas do Presente */
         .caixa-madeira::before { 
-            content: ""; position: absolute; left: 40%; top: 0; width: 20%; height: 100%; 
-            background: linear-gradient(90deg, #ff4081 0%, #e91e63 100%); 
-            box-shadow: 3px 0 8px rgba(0,0,0,0.3); border-radius: 2px;
+            content: ""; position: absolute; left: 42%; top: 0; width: 16%; height: 100%; background: #ff4081; 
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
         }
         .caixa-madeira::after { 
-            content: ""; position: absolute; top: 40%; left: 0; height: 20%; width: 100%; 
-            background: linear-gradient(180deg, #ff4081 0%, #e91e63 100%); 
-            box-shadow: 0 3px 8px rgba(0,0,0,0.3); border-radius: 2px;
+            content: ""; position: absolute; top: 42%; left: 0; height: 16%; width: 100%; background: #ff4081; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
-        /* Laço em 3D no topo da caixa */
+        /* Laço de fita no topo do presente */
         .laco-presente {
             position: absolute; top: -35px; left: 50%; transform: translateX(-50%);
-            width: 90px; height: 40px; z-index: 35; pointer-events: none;
+            width: 70px; height: 40px; background: #ff4081; border-radius: 50% 50% 0 0;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.2); z-index: 35;
         }
-        .laco-esquerdo, .laco-direito {
-            position: absolute; width: 45px; height: 35px;
-            background: #ff4081; border: 3px solid #db145a; border-radius: 50% 50% 0 50%;
+        .laco-presente::before {
+            content: ""; position: absolute; left: -25px; top: 5px; width: 40px; height: 30px;
+            background: #ff4081; border-radius: 50%; transform: rotate(-30deg);
         }
-        .laco-esquerdo { left: 3px; transform: rotate(-15deg); }
-        .laco-direito { right: 3px; transform: rotate(105deg) scaleY(-1); }
-        .laco-centro {
-            position: absolute; left: 50%; top: 12px; transform: translateX(-50%);
-            width: 22px; height: 22px; background: #e91e63; border: 3px solid #db145a;
-            border-radius: 50%; box-shadow: 0 3px 5px rgba(0,0,0,0.3);
+        .laco-presente::after {
+            content: ""; position: absolute; right: -25px; top: 5px; width: 40px; height: 30px;
+            background: #ff4081; border-radius: 50%; transform: rotate(30deg);
         }
 
-        /* Animações e Movimentos */
-        .correndo { animation: correr 1.5s forwards, darPassos 0.15s infinite alternate; }
+        @keyframes flutuar {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        @keyframes brilharCaixa {
+            0% { box-shadow: 0 20px 35px rgba(0,0,0,0.3), 0 0 10px rgba(255, 234, 167, 0.2); }
+            100% { box-shadow: 0 20px 35px rgba(0,0,0,0.3), 0 0 30px rgba(255, 234, 167, 0.8); }
+        }
+
+        /* Animações Físicas da Laila */
+        .correndo { animation: correr 1.5s forwards; }
         @keyframes correr {
             0% { left: -500px; }
-            100% { left: 30%; } 
+            100% { left: 25%; } 
         }
-        /* Efeito visual extra caso o áudio falhe no navegador */
-        @keyframes darPassos {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-6px); }
-        }
-        .caindo { animation: none; transform: rotate(-90deg); transition: transform 0.3s ease-in; }
+        .caindo { transform: rotate(-90deg); transition: transform 0.3s ease-in; }
         .levantando { transform: rotate(0deg); transition: transform 0.5s ease-out; }
 
     </style>
@@ -228,11 +187,13 @@
 <body>
 
     <div id="tela-inicio">
-        <h2 style="color: #c13b2b; font-size: 40px; margin-bottom: 30px;">Você tem um presente...</h2>
-        <button id="btn-comecar" onclick="comecarTudo()">Abrir Presente</button>
+        <h2 id="titulo-inicio" style="color: #c13b2b; font-size: 40px; margin-bottom: 30px; text-align: center; max-width: 80%;">O que será que é isso...</h2>
+        <button id="btn-comecar" onclick="lidarComClique()">Descobrir!</button>
     </div>
 
-    <audio id="audio-correndo" src="passos.mp3" preload="auto"></audio>
+    <div id="emoji-feliz" class="bounce-anim" onclick="comecarTudo()">😊</div>
+
+    <audio id="audio-correndo" src="YTDown_YouTube_Tom-and-Jerry-running-sound-effect_Media_yMRmV4O-F00_008_128k.mp3" preload="auto"></audio>
 
     <div id="background-coracoes"></div>
 
@@ -243,7 +204,195 @@
     </div>
 
     <div id="jacare-container">
-        <div id="laila-corpo" onclick="cliqueNaLaila()">
+        <div id="laila-corpo">
             <div id="estrelas">💫✨💫</div>
-            <img id="laila-img" src="laila.png" style="width: 180px; z-index: 25;" alt="Jacaré Laila">
-            <div style="background: pink; color: #7a1010; padding: 4px 15px; border-radius: 15px; font-size: 16px; margin-top: -10px; font-weight:
+            <img id="laila-img" src="laila.png" style="width: 180px; z-index: 25;" alt="Jacaré Laila" onclick="clicouNaLaila()">
+            <div style="background: pink; color: #7a1010; padding: 4px 15px; border-radius: 15px; font-size: 16px; margin-top: -10px; font-weight: 700; z-index: 26; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">Laila</div>
+        </div>
+        <div id="balao-jacare" class="balao-fala">[SUA PRIMEIRA FRASE AQUI]<br><small style="font-size:12px; color: #777; font-weight:normal;">(Clique em mim para continuar!)</small></div>
+    </div>
+
+    <div id="cena-caixa">
+        <div class="laco-presente"></div>
+        <div class="caixa-madeira" onclick="abrirCaixa()"></div>
+    </div>
+
+    <script>
+        // Sistema do botão de 10 cliques
+        let contadorCliques = 0;
+        function lidarComClique() {
+            contadorCliques++;
+            const btn = document.getElementById('btn-comecar');
+            
+            if (contadorCliques === 2) {
+                btn.innerHTML = "Descobrir de verdade!";
+            } else if (contadorCliques === 4) {
+                btn.innerHTML = "Descobrir mesmo!";
+            } else if (contadorCliques === 6) {
+                btn.innerHTML = "Aqui tem coisas que não podem ser desvistas...";
+            } else if (contadorCliques >= 9) {
+                btn.innerHTML = "Já deu né, é só clicar no emoji feliz no canto esquerdo";
+                btn.style.backgroundColor = "#7f8c8d";
+                // Faz o emoji feliz surgir pulando no canto
+                const emoji = document.getElementById('emoji-feliz');
+                emoji.style.display = 'block';
+            }
+        }
+
+        // Gerador de Emojis de Fundo Ricos (Corações, Estrelas, Focas, Brilhos, Chocolates, Flores)
+        const containerCoracoes = document.getElementById('background-coracoes');
+        
+        // Estrutura do coração de pepperoni original em SVG
+        const svgPepperoni = `
+        <svg viewBox="0 0 100 100" width="45" height="45" style="display:inline-block; vertical-align:middle;">
+          <defs>
+            <pattern id="pep-pat" patternUnits="userSpaceOnUse" width="25" height="25">
+               <rect width="25" height="25" fill="#c13b2b"/>
+               <circle cx="6" cy="6" r="3.5" fill="#8a251c"/>
+               <circle cx="18" cy="15" r="2.5" fill="#8a251c"/>
+            </pattern>
+          </defs>
+          <path d="M50,90 C50,90 10,60 10,30 A20,20 0 0,1 50,30 A20,20 0 0,1 90,30 C90,60 50,90 50,90 Z" fill="url(#pep-pat)"/>
+        </svg>`;
+
+        const outrosElementos = ['⭐', '💫', '🦭', '✨', '🍫', '💐', '❤️'];
+
+        for (let i = 0; i < 65; i++) {
+            let wrapper = document.createElement('div');
+            wrapper.className = 'element-wrapper';
+            
+            // Distribuição reforçada para preencher bem a esquerda
+            let posicaoX = (i % 2 === 0) ? (Math.random() * 45) : (Math.random() * 100);
+            wrapper.style.left = posicaoX + 'vw';
+            
+            let escala = 0.5 + Math.random() * 1.2;
+            wrapper.style.transform = `scale(${escala})`;
+            
+            wrapper.style.animationDuration = (5 + Math.random() * 7) + 's';
+            wrapper.style.animationDelay = (Math.random() * 6) + 's';
+            
+            // Mistura os Pepperonis com os novos Emojis pedidos
+            if (i % 3 === 0) {
+                wrapper.innerHTML = svgPepperoni;
+            } else {
+                let itemAleatorio = outrosElementos[Math.floor(Math.random() * outrosElementos.length)];
+                wrapper.innerText = itemAleatorio;
+                wrapper.style.fontSize = "35px";
+            }
+            
+            containerCoracoes.appendChild(wrapper);
+        }
+
+        // Configurações de Texto Principal
+        const parte1 = "Feliz dia dos namorados e 6 meses atrasados meu ";
+        const parte2 = "amor!";
+        let lailaProntaParaClicar = false;
+        
+        function typeWriter(texto, elementoId, velocidade, callback) {
+            let index = 0;
+            const elemento = document.getElementById(elementoId);
+            function digitar() {
+                if (index < texto.length) {
+                    elemento.innerHTML += texto.charAt(index);
+                    index++;
+                    setTimeout(digitar, velocidade);
+                } else if (callback) {
+                    callback();
+                }
+            }
+            digitar();
+        }
+
+        // Só inicia quando o emoji do canto esquerdo for clicado
+        function comecarTudo() {
+            document.getElementById('tela-inicio').style.display = 'none';
+            document.getElementById('emoji-feliz').style.display = 'none';
+            
+            const audio = document.getElementById('audio-correndo');
+            audio.load();
+
+            typeWriter(parte1, 'texto-parte1', 40, () => {
+                const palavraGrande = document.getElementById('palavra-alvo');
+                palavraGrande.classList.add('caindo-do-ceu');
+                
+                setTimeout(() => {
+                    document.body.classList.add('tremendo');
+                    
+                    setTimeout(() => {
+                        document.body.classList.remove('tremendo');
+                        typeWriter(parte2, 'texto-parte2', 40, () => {
+                            setTimeout(iniciarCenaJacare, 1000);
+                        });
+                    }, 400); 
+                    
+                }, 500); 
+            });
+        }
+
+        function iniciarCenaJacare() {
+            const jacare = document.getElementById('jacare-container');
+            const audio = document.getElementById('audio-correndo');
+            const estrelas = document.getElementById('estrelas');
+            const lailaImg = document.getElementById('laila-img');
+            const balao = document.getElementById('balao-jacare');
+
+            audio.currentTime = 0;
+            audio.play().catch(e => console.error("Erro no áudio:", e));
+
+            jacare.style.display = 'flex';
+            jacare.classList.add('correndo');
+
+            setTimeout(() => {
+                lailaImg.classList.add('caindo');
+                estrelas.style.display = 'block';
+
+                setTimeout(() => {
+                    estrelas.style.display = 'none';
+                    lailaImg.classList.remove('caindo');
+                    lailaImg.classList.add('levantando');
+                    
+                    setTimeout(() => {
+                        balao.style.display = 'block';
+                        lailaProntaParaClicar = true; // Agora o usuário pode clicar nela!
+                    }, 500);
+                }, 3000); 
+            }, 1500); 
+        }
+
+        // Função de clique na Laila para avançar de página
+        function clicouNaLaila() {
+            if (lailaProntaParaClicar) {
+                mudarParaCenaCaixa();
+            }
+        }
+
+        function mudarParaCenaCaixa() {
+            // Some o texto antigo de dia dos namorados
+            document.getElementById('texto-container').style.opacity = '0';
+            setTimeout(() => { document.getElementById('texto-container').style.display = 'none'; }, 500);
+            
+            // Posiciona a Laila perfeitamente fixada na esquerda da tela
+            const jacare = document.getElementById('jacare-container');
+            jacare.style.left = '5%';
+            jacare.style.bottom = '35%';
+
+            // Troca a mensagem do balão dela para a SEGUNDA FRASE
+            const balao = document.getElementById('balao-jacare');
+            balao.style.display = 'none';
+            
+            setTimeout(() => {
+                balao.innerHTML = "[SUA SEGUNDA FRASE AQUI]";
+                balao.style.display = 'block';
+                
+                // Faz a linda caixa de presente surgir exatamente no meio da tela
+                const cenaCaixa = document.getElementById('cena-caixa');
+                cenaCaixa.style.display = 'flex';
+            }, 1000);
+        }
+
+        function abrirCaixa() {
+            alert("A fita se desfez e a surpresa se abriu! O que você quer colocar aqui dentro agora?");
+        }
+    </script>
+</body>
+</html>
