@@ -261,30 +261,59 @@
         /* ========================================================= */
         /* RESPONSIVIDADE PARA CELULARES */
         /* ========================================================= */
+        /* ========================================================= */
+        /* RESPONSIVIDADE PARA CELULARES */
+        /* ========================================================= */
         @media (max-width: 800px) {
-            #jacare-container { transform: scale(0.7); left: -5%; }
-            .caixa-madeira, .caixa-aberta { width: 170px; height: 170px; }
-            .laco-presente { transform: translateX(-50%) scale(0.8); top: -20px; }
-            .envelope-wrapper { width: 300px; height: 200px; }
-            .flap-top { border-left-width: 150px; border-right-width: 150px; border-top-width: 105px; }
-            .flap-left { border-left-width: 150px; border-top-width: 100px; border-bottom-width: 100px; }
-            .flap-right { border-right-width: 150px; border-top-width: 100px; border-bottom-width: 100px; }
-            .flap-bottom { border-left-width: 150px; border-right-width: 150px; border-bottom-width: 110px; }
-            .folha-carta { width: 90vw; padding: 20px; font-size: 16px; }
-            
-            #cena-itens-magicos { top: 5%; gap: 15px; }
-            .item-magico { font-size: 80px; }
+            /* Ajustes de Texto Inicial */
+            #titulo-inicio { font-size: 28px; }
+            #btn-comecar { font-size: 18px; padding: 12px 30px; }
+            #texto-container { font-size: 24px; top: 10%; width: 90%; }
+            .palavra-grande { font-size: 70px; margin: 5px; }
 
-            .tela-cinema { width: 95%; }
+            /* Ajustes do Jacaré para não sobrepor o centro */
+            #jacare-container { 
+                transform: scale(0.55); 
+                left: -15%; 
+                top: 5%; /* Sobe a Laila para não cobrir a caixa/carta */
+            }
+            .balao-fala { font-size: 18px; max-width: 250px; }
+
+            /* Ajustes do Presente / Envelope */
+            .caixa-madeira, .caixa-aberta { width: 150px; height: 150px; }
+            .laco-presente { transform: translateX(-50%) scale(0.7); top: -20px; }
+            .envelope-wrapper { width: 280px; height: 180px; }
+            .flap-top { border-left-width: 140px; border-right-width: 140px; border-top-width: 95px; }
+            .flap-left { border-left-width: 140px; border-top-width: 90px; border-bottom-width: 90px; }
+            .flap-right { border-right-width: 140px; border-top-width: 90px; border-bottom-width: 90px; }
+            .flap-bottom { border-left-width: 140px; border-right-width: 140px; border-bottom-width: 100px; }
+            .folha-carta { width: 90vw; padding: 15px; font-size: 15px; max-height: 70vh; }
             
-            .livro { width: 95vw; height: 350px; }
-            .moldura-foto img { max-height: 200px; }
-            .capa-album h1 { font-size: 35px; }
+            /* Ajustes dos Itens Mágicos */
+            #cena-itens-magicos { top: auto; bottom: 8%; gap: 15px; flex-direction: row; }
+            .item-magico { font-size: 65px; }
+
+            /* Ajuste do Cinema */
+            .tela-cinema { width: 95%; border-width: 8px; }
             
-            .container-grafico { flex-direction: column; gap: 20px; padding: 20px; }
-            .pie-chart { width: 200px; height: 200px; }
-            #chart-label { font-size: 24px; margin-bottom: 10px; }
-            .legend-item { font-size: 16px; }
+            /* Ajustes do Álbum de Fotos (Empilhando as páginas no celular) */
+            .livro { width: 90vw; height: auto; min-height: 350px; flex-direction: column; }
+            .capa-album h1 { font-size: 28px; }
+            .capa-album p { font-size: 16px; margin-bottom: 20px; }
+            .pagina { padding: 15px; border-right: none; border-bottom: 1px solid #ccc; width: 100%; }
+            .pagina:last-child { border-bottom: none; }
+            .moldura-foto { padding: 5px 5px 25px 5px; }
+            .moldura-foto img { max-height: 220px; }
+            .controles-album { flex-wrap: wrap; justify-content: center; }
+            .btn-album { font-size: 14px; padding: 8px 15px; }
+            
+            /* Ajustes do Gráfico e Erro */
+            .container-grafico { flex-direction: column; gap: 15px; padding: 15px; width: 85%; }
+            .pie-chart { width: 180px; height: 180px; }
+            #chart-label { font-size: 20px; margin-bottom: 5px; }
+            .legend-item { font-size: 14px; }
+            .janela-erro { width: 90%; max-width: 320px; }
+            .janela-erro-body { padding: 15px; font-size: 14px; }
         }
 
     </style>
