@@ -32,7 +32,6 @@
         /* MENU DE FASES COM GRADIENTE DO ROSA PARA O AZUL CLARO */
         #tela-inicio {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            /* Gradiente vertical suave mudando do rosinha para o azul claro */
             background: linear-gradient(to bottom, #ffcccc 0%, #ffcccc 30%, #e1f5fe 65%, #b3e5fc 100%);
             z-index: 100;
             display: flex; justify-content: flex-start; align-items: center; flex-direction: column;
@@ -118,7 +117,7 @@
         }
         
         .fase-tempo {
-            font-size: 22px;
+            font-size: 24px;
             font-weight: 700;
             line-height: 1.2;
         }
@@ -317,7 +316,7 @@
             #texto-container { font-size: 24px; top: 10%; width: 90%; }
             .palavra-grande { font-size: 70px; margin: 5px; }
             .grid-fases { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 12px; }
-            .fase-tempo { font-size: 16px; }
+            .fase-tempo { font-size: 18px; }
 
             #jacare-container { transform: scale(0.55); left: -15%; top: 5%; }
             .balao-fala { font-size: 18px; max-width: 250px; }
@@ -369,7 +368,7 @@
         <!-- SEÇÃO 2: THE GOOD PLACE -->
         <div class="secao-fases good-place">
             <h2 class="titulo-good-place">E agora no The Good Place</h2>
-            <p class="subtitulo-good-place">Juntos para sempre!</p>
+            <p class="subtitulo-good-place">Nossa eternidade começa aqui ✨</p>
             <div class="grid-fases" id="grid-good-place"></div>
         </div>
 
@@ -493,54 +492,66 @@
         let magiaRevelada = false; 
         let interacaoMagicaFeita = false; 
         
-        // GERAÇÃO DINÂMICA DAS FASES ATÉ O NÍVEL 69 E DEPOIS O INFINITO NO GOOD PLACE
+        // GERAÇÃO DINÂMICA DAS FASES SEGUINDO A CONTAGEM DE MESES E ANOS
         function carregarMenuFases() {
             const gridJornada = document.getElementById('grid-jornada');
             const gridGoodPlace = document.getElementById('grid-good-place');
             
-            // 1. GERAÇÃO DA SEÇÃO: Nossa Jornada (Até Nível 69)
+            // 1. SEÇÃO: Nossa Jornada (Começa no Mês 6)
             let htmlJornada = '';
-            // Nível 1 - Desbloqueado (Corresponde aos 6 Meses + Dia dos Namorados)
+            
+            // Card do Mês 6 - Desbloqueado (O Início)
             htmlJornada += `
                 <div class="fase-card desbloqueada" onclick="jogarFase6Meses()">
-                    <div class="fase-tempo">Nível 1</div>
+                    <div class="fase-tempo">Mês 6</div>
                     <div class="fase-obs">6 Meses + Dia dos Namorados</div>
                 </div>
             `;
-            // Níveis 2 ao 69 - Bloqueados
-            for(let i = 2; i <= 69; i++) {
+            
+            // Do Mês 7 ao Mês 11 (Bloqueados)
+            for(let m = 7; m <= 11; m++) {
                 htmlJornada += `
-                    <div class="fase-card bloqueada" onclick="avisoFaseBloqueada('Nossa Jornada - Nível ${i}')">
-                        <div class="fase-tempo">Nível ${i}</div>
+                    <div class="fase-card bloqueada" onclick="avisoFaseBloqueada('Nossa Jornada - Mês ${m}')">
+                        <div class="fase-tempo">Mês ${m}</div>
+                        <div class="fase-status">🔒</div>
+                    </div>
+                `;
+            }
+            
+            // Do Ano 1 ao Ano 69 (Bloqueados)
+            for(let a = 1; a <= 69; a++) {
+                htmlJornada += `
+                    <div class="fase-card bloqueada" onclick="avisoFaseBloqueada('Nossa Jornada - Ano ${a}')">
+                        <div class="fase-tempo">Ano ${a}</div>
                         <div class="fase-status">🔒</div>
                     </div>
                 `;
             }
             gridJornada.innerHTML = htmlJornada;
             
-            // 2. GERAÇÃO DA SEÇÃO: The Good Place (Começa do 1 ao Infinito)
+            // 2. SEÇÃO: The Good Place (Ano 1 ao Infinito)
             let htmlGoodPlace = '';
-            // Gerando até o 50 para simular visualmente a rolagem infinita
+            // Renderizando até o 50 para simulação visual da rolagem
             for(let j = 1; j <= 50; j++) {
                 htmlGoodPlace += `
-                    <div class="fase-card bloqueada" onclick="avisoFaseBloqueada('The Good Place - Nível ${j}')">
-                        <div class="fase-tempo">Nível ${j}</div>
+                    <div class="fase-card bloqueada" onclick="avisoFaseBloqueada('The Good Place - Ano ${j}')">
+                        <div class="fase-tempo">Ano ${j}</div>
                         <div class="fase-status">🔒</div>
                     </div>
                 `;
             }
-            // Card representativo do Infinito
+            // Card do Infinito
             htmlGoodPlace += `
                 <div class="fase-card bloqueada" onclick="avisoFaseBloqueada('The Good Place - Para Todo o Sempre')">
-                    <div class="fase-tempo">∞</div>
+                    <div class="fase-tempo">∞ Anos</div>
                     <div class="fase-status">🔒</div>
                 </div>
             `;
             gridGoodPlace.innerHTML = htmlGoodPlace;
         }
 
-        function avisoFaseBloqueada(fase) {
-            alert(`Calma gatinha! A fase [${fase}] ainda está guardada no futuro... Vamos viver o hoje e continuar desbloqueando cada pedacinho do nosso amanhã! 🥰🔒`);
+        function avisoFaseBloqueada(tempo) {
+            alert(`Calma gatinha! O [${tempo}] ainda está guardado no futuro... Vamos viver o hoje e continuar desbloqueando cada pedacinho do nosso amanhã! 🥰🔒`);
         }
 
         function jogarFase6Meses() {
