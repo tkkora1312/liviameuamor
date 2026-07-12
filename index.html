@@ -267,27 +267,26 @@
         .controles-album { display: flex; gap: 20px; margin-top: 10px; }
         .btn-album { padding: 10px 20px; font-size: 18px; font-weight: bold; background: #333; color: white; border: none; border-radius: 5px; cursor: pointer; }
 
-        /* ================= CENA DO MÊS 7 (CORRIGIDA) ================= */
+        /* ================= CENA DO MÊS 7 ================= */
         #cena-mes7 {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background-color: #ffcccc; /* Mesmo fundo rosa/vermelho do mês 6 */
+            background-color: #ffcccc; 
             z-index: 150; display: none;
             flex-direction: column; align-items: center; justify-content: flex-start;
             padding: 40px 30px; box-sizing: border-box; overflow-y: auto;
         }
 
         .texto-intro-mes7 {
-            font-size: 28px; color: #7a1010; /* Cor igual mês 6 */
+            font-size: 28px; color: #7a1010; 
             text-align: center; max-width: 800px;
             line-height: 1.6; font-weight: 600; margin-bottom: 30px; margin-top: auto; margin-bottom: auto;
         }
 
         .titulo-secao-banquete {
-            font-size: 36px; color: #c13b2b; /* Cor igual mês 6 */
+            font-size: 36px; color: #c13b2b; 
             font-weight: 700; margin-bottom: 15px; text-align: center;
         }
 
-        /* CAIXAS DE COMIDA/BEBIDA (MANTIDAS EM LILÁS COMO PEDIDO) */
         .feedback-inline-banquete {
             display: none; background: #f3e5f5; border: 3px solid #b39ddb;
             padding: 20px; border-radius: 20px; box-shadow: 0 8px 20px rgba(103, 58, 183, 0.08);
@@ -334,15 +333,12 @@
 
         .nome-opcao-banquete { font-size: 20px; font-weight: 700; color: #5d4037; text-align: center; }
         
-        /* CHAMADA PARA O PERGAMINHO E ANIMAÇÃO */
         .chamada-carta-mes7 {
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             cursor: pointer; transition: transform 0.3s; text-align: center;
             margin: auto; padding: 40px 20px;
         }
-        .chamada-carta-mes7:hover {
-            transform: scale(1.05);
-        }
+        .chamada-carta-mes7:hover { transform: scale(1.05); }
         .texto-chamada-carta {
             font-size: 32px; color: #7a1010; font-weight: 700;
             margin-bottom: 25px; max-width: 650px; line-height: 1.4;
@@ -352,20 +348,23 @@
             animation: flutuarItem 3s ease-in-out infinite alternate;
         }
 
-        /* PERGAMINHO INTERATIVO (Agora escondido no início) */
+        /* PERGAMINHO INTERATIVO */
         .pergaminho-container {
-            width: 100%; max-width: 600px; background: #fdf5e6;
+            width: 100%; max-width: 650px; background: #fdf5e6;
             border: 2px solid #d7ccc8; box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             border-radius: 8px; padding: 40px; box-sizing: border-box;
             display: none; flex-direction: column; align-items: center; margin-top: auto; margin-bottom: auto;
             background-image: radial-gradient(rgba(0,0,0,0.03) 1px, transparent 0); background-size: 24px 24px;
         }
-        .titulo-pergaminho { font-family: 'Pinyon Script', cursive; font-size: 55px; color: #4e342e; margin-bottom: 20px; text-align: center; }
-        .textarea-pergaminho {
-            width: 100%; height: 200px; background: transparent; border: none;
-            border-bottom: 1px dashed #a1887f; font-family: 'Fredoka', sans-serif;
-            font-size: 18px; line-height: 1.8; color: #5d4037; resize: none; outline: none;
-            padding: 10px; box-sizing: border-box;
+        .titulo-pergaminho { 
+            font-family: 'Pinyon Script', cursive; font-size: 50px; color: #4e342e; margin-bottom: 20px; text-align: center; 
+        }
+        .texto-pergaminho {
+            width: 100%; font-family: 'Fredoka', sans-serif;
+            font-size: 18px; line-height: 1.6; color: #5d4037; text-align: justify;
+        }
+        .texto-pergaminho p {
+            margin-bottom: 15px;
         }
 
         /* RESPONSIVIDADE */
@@ -379,6 +378,7 @@
             .titulo-secao-banquete { font-size: 26px; }
             .titulo-pergaminho { font-size: 42px; }
             .texto-chamada-carta { font-size: 24px; }
+            .texto-pergaminho { font-size: 16px; }
         }
     </style>
 </head>
@@ -398,11 +398,11 @@
         </div>
     </div>
 
-    <!-- AUDIO ELEMENTS -->
-    <audio id="audio-boing" src="cartoon-boig.mp3" preload="auto"></audio>
-    <audio id="audio-bongos" src="bongo-feet.mp3" preload="auto"></audio>
-    <audio id="audio-magia" src="magia.mp3" preload="auto"></audio>
-    <audio id="audio-album" src="musica.mp3" preload="auto" loop></audio>
+    <!-- AUDIO ELEMENTS (Preload retirado para não dar loading infinito na tela inicial) -->
+    <audio id="audio-boing" src="cartoon-boig.mp3"></audio>
+    <audio id="audio-bongos" src="bongo-feet.mp3"></audio>
+    <audio id="audio-magia" src="magia.mp3"></audio>
+    <audio id="audio-album" src="musica.mp3" loop></audio>
 
     <!-- PROCESSO MÊS 6 -->
     <div id="texto-container">
@@ -450,10 +450,14 @@
         </div>
     </div>
 
+    <!-- CARTA MÊS 6: ORIGINAL RESTAURADA -->
     <div id="cena-carta-aberta">
         <div class="folha-carta">
             <h3>Minha gatinha,</h3>
-            <p>honestamente não sei nem por onde começar, sou definitivamente a pessoa mais feliz do mundo junto da sua presença...</p>
+            <p>honestamente não sei nem por onde começar, sou definitivamente a pessoa mais feliz do mundo junto da sua presença e o amor que eu sinto por você é algo sobrenatural, só de pensar em você meu coração já sente uma ternura que nada nesse mundo chega perto de dar.</p>
+            <p>É incrível ter a companhia de uma pessoa como você Lívia, tão carinhosa, tão gentil e engraçada e todas as boas qualidades que alguém pode ter. Eu posso estar tendo o pior dia da minha vida mas só de pensar ou de te ver, o meu dia já se enche de cor.</p>
+            <p>Não canso de falar que o tempo voa com você, em um piscar de olhos 6 meses já se passaram e foram 6 meses tão gostosos de se viver. Sentir saudades mesmo antes de nos despedirmos, pensar em você o dia inteiro e sempre mal ver a hora de te encontrar novamente, ter alguém que desfrute esses sentimentos é algo sem igual.</p>
+            <p>Eu tenho muita admiração por você e a maior certeza do mundo é que eu quero o resto do tempo do universo ao seu lado, até mesmo quando em algum momento virarmos um casal de lontras marinhas, quero nossas mãos dadas para sempre.</p>
             <p>Pretendo viver infinitas e uma aventuras com você, minha alma gêmea!</p>
             <div class="assinatura">-Thomas</div>
             <button class="btn-voltar-laila" onclick="voltarParaLaila()">Voltar para Laila</button>
@@ -506,7 +510,6 @@
         <!-- Bloco 1: Boas-vindas -->
         <div id="mes7-intro" class="texto-intro-mes7" style="display:flex; flex-direction:column; align-items:center;">
             <div id="digitando-intro"></div>
-            <!-- Botão agora padrão igual mês 6 -->
             <button id="btn-iniciar-banquete" class="btn-voltar-laila" style="display:none; margin-top:25px;" onclick="irParaBebidas()">Aceitar Banquete 😋</button>
         </div>
 
@@ -520,7 +523,6 @@
             </div>
 
             <div class="container-opcoes-banquete">
-                <!-- Vodka + Suco -->
                 <div class="card-opcao-banquete" onclick="escolherBebida('ôo bebum cansa de beber não né')">
                     <div class="indice-banquete">1</div>
                     <div class="wrapper-imagens-banquete">
@@ -531,7 +533,6 @@
                     <div class="nome-opcao-banquete">Vodka com Suco de Maçã</div>
                 </div>
 
-                <!-- Chá -->
                 <div class="card-opcao-banquete" onclick="escolherBebida('mais refrescante que isso impossível')">
                     <div class="indice-banquete">2</div>
                     <div class="wrapper-imagens-banquete">
@@ -540,7 +541,6 @@
                     <div class="nome-opcao-banquete">Chá de Pêssego</div>
                 </div>
 
-                <!-- Boba -->
                 <div class="card-opcao-banquete" onclick="escolherBebida('tá esbanjando em')">
                     <div class="indice-banquete">3</div>
                     <div class="wrapper-imagens-banquete">
@@ -549,7 +549,6 @@
                     <div class="nome-opcao-banquete">Boba</div>
                 </div>
 
-                <!-- Tap Water -->
                 <div class="card-opcao-banquete" onclick="escolherBebida('economizando pra comprar várias coisas legais, excelente')">
                     <div class="indice-banquete">4</div>
                     <div class="wrapper-imagens-banquete">
@@ -570,7 +569,6 @@
             </div>
 
             <div class="container-opcoes-banquete">
-                <!-- Marmita -->
                 <div class="card-opcao-banquete" onclick="escolherComida('se abrir uma empresa pra vender essa marmita é um milhão em um dia')">
                     <div class="indice-banquete" style="font-size:14px; border-radius:8px; width:auto; padding: 0 8px;">marmita</div>
                     <div class="wrapper-imagens-banquete">
@@ -579,7 +577,6 @@
                     <div class="nome-opcao-banquete">Marmita Maravilhosa</div>
                 </div>
 
-                <!-- Fried Rice -->
                 <div class="card-opcao-banquete" onclick="escolherComida('chinês sempre é maravilhoso')">
                     <div class="indice-banquete" style="font-size:14px; border-radius:8px; width:auto; padding: 0 8px;">fried</div>
                     <div class="wrapper-imagens-banquete">
@@ -588,7 +585,6 @@
                     <div class="nome-opcao-banquete">Fried Rice</div>
                 </div>
 
-                <!-- Carbonara -->
                 <div class="card-opcao-banquete" onclick="escolherComida('anota todos os segredos italianos pra a gente aplicar na nossa')">
                     <div class="indice-banquete" style="font-size:14px; border-radius:8px; width:auto; padding: 0 8px;">carbonara</div>
                     <div class="wrapper-imagens-banquete">
@@ -597,7 +593,6 @@
                     <div class="nome-opcao-banquete">Carbonara Autêntica</div>
                 </div>
 
-                <!-- Cavalo -->
                 <div class="card-opcao-banquete" onclick="escolherComida('isso deve ser tão bom, trás um pouco pra mim')">
                     <div class="indice-banquete" style="font-size:14px; border-radius:8px; width:auto; padding: 0 8px;">cavalo</div>
                     <div class="wrapper-imagens-banquete">
@@ -616,10 +611,13 @@
             </div>
         </div>
 
-        <!-- Bloco 5: O Pergaminho (Oculto inicialmente) -->
+        <!-- Bloco 5: O Pergaminho com o novo texto de saudade -->
         <div id="mes7-pergaminho" class="pergaminho-container">
-            <h4 class="titulo-pergaminho">Deixe sua mensagem</h4>
-            <textarea class="textarea-pergaminho" placeholder="Escreva aqui tudo o que seu coração quiser expressar hoje... 📜✍️"></textarea>
+            <h4 class="titulo-pergaminho">Que saudade meu amor!</h4>
+            <div class="texto-pergaminho">
+                <p>Eai gatinha feliz 7 meses de namoro! O que eu tenho pra falar hoje é sobre saudade, nunca senti tanta saudade de alguém na minha vida e algo curioso que você deve saber é que a palavra saudade não tem em nenhuma outra língua, mas se fosse pra descrever o que significa essa palavra pra um gringo é muito fácil, vc poderia dizer: <i>the feeling of missing something or someone</i>, ou pra um latino: <i>la sensación de echar de menos algo o a alguien</i> (me corrige se eu tiver errado em Maestra) e o problema estaria resolvido,</p>
+                <p>só que se eu tivesse que explicar como é a saudade que eu tenho de você tenho certeza que eu não consigo colocar em palavras. Sempre ao dormir, ao acordar, tomar banho ver os passarinhos pegarem ração aqui em casa me lembro de você e na hora já me surge um sentimento gostoso misturado de uma vontade insaciável de te ter do meu lado e a cada segundo essa saudade aumenta ainda mais daqui a pouco ela vai explodir e eu vou ser arremessado até o seu dormitório em Milão. Te amo muito Lívia ansioso pra quando nos vermos e vivermos muito mais aventuras pelo resto da eternidade!</p>
+            </div>
             <button class="btn-voltar-laila" style="background-color: #4e342e; box-shadow: 0 5px 15px rgba(78, 52, 46, 0.3); margin-top:20px;" onclick="finalizarMes7()">Voltar ao início ❤️</button>
         </div>
 
@@ -629,14 +627,14 @@
         let etapaFalaLaila = 1;
         let magiaRevelada = false; 
         let interacaoMagicaFeita = false; 
-        let audioBongosTocado = false; // Trava para tocar o som dos pezinhos apenas uma vez
+        let audioBongosTocado = false; 
         
         function carregarMenuFases() {
             const gridJornada = document.getElementById('grid-jornada');
             const gridGoodPlace = document.getElementById('grid-good-place');
             let htmlJornada = '';
             
-            // Mês 6 - Desbloqueado
+            // Mês 6
             htmlJornada += `
                 <div class="fase-card desbloqueada" onclick="jogarFase6Meses()">
                     <div class="fase-tempo">Mês 6</div>
@@ -644,7 +642,7 @@
                 </div>
             `;
 
-            // Mês 7 - Desbloqueado (Sem coroa e com texto do intercâmbio)
+            // Mês 7
             htmlJornada += `
                 <div class="fase-card desbloqueada" style="border-color: #b39ddb; background-color: #fffde7;" onclick="jogarFase7Meses()">
                     <div class="fase-tempo" style="color: #7e57c2;">Mês 7</div>
@@ -652,40 +650,19 @@
                 </div>
             `;
             
-            // Meses Bloqueados
             for(let m = 8; m <= 11; m++) {
-                htmlJornada += `
-                    <div class="fase-card bloqueada" onclick="avisoFaseBloqueada()">
-                        <div class="fase-tempo">Mês ${m}</div>
-                        <div class="fase-status">🔒</div>
-                    </div>
-                `;
+                htmlJornada += `<div class="fase-card bloqueada" onclick="avisoFaseBloqueada()"><div class="fase-tempo">Mês ${m}</div><div class="fase-status">🔒</div></div>`;
             }
             for(let a = 1; a <= 69; a++) {
-                htmlJornada += `
-                    <div class="fase-card bloqueada" onclick="avisoFaseBloqueada()">
-                        <div class="fase-tempo">Ano ${a}</div>
-                        <div class="fase-status">🔒</div>
-                    </div>
-                `;
+                htmlJornada += `<div class="fase-card bloqueada" onclick="avisoFaseBloqueada()"><div class="fase-tempo">Ano ${a}</div><div class="fase-status">🔒</div></div>`;
             }
             gridJornada.innerHTML = htmlJornada;
             
             let htmlGoodPlace = '';
             for(let j = 1; j <= 50; j++) {
-                htmlGoodPlace += `
-                    <div class="fase-card bloqueada" onclick="avisoFaseBloqueada()">
-                        <div class="fase-tempo">Ano ${j}</div>
-                        <div class="fase-status">🔒</div>
-                    </div>
-                `;
+                htmlGoodPlace += `<div class="fase-card bloqueada" onclick="avisoFaseBloqueada()"><div class="fase-tempo">Ano ${j}</div><div class="fase-status">🔒</div></div>`;
             }
-            htmlGoodPlace += `
-                <div class="fase-card bloqueada" onclick="avisoFaseBloqueada()">
-                    <div class="fase-tempo">∞ Anos</div>
-                    <div class="fase-status">🔒</div>
-                </div>
-            `;
+            htmlGoodPlace += `<div class="fase-card bloqueada" onclick="avisoFaseBloqueada()"><div class="fase-tempo">∞ Anos</div><div class="fase-status">🔒</div></div>`;
             gridGoodPlace.innerHTML = htmlGoodPlace;
         }
 
