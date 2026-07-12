@@ -106,7 +106,7 @@
             background-color: rgba(240, 240, 240, 0.6);
             border-color: #95a5a6;
             color: #7f8c8d;
-            cursor: pointer; /* Mudado para pointer já que agora interage com a Laila */
+            cursor: pointer;
             backdrop-filter: blur(2px);
         }
         .secao-fases.good-place .fase-card.bloqueada { border-color: #0288d1; color: #0288d1; }
@@ -134,7 +134,7 @@
             100% { opacity: 1; transform: translateY(0); }
         }
         
-        /* Jacaré Laila - Aumentado o Z-Index para sobrepor tudo se necessário */
+        /* Jacaré Laila */
         #jacare-container {
             position: absolute; left: -500px; 
             top: calc(50% - 130px);
@@ -271,81 +271,76 @@
         #cena-mes7 {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background-color: #fffde7; z-index: 150; display: none;
-            flex-direction: column; align-items: center; justify-content: center;
-            padding: 30px; box-sizing: border-box; overflow-y: auto;
+            flex-direction: column; align-items: center; justify-content: flex-start;
+            padding: 40px 30px; box-sizing: border-box; overflow-y: auto;
         }
 
         .texto-intro-mes7 {
             font-size: 28px; color: #5d4037; text-align: center; max-width: 800px;
-            line-height: 1.6; font-weight: 600; margin-bottom: 30px;
+            line-height: 1.6; font-weight: 600; margin-bottom: 30px; margin-top: auto; margin-bottom: auto;
         }
 
         .titulo-secao-banquete {
-            font-size: 36px; color: #e65100; font-weight: 700; margin-bottom: 40px; text-align: center;
+            font-size: 36px; color: #673ab7; font-weight: 700; margin-bottom: 15px; text-align: center;
         }
 
-        /* Grid de Opções Bebidas/Comidas */
+        /* NOVA CAIXA DE TEXTO INTEGRADA (Sem sobreposição) */
+        .feedback-inline-banquete {
+            display: none; background: #f3e5f5; border: 3px solid #b39ddb;
+            padding: 20px; border-radius: 20px; box-shadow: 0 8px 20px rgba(103, 58, 183, 0.08);
+            text-align: center; max-width: 550px; width: 100%; box-sizing: border-box;
+            margin-bottom: 30px; animation: abrirFolha 0.3s ease-out forwards;
+        }
+        .texto-feedback-inline {
+            font-size: 20px; color: #512da8; font-weight: 600; line-height: 1.5; margin: 0 0 15px 0;
+        }
+        .btn-inline-banquete {
+            margin-top: 0 !important; background-color: #7e57c2 !important;
+            box-shadow: 0 5px 15px rgba(103, 58, 183, 0.3) !important;
+        }
+        .btn-inline-banquete:hover { background-color: #673ab7 !important; }
+
+        /* Grid de Opções - CONTORNO LILÁS */
         .container-opcoes-banquete {
             display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px;
             width: 100%; max-width: 750px; margin-bottom: 20px;
         }
 
         .card-opcao-banquete {
-            background: white; border: 4px solid #ffb300; border-radius: 20px;
+            background: white; border: 4px solid #b39ddb; border-radius: 20px;
             padding: 20px; display: flex; flex-direction: column; align-items: center;
-            position: relative; cursor: pointer; box-shadow: 0 8px 16px rgba(0,0,0,0.06);
+            position: relative; cursor: pointer; box-shadow: 0 8px 16px rgba(0,0,0,0.05);
             transition: transform 0.2s, box-shadow 0.2s;
         }
         .card-opcao-banquete:hover {
-            transform: scale(1.04); box-shadow: 0 12px 24px rgba(230, 81, 0, 0.15);
+            transform: scale(1.04); box-shadow: 0 12px 24px rgba(103, 58, 183, 0.15);
         }
 
         .indice-banquete {
             position: absolute; top: 12px; left: 15px; font-size: 24px;
-            font-weight: 700; color: #ff8f00; background: #fff8e1;
+            font-weight: 700; color: #7e57c2; background: #f3e5f5;
             width: 35px; height: 35px; display: flex; justify-content: center;
-            align-items: center; border-radius: 50%; border: 2px solid #ffb300;
+            align-items: center; border-radius: 50%; border: 2px solid #b39ddb;
         }
 
         .wrapper-imagens-banquete {
             display: flex; align-items: center; justify-content: center;
             gap: 10px; min-height: 120px; margin-top: 15px; margin-bottom: 15px;
         }
-        .wrapper-imagens-banquete img {
-            width: 100px; height: 100px; object-fit: contain;
-        }
-        .wrapper-imagens-banquete span {
-            font-size: 32px; font-weight: 700; color: #ff6f00;
-        }
+        .wrapper-imagens-banquete img { width: 100px; height: 100px; object-fit: contain; }
+        .wrapper-imagens-banquete span { font-size: 32px; font-weight: 700; color: #7e57c2; }
 
-        .nome-opcao-banquete {
-            font-size: 20px; font-weight: 700; color: #5d4037; text-align: center;
-        }
-
-        /* Pop-up customizado de feedback (Substitui o alert feio) */
-        #popup-feedback-banquete {
-            display: none; position: fixed; top: 50%; left: 50%; 
-            transform: translate(-50%, -50%); background: white; 
-            border: 4px solid #ffb300; padding: 30px; border-radius: 25px; 
-            box-shadow: 0 15px 40px rgba(230, 81, 0, 0.2); text-align: center; 
-            z-index: 190; max-width: 420px; width: 85%; box-sizing: border-box;
-            animation: abrirFolha 0.3s ease-out forwards;
-        }
-        #texto-feedback-banquete {
-            font-size: 22px; color: #5d4037; font-weight: 600; line-height: 1.5; margin-bottom: 25px;
-        }
+        .nome-opcao-banquete { font-size: 20px; font-weight: 700; color: #5d4037; text-align: center; }
 
         /* PERGAMINHO INTERATIVO */
         .pergaminho-container {
             width: 100%; max-width: 600px; background: #fdf5e6;
             border: 2px solid #d7ccc8; box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             border-radius: 8px; padding: 40px; box-sizing: border-box;
-            display: none; flex-direction: column; align-items: center;
+            display: none; flex-direction: column; align-items: center; margin-top: auto; margin-bottom: auto;
             background-image: radial-gradient(rgba(0,0,0,0.03) 1px, transparent 0); background-size: 24px 24px;
         }
-        .titulo-pergaminho {
-            font-family: 'Pinyon Script', cursive; font-size: 55px; color: #4e342e; margin-bottom: 20px; text-align: center;
-        }
+        .titulo-pergaminho { font-family: 'Pinyon Script', cursive; font-size: 55px; color: #4e342e; margin-bottom: 20px; text-align: center; }
         .textarea-pergaminho {
             width: 100%; height: 200px; background: transparent; border: none;
             border-bottom: 1px dashed #a1887f; font-family: 'Fredoka', sans-serif;
@@ -395,7 +390,7 @@
         <span id="texto-parte2"></span>
     </div>
 
-    <!-- Laila Container (Z-Index alto para aparecer sobre o menu inicial se necessário) -->
+    <!-- Laila Container -->
     <div id="jacare-container">
         <div id="laila-corpo">
             <img id="laila-img" src="laila.png" style="width: 180px;" alt="Jacaré Laila" onclick="clicouNaLaila()">
@@ -484,26 +479,28 @@
     </div>
 
 
-    <!-- ================= CENA DINÂMICA DO MÊS 7 ================= -->
+    <!-- ================= CENA DO MÊS 7 ================= -->
     <div id="cena-mes7">
-        
-        <!-- Pop-up customizado e lindo para reações do banquete -->
-        <div id="popup-feedback-banquete">
-            <p id="texto-feedback-banquete"></p>
-            <button class="btn-voltar-laila" id="btn-avancar-banquete" style="margin-top:0; background-color: #e65100; box-shadow: 0 5px 15px rgba(230, 81, 0, 0.3);">Continuar 😋</button>
-        </div>
 
         <!-- Bloco 1: Boas-vindas -->
-        <div id="mes7-intro" class="texto-intro-mes7"></div>
-        <button id="btn-iniciar-banquete" class="btn-voltar-laila" style="display:none; background-color: #ff8f00; box-shadow: 0 5px 15px rgba(255, 143, 0, 0.3);" onclick="irParaBebidas()">Aceitar Banquete 😋</button>
+        <div id="mes7-intro" class="texto-intro-mes7" style="display:flex; flex-direction:column; align-items:center;">
+            <div id="digitando-intro"></div>
+            <button id="btn-iniciar-banquete" class="btn-voltar-laila" style="display:none; background-color: #7e57c2; box-shadow: 0 5px 15px rgba(103, 58, 183, 0.3); margin-top:25px;" onclick="irParaBebidas()">Aceitar Banquete 😋</button>
+        </div>
 
         <!-- Bloco 2: Seleção de Bebidas -->
         <div id="mes7-bebidas" style="display:none; width:100%; display:flex; flex-direction:column; align-items:center;">
             <h3 class="titulo-secao-banquete">Primeiro as bebidas</h3>
+            
+            <!-- Caixa de Texto Integrada (Bebidas) -->
+            <div id="feedback-bebidas" class="feedback-inline-banquete">
+                <p class="texto-feedback-inline"></p>
+                <button class="btn-voltar-laila btn-inline-banquete" id="btn-avancar-bebidas">Continuar 😋</button>
+            </div>
+
             <div class="container-opcoes-banquete">
-                
-                <!-- Opção 1: Vodka + Suco -->
-                <div class="card-opcao-banquete" onclick="escolherBebida(1, 'ôo bebum cansa de beber não né')">
+                <!-- Vodka + Suco -->
+                <div class="card-opcao-banquete" onclick="escolherBebida('ôo bebum cansa de beber não né')">
                     <div class="indice-banquete">1</div>
                     <div class="wrapper-imagens-banquete">
                         <img src="vodka.png" alt="Vodka" onerror="this.src='https://via.placeholder.com/100?text=Vodka'">
@@ -513,8 +510,8 @@
                     <div class="nome-opcao-banquete">Vodka com Suco de Maçã</div>
                 </div>
 
-                <!-- Opção 2: Chá -->
-                <div class="card-opcao-banquete" onclick="escolherBebida(2, 'mais refrescante que isso impossível')">
+                <!-- Chá -->
+                <div class="card-opcao-banquete" onclick="escolherBebida('mais refrescante que isso impossível')">
                     <div class="indice-banquete">2</div>
                     <div class="wrapper-imagens-banquete">
                         <img src="cha.png" alt="Chá de Pêssego" onerror="this.src='https://via.placeholder.com/100?text=Chá'">
@@ -522,8 +519,8 @@
                     <div class="nome-opcao-banquete">Chá de Pêssego</div>
                 </div>
 
-                <!-- Opção 3: Boba -->
-                <div class="card-opcao-banquete" onclick="escolherBebida(3, 'tá esbanjando em')">
+                <!-- Boba -->
+                <div class="card-opcao-banquete" onclick="escolherBebida('tá esbanjando em')">
                     <div class="indice-banquete">3</div>
                     <div class="wrapper-imagens-banquete">
                         <img src="boba.png" alt="Boba Tea" onerror="this.src='https://via.placeholder.com/100?text=Boba'">
@@ -531,25 +528,30 @@
                     <div class="nome-opcao-banquete">Boba</div>
                 </div>
 
-                <!-- Opção 4: Tap Water -->
-                <div class="card-opcao-banquete" onclick="escolherBebida(4, 'economizando pra comprar várias coisas legais, excelente')">
+                <!-- Tap Water -->
+                <div class="card-opcao-banquete" onclick="escolherBebida('economizando pra comprar várias coisas legais, excelente')">
                     <div class="indice-banquete">4</div>
                     <div class="wrapper-imagens-banquete">
                         <img src="tapwater.png" alt="Tap Water" onerror="this.src='https://via.placeholder.com/100?text=Tap+Water'">
                     </div>
                     <div class="nome-opcao-banquete">Tap Water</div>
                 </div>
-
             </div>
         </div>
 
         <!-- Bloco 3: Seleção de Prato Principal -->
         <div id="mes7-comidas" style="display:none; width:100%; display:flex; flex-direction:column; align-items:center;">
             <h3 class="titulo-secao-banquete">Agora, o prato principal</h3>
+            
+            <!-- Caixa de Texto Integrada (Comidas) -->
+            <div id="feedback-comidas" class="feedback-inline-banquete">
+                <p class="texto-feedback-inline"></p>
+                <button class="btn-voltar-laila btn-inline-banquete" id="btn-avancar-comidas">Continuar 😋</button>
+            </div>
+
             <div class="container-opcoes-banquete">
-                
-                <!-- Opção Marmita -->
-                <div class="card-opcao-banquete" onclick="escolherComida('marmita', 'se abrir uma empresa pra vender essa marmita é um milhão em um dia')">
+                <!-- Marmita -->
+                <div class="card-opcao-banquete" onclick="escolherComida('se abrir uma empresa pra vender essa marmita é um milhão em um dia')">
                     <div class="indice-banquete" style="font-size:14px; border-radius:8px; width:auto; padding: 0 8px;">marmita</div>
                     <div class="wrapper-imagens-banquete">
                         <img src="marmita.png" alt="Marmita" onerror="this.src='https://via.placeholder.com/100?text=Marmita'">
@@ -557,8 +559,8 @@
                     <div class="nome-opcao-banquete">Marmita Maravilhosa</div>
                 </div>
 
-                <!-- Opção Fried Rice -->
-                <div class="card-opcao-banquete" onclick="escolherComida('fried', 'chinês sempre é maravilhoso')">
+                <!-- Fried Rice -->
+                <div class="card-opcao-banquete" onclick="escolherComida('chinês sempre é maravilhoso')">
                     <div class="indice-banquete" style="font-size:14px; border-radius:8px; width:auto; padding: 0 8px;">fried</div>
                     <div class="wrapper-imagens-banquete">
                         <img src="fried.png" alt="Fried Rice" onerror="this.src='https://via.placeholder.com/100?text=Fried+Rice'">
@@ -566,8 +568,8 @@
                     <div class="nome-opcao-banquete">Fried Rice</div>
                 </div>
 
-                <!-- Opção Carbonara -->
-                <div class="card-opcao-banquete" onclick="escolherComida('carbonara', 'anota todos os segredos italianos pra a gente aplicar na nossa')">
+                <!-- Carbonara -->
+                <div class="card-opcao-banquete" onclick="escolherComida('anota todos os segredos italianos pra a gente aplicar na nossa')">
                     <div class="indice-banquete" style="font-size:14px; border-radius:8px; width:auto; padding: 0 8px;">carbonara</div>
                     <div class="wrapper-imagens-banquete">
                         <img src="carbonara.png" alt="Carbonara" onerror="this.src='https://via.placeholder.com/100?text=Carbonara'">
@@ -575,15 +577,14 @@
                     <div class="nome-opcao-banquete">Carbonara Autêntica</div>
                 </div>
 
-                <!-- Opção Cavalo -->
-                <div class="card-opcao-banquete" onclick="escolherComida('cavalo', 'isso deve ser tão bom, trás um pouco pra mim')">
+                <!-- Cavalo -->
+                <div class="card-opcao-banquete" onclick="escolherComida('isso deve ser tão bom, trás um pouco pra mim')">
                     <div class="indice-banquete" style="font-size:14px; border-radius:8px; width:auto; padding: 0 8px;">cavalo</div>
                     <div class="wrapper-imagens-banquete">
                         <img src="cavalo.png" alt="Carne de Cavalo" onerror="this.src='https://via.placeholder.com/100?text=Carne+Cavalo'">
                     </div>
                     <div class="nome-opcao-banquete">Carne de Cavalo</div>
                 </div>
-
             </div>
         </div>
 
@@ -600,6 +601,7 @@
         let etapaFalaLaila = 1;
         let magiaRevelada = false; 
         let interacaoMagicaFeita = false; 
+        let audioBongosTocado = false; // Trava para tocar o som dos pezinhos apenas uma vez
         
         function carregarMenuFases() {
             const gridJornada = document.getElementById('grid-jornada');
@@ -614,15 +616,15 @@
                 </div>
             `;
 
-            // Mês 7 - DESBLOQUEADO (Texto atualizado para '7 meses + Intercâmbio')
+            // Mês 7 - Desbloqueado (Sem coroa e com texto do intercâmbio)
             htmlJornada += `
-                <div class="fase-card desbloqueada" style="border-color: #ffb300; background-color: #fffde7;" onclick="jogarFase7Meses()">
-                    <div class="fase-tempo" style="color: #e65100;">Mês 7</div>
-                    <div class="fase-obs" style="color: #ff8f00;">7 meses + Intercâmbio</div>
+                <div class="fase-card desbloqueada" style="border-color: #b39ddb; background-color: #fffde7;" onclick="jogarFase7Meses()">
+                    <div class="fase-tempo" style="color: #7e57c2;">Mês 7</div>
+                    <div class="fase-obs" style="color: #673ab7;">7 meses + Intercâmbio</div>
                 </div>
             `;
             
-            // Do Mês 8 ao Mês 11 (Bloqueados)
+            // Meses Bloqueados
             for(let m = 8; m <= 11; m++) {
                 htmlJornada += `
                     <div class="fase-card bloqueada" onclick="avisoFaseBloqueada()">
@@ -631,8 +633,6 @@
                     </div>
                 `;
             }
-            
-            // Do Ano 1 ao Ano 69 (Bloqueados)
             for(let a = 1; a <= 69; a++) {
                 htmlJornada += `
                     <div class="fase-card bloqueada" onclick="avisoFaseBloqueada()">
@@ -661,17 +661,19 @@
             gridGoodPlace.innerHTML = htmlGoodPlace;
         }
 
-        // Nova Lógica de Alerta Bloqueado com a Laila
+        // Lógica de aviso com trava de som no primeiro clique
         function avisoFaseBloqueada() {
             const jacare = document.getElementById('jacare-container');
             const balao = document.getElementById('balao-jacare');
             const audioBongos = document.getElementById('audio-bongos');
 
-            if(audioBongos){ audioBongos.currentTime = 0; audioBongos.play().catch(e => {}); }
+            if (!audioBongosTocado && audioBongos) {
+                audioBongos.currentTime = 0;
+                audioBongos.play().catch(e => {});
+                audioBongosTocado = true; // Trava o som para os próximos cliques
+            }
 
             jacare.style.display = 'flex';
-            
-            // Força reinício da animação de corrida da Laila
             jacare.classList.remove('correndo');
             void jacare.offsetWidth; 
             jacare.classList.add('correndo');
@@ -685,7 +687,7 @@
             }, 1000);
         }
 
-        /* LÓGICA DO MÊS 7 */
+        /* SISTEMA DE FLUXO DO MÊS 7 */
         function jogarFase7Meses() {
             document.getElementById('tela-inicio').style.display = 'none';
             const cena7 = document.getElementById('cena-mes7');
@@ -694,50 +696,48 @@
             document.getElementById('mes7-bebidas').style.display = 'none';
             document.getElementById('mes7-comidas').style.display = 'none';
             document.getElementById('mes7-pergaminho').style.display = 'none';
-            document.getElementById('popup-feedback-banquete').style.display = 'none';
+            document.getElementById('feedback-bebidas').style.display = 'none';
+            document.getElementById('feedback-comidas').style.display = 'none';
             
             const introDiv = document.getElementById('mes7-intro');
-            introDiv.innerHTML = '';
-            introDiv.style.display = 'block';
+            const digitando = document.getElementById('digitando-intro');
+            digitando.innerHTML = '';
+            introDiv.style.display = 'flex';
 
-            // String limpa, sem a coroa após poliglota
             const textoMês7 = "Privet! Buonasera my amore poliglota\nFeliz 7 meses de namoro meu amor! Imagino que você esteja com fome e não negaria um banquete agora né, então escolha sua refeição:";
             
-            typeWriter(textoMês7, 'mes7-intro', 40, () => {
+            typeWriter(textoMês7, 'digitando-intro', 35, () => {
                 document.getElementById('btn-iniciar-banquete').style.display = 'inline-block';
             });
         }
 
         function irParaBebidas() {
             document.getElementById('mes7-intro').style.display = 'none';
-            document.getElementById('btn-iniciar-banquete').style.display = 'none';
             document.getElementById('mes7-bebidas').style.display = 'flex';
         }
 
-        // Função intermediária para exibir o pop-up customizado de feedback do banquete
-        function mostrarFeedbackBanquete(mensagem, acaoProxima) {
-            const popup = document.getElementById('popup-feedback-banquete');
-            document.getElementById('texto-feedback-banquete').innerText = mensagem;
-            popup.style.display = 'block';
+        function escolherBebida(msg) {
+            const fb = document.getElementById('feedback-bebidas');
+            fb.querySelector('.texto-feedback-inline').innerText = msg;
+            fb.style.display = 'block';
             
-            document.getElementById('btn-avancar-banquete').onclick = function() {
-                popup.style.display = 'none';
-                acaoProxima();
+            document.getElementById('btn-avancar-bebidas').onclick = function() {
+                fb.style.display = 'none';
+                document.getElementById('mes7-bebidas').style.display = 'none';
+                document.getElementById('mes7-comidas').style.display = 'flex';
             };
         }
 
-        function escolherBebida(id, msg) {
-            mostrarFeedbackBanquete(msg, () => {
-                document.getElementById('mes7-bebidas').style.display = 'none';
-                document.getElementById('mes7-comidas').style.display = 'flex';
-            });
-        }
-
-        function escolherComida(id, msg) {
-            mostrarFeedbackBanquete(msg, () => {
+        function escolherComida(msg) {
+            const fc = document.getElementById('feedback-comidas');
+            fc.querySelector('.texto-feedback-inline').innerText = msg;
+            fc.style.display = 'block';
+            
+            document.getElementById('btn-avancar-comidas').onclick = function() {
+                fc.style.display = 'none';
                 document.getElementById('mes7-comidas').style.display = 'none';
                 document.getElementById('mes7-pergaminho').style.display = 'flex';
-            });
+            };
         }
 
         function finalizarMes7() {
@@ -745,7 +745,40 @@
             document.getElementById('tela-inicio').style.display = 'flex';
         }
 
-        /* SISTEMA AUXILIAR DO MÊS 6 E CLIQUES DA LAILA */
+        /* CONTROLE DA LAILA E DIÁLOGOS MÊS 6 */
+        function clicouNaLaila() {
+            if (lailaProntaParaClicar) {
+                const balao = document.getElementById('balao-jacare');
+                const jacare = document.getElementById('jacare-container');
+                
+                if (etapaFalaLaila === 'bloqueado') {
+                    // Ao clicar para fechar o aviso, ela limpa tudo e desaparece perfeitamente
+                    jacare.style.display = 'none';
+                    balao.style.display = 'none';
+                    jacare.style.left = '-500px'; 
+                    jacare.classList.remove('correndo');
+                    etapaFalaLaila = 1;
+                    lailaProntaParaClicar = false;
+                } else if (etapaFalaLaila === 1) {
+                    etapaFalaLaila = 2;
+                    balao.innerHTML = "Hahahhaahaha faz cócega mamãe, me dá sua mão e vem comigo que eu tenho COISAS pra te mostrar";
+                } else if (etapaFalaLaila === 2) {
+                    mudarParaCenaCaixa();
+                } else if (etapaFalaLaila === 3) {
+                    etapaFalaLaila = 4;
+                    balao.innerHTML = "Uiaaaa uma carta quero ler também!";
+                } else if (etapaFalaLaila === 'esperando_magia') {
+                    const audioMagia = document.getElementById('audio-magia');
+                    if(audioMagia){ audioMagia.currentTime = 0; audioMagia.play().catch(e => {}); }
+                    document.getElementById('cena-itens-magicos').style.display = 'flex';
+                    if(!interacaoMagicaFeita) { balao.innerHTML = "Viu só?! Tem mais tuuudo isso pra você ver"; } 
+                    else { balao.style.display = 'none'; }
+                    magiaRevelada = true;
+                    etapaFalaLaila = 'fim'; 
+                }
+            }
+        }
+
         function jogarFase6Meses() {
             preCarregarAudios();
             comecarTudo();
@@ -817,37 +850,6 @@
                 lailaProntaParaClicar = true;
                 document.getElementById('laila-img').style.cursor = 'pointer';
             }, 1500);
-        }
-
-        function clicouNaLaila() {
-            if (lailaProntaParaClicar) {
-                const balao = document.getElementById('balao-jacare');
-                const jacare = document.getElementById('jacare-container');
-                
-                if (etapaFalaLaila === 'bloqueado') {
-                    // Ao clicar na Laila no aviso de bloqueio, ela some e reseta
-                    jacare.style.display = 'none';
-                    balao.style.display = 'none';
-                    etapaFalaLaila = 1;
-                    lailaProntaParaClicar = false;
-                } else if (etapaFalaLaila === 1) {
-                    etapaFalaLaila = 2;
-                    balao.innerHTML = "Hahahhaahaha faz cócega mamãe, me dá sua mão e vem comigo que eu tenho COISAS pra te mostrar";
-                } else if (etapaFalaLaila === 2) {
-                    mudarParaCenaCaixa();
-                } else if (etapaFalaLaila === 3) {
-                    etapaFalaLaila = 4;
-                    balao.innerHTML = "Uiaaaa uma carta quero ler também!";
-                } else if (etapaFalaLaila === 'esperando_magia') {
-                    const audioMagia = document.getElementById('audio-magia');
-                    if(audioMagia){ audioMagia.currentTime = 0; audioMagia.play().catch(e => {}); }
-                    document.getElementById('cena-itens-magicos').style.display = 'flex';
-                    if(!interacaoMagicaFeita) { balao.innerHTML = "Viu só?! Tem mais tuuudo isso pra você ver"; } 
-                    else { balao.style.display = 'none'; }
-                    magiaRevelada = true;
-                    etapaFalaLaila = 'fim'; 
-                }
-            }
         }
 
         function mudarParaCenaCaixa() {
