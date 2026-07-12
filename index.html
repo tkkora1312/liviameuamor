@@ -267,24 +267,27 @@
         .controles-album { display: flex; gap: 20px; margin-top: 10px; }
         .btn-album { padding: 10px 20px; font-size: 18px; font-weight: bold; background: #333; color: white; border: none; border-radius: 5px; cursor: pointer; }
 
-        /* ================= CENA DO MÊS 7 (AMARELO CLARINHO) ================= */
+        /* ================= CENA DO MÊS 7 (CORRIGIDA) ================= */
         #cena-mes7 {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background-color: #fffde7; z-index: 150; display: none;
+            background-color: #ffcccc; /* Mesmo fundo rosa/vermelho do mês 6 */
+            z-index: 150; display: none;
             flex-direction: column; align-items: center; justify-content: flex-start;
             padding: 40px 30px; box-sizing: border-box; overflow-y: auto;
         }
 
         .texto-intro-mes7 {
-            font-size: 28px; color: #5d4037; text-align: center; max-width: 800px;
+            font-size: 28px; color: #7a1010; /* Cor igual mês 6 */
+            text-align: center; max-width: 800px;
             line-height: 1.6; font-weight: 600; margin-bottom: 30px; margin-top: auto; margin-bottom: auto;
         }
 
         .titulo-secao-banquete {
-            font-size: 36px; color: #673ab7; font-weight: 700; margin-bottom: 15px; text-align: center;
+            font-size: 36px; color: #c13b2b; /* Cor igual mês 6 */
+            font-weight: 700; margin-bottom: 15px; text-align: center;
         }
 
-        /* NOVA CAIXA DE TEXTO INTEGRADA (Sem sobreposição) */
+        /* CAIXAS DE COMIDA/BEBIDA (MANTIDAS EM LILÁS COMO PEDIDO) */
         .feedback-inline-banquete {
             display: none; background: #f3e5f5; border: 3px solid #b39ddb;
             padding: 20px; border-radius: 20px; box-shadow: 0 8px 20px rgba(103, 58, 183, 0.08);
@@ -300,7 +303,6 @@
         }
         .btn-inline-banquete:hover { background-color: #673ab7 !important; }
 
-        /* Grid de Opções - CONTORNO LILÁS */
         .container-opcoes-banquete {
             display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px;
             width: 100%; max-width: 750px; margin-bottom: 20px;
@@ -331,8 +333,26 @@
         .wrapper-imagens-banquete span { font-size: 32px; font-weight: 700; color: #7e57c2; }
 
         .nome-opcao-banquete { font-size: 20px; font-weight: 700; color: #5d4037; text-align: center; }
+        
+        /* CHAMADA PARA O PERGAMINHO E ANIMAÇÃO */
+        .chamada-carta-mes7 {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            cursor: pointer; transition: transform 0.3s; text-align: center;
+            margin: auto; padding: 40px 20px;
+        }
+        .chamada-carta-mes7:hover {
+            transform: scale(1.05);
+        }
+        .texto-chamada-carta {
+            font-size: 32px; color: #7a1010; font-weight: 700;
+            margin-bottom: 25px; max-width: 650px; line-height: 1.4;
+        }
+        .icone-carta {
+            font-size: 90px;
+            animation: flutuarItem 3s ease-in-out infinite alternate;
+        }
 
-        /* PERGAMINHO INTERATIVO */
+        /* PERGAMINHO INTERATIVO (Agora escondido no início) */
         .pergaminho-container {
             width: 100%; max-width: 600px; background: #fdf5e6;
             border: 2px solid #d7ccc8; box-shadow: 0 10px 30px rgba(0,0,0,0.15);
@@ -358,6 +378,7 @@
             .texto-intro-mes7 { font-size: 20px; }
             .titulo-secao-banquete { font-size: 26px; }
             .titulo-pergaminho { font-size: 42px; }
+            .texto-chamada-carta { font-size: 24px; }
         }
     </style>
 </head>
@@ -485,14 +506,14 @@
         <!-- Bloco 1: Boas-vindas -->
         <div id="mes7-intro" class="texto-intro-mes7" style="display:flex; flex-direction:column; align-items:center;">
             <div id="digitando-intro"></div>
-            <button id="btn-iniciar-banquete" class="btn-voltar-laila" style="display:none; background-color: #7e57c2; box-shadow: 0 5px 15px rgba(103, 58, 183, 0.3); margin-top:25px;" onclick="irParaBebidas()">Aceitar Banquete 😋</button>
+            <!-- Botão agora padrão igual mês 6 -->
+            <button id="btn-iniciar-banquete" class="btn-voltar-laila" style="display:none; margin-top:25px;" onclick="irParaBebidas()">Aceitar Banquete 😋</button>
         </div>
 
         <!-- Bloco 2: Seleção de Bebidas -->
         <div id="mes7-bebidas" style="display:none; width:100%; display:flex; flex-direction:column; align-items:center;">
             <h3 class="titulo-secao-banquete">Primeiro as bebidas</h3>
             
-            <!-- Caixa de Texto Integrada (Bebidas) -->
             <div id="feedback-bebidas" class="feedback-inline-banquete">
                 <p class="texto-feedback-inline"></p>
                 <button class="btn-voltar-laila btn-inline-banquete" id="btn-avancar-bebidas">Continuar 😋</button>
@@ -543,7 +564,6 @@
         <div id="mes7-comidas" style="display:none; width:100%; display:flex; flex-direction:column; align-items:center;">
             <h3 class="titulo-secao-banquete">Agora, o prato principal</h3>
             
-            <!-- Caixa de Texto Integrada (Comidas) -->
             <div id="feedback-comidas" class="feedback-inline-banquete">
                 <p class="texto-feedback-inline"></p>
                 <button class="btn-voltar-laila btn-inline-banquete" id="btn-avancar-comidas">Continuar 😋</button>
@@ -588,11 +608,19 @@
             </div>
         </div>
 
-        <!-- Bloco 4: O Pergaminho -->
+        <!-- Bloco 4: Chamada interativa para a carta -->
+        <div id="mes7-chamada-carta" style="display:none; width:100%; flex-direction:column; align-items:center;">
+            <div class="chamada-carta-mes7" onclick="abrirPergaminho()">
+                <p class="texto-chamada-carta">Pronto, agora alimentada e hidratada pode pegar a carta!</p>
+                <div class="icone-carta">📜</div>
+            </div>
+        </div>
+
+        <!-- Bloco 5: O Pergaminho (Oculto inicialmente) -->
         <div id="mes7-pergaminho" class="pergaminho-container">
             <h4 class="titulo-pergaminho">Deixe sua mensagem</h4>
             <textarea class="textarea-pergaminho" placeholder="Escreva aqui tudo o que seu coração quiser expressar hoje... 📜✍️"></textarea>
-            <button class="btn-voltar-laila" style="background-color: #4e342e; box-shadow: 0 5px 15px rgba(78, 52, 46, 0.3);" onclick="finalizarMes7()">Voltar ao início ❤️</button>
+            <button class="btn-voltar-laila" style="background-color: #4e342e; box-shadow: 0 5px 15px rgba(78, 52, 46, 0.3); margin-top:20px;" onclick="finalizarMes7()">Voltar ao início ❤️</button>
         </div>
 
     </div>
@@ -661,7 +689,6 @@
             gridGoodPlace.innerHTML = htmlGoodPlace;
         }
 
-        // Lógica de aviso com trava de som no primeiro clique
         function avisoFaseBloqueada() {
             const jacare = document.getElementById('jacare-container');
             const balao = document.getElementById('balao-jacare');
@@ -670,7 +697,7 @@
             if (!audioBongosTocado && audioBongos) {
                 audioBongos.currentTime = 0;
                 audioBongos.play().catch(e => {});
-                audioBongosTocado = true; // Trava o som para os próximos cliques
+                audioBongosTocado = true; 
             }
 
             jacare.style.display = 'flex';
@@ -695,6 +722,7 @@
             
             document.getElementById('mes7-bebidas').style.display = 'none';
             document.getElementById('mes7-comidas').style.display = 'none';
+            document.getElementById('mes7-chamada-carta').style.display = 'none';
             document.getElementById('mes7-pergaminho').style.display = 'none';
             document.getElementById('feedback-bebidas').style.display = 'none';
             document.getElementById('feedback-comidas').style.display = 'none';
@@ -736,8 +764,13 @@
             document.getElementById('btn-avancar-comidas').onclick = function() {
                 fc.style.display = 'none';
                 document.getElementById('mes7-comidas').style.display = 'none';
-                document.getElementById('mes7-pergaminho').style.display = 'flex';
+                document.getElementById('mes7-chamada-carta').style.display = 'flex';
             };
+        }
+
+        function abrirPergaminho() {
+            document.getElementById('mes7-chamada-carta').style.display = 'none';
+            document.getElementById('mes7-pergaminho').style.display = 'flex';
         }
 
         function finalizarMes7() {
@@ -752,7 +785,6 @@
                 const jacare = document.getElementById('jacare-container');
                 
                 if (etapaFalaLaila === 'bloqueado') {
-                    // Ao clicar para fechar o aviso, ela limpa tudo e desaparece perfeitamente
                     jacare.style.display = 'none';
                     balao.style.display = 'none';
                     jacare.style.left = '-500px'; 
