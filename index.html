@@ -29,19 +29,42 @@
         }
         .tremendo { animation: shake 0.4s ease-in-out; }
 
-        /* NOVO MENU DE FASES */
+        /* MENU DE FASES COM GRADIENTE DO ROSA PARA O AZUL CLARO */
         #tela-inicio {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background-color: #ffcccc; z-index: 100;
+            /* Gradiente vertical suave mudando do rosinha para o azul claro */
+            background: linear-gradient(to bottom, #ffcccc 0%, #ffcccc 30%, #e1f5fe 65%, #b3e5fc 100%);
+            z-index: 100;
             display: flex; justify-content: flex-start; align-items: center; flex-direction: column;
             pointer-events: auto; overflow-y: auto; padding: 40px 20px; box-sizing: border-box;
+            scroll-behavior: smooth;
         }
-        #titulo-inicio {
-            color: #c13b2b; font-size: 40px; margin-bottom: 10px; text-align: center;
+        
+        .secao-fases {
+            width: 100%;
+            max-width: 900px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .secao-fases.good-place {
+            margin-top: 80px;
+        }
+
+        .titulo-jornada {
+            color: #c13b2b; font-size: 44px; margin-bottom: 10px; text-align: center;
             text-shadow: 2px 2px 10px rgba(255,255,255,0.6);
         }
-        #subtitulo-inicio {
-            color: #7a1010; font-size: 18px; margin-bottom: 30px; text-align: center; font-weight: 600;
+        .subtitulo-jornada {
+            color: #7a1010; font-size: 18px; margin-bottom: 35px; text-align: center; font-weight: 600;
+        }
+
+        .titulo-good-place {
+            color: #0288d1; font-size: 44px; margin-bottom: 10px; text-align: center;
+            text-shadow: 2px 2px 10px rgba(255,255,255,0.6);
+        }
+        .subtitulo-good-place {
+            color: #01579b; font-size: 18px; margin-bottom: 35px; text-align: center; font-weight: 600;
         }
         
         /* Grid dos Quadrados de Fases */
@@ -50,12 +73,11 @@
             grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
             gap: 20px;
             width: 100%;
-            max-width: 900px;
-            padding-bottom: 40px;
+            padding-bottom: 20px;
         }
         
         .fase-card {
-            background-color: white;
+            background-color: rgba(255, 255, 255, 0.9);
             border: 4px solid #7a1010;
             border-radius: 20px;
             aspect-ratio: 1 / 1;
@@ -66,7 +88,7 @@
             text-align: center;
             padding: 15px;
             box-sizing: border-box;
-            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.08);
             transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
         }
         
@@ -84,30 +106,34 @@
         
         /* Estilo das Fases Bloqueadas */
         .fase-card.bloqueada {
-            background-color: #e0e0e0;
+            background-color: rgba(240, 240, 240, 0.6);
             border-color: #95a5a6;
             color: #7f8c8d;
             cursor: not-allowed;
-            opacity: 0.8;
+            backdrop-filter: blur(2px);
+        }
+        .secao-fases.good-place .fase-card.bloqueada {
+            border-color: #0288d1;
+            color: #0288d1;
         }
         
         .fase-tempo {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 700;
             line-height: 1.2;
         }
         .fase-obs {
             font-size: 12px;
-            margin-top: 5px;
+            margin-top: 8px;
             font-weight: 600;
             color: #7a1010;
         }
         .fase-status {
-            font-size: 26px;
+            font-size: 24px;
             margin-top: 10px;
         }
 
-        /* Textos Principais */
+        /* Textos Principais do Jogo */
         #texto-container {
             font-size: 38px; color: #7a1010; text-align: center;
             z-index: 10; position: absolute; top: 15%; width: 80%;
@@ -285,9 +311,9 @@
         .btn-album { padding: 10px 20px; font-size: 18px; font-weight: bold; background: #333; color: white; border: none; border-radius: 5px; cursor: pointer; }
         .btn-album:hover { background: #555; }
 
-        /* RESPONSIVIDADE PARA CELULARES */
+        /* RESPONSIVIDADE */
         @media (max-width: 800px) {
-            #titulo-inicio { font-size: 28px; }
+            .titulo-jornada, .titulo-good-place { font-size: 32px; }
             #texto-container { font-size: 24px; top: 10%; width: 90%; }
             .palavra-grande { font-size: 70px; margin: 5px; }
             .grid-fases { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 12px; }
@@ -326,18 +352,27 @@
             .janela-erro { width: 90%; max-width: 320px; }
             .janela-erro-body { padding: 15px; font-size: 14px; }
         }
-
     </style>
 </head>
 <body>
 
-    <!-- NOVO MENU DE SELEÇÃO DE FASES -->
+    <!-- CONTAINER INICIAL QUE COMPÕE TODAS AS FASES E MUNDOS -->
     <div id="tela-inicio">
-        <h2 id="titulo-inicio">Fases do Nosso Jogo ❤️</h2>
-        <p id="subtitulo-inicio">Clique no nível atual para continuar a nossa jornada!</p>
-        <div class="grid-fases" id="grid-fases">
-            <!-- As fases serão geradas dinamicamente via JavaScript aqui -->
+        
+        <!-- SEÇÃO 1: NOSSA JORNADA -->
+        <div class="secao-fases">
+            <h2 class="titulo-jornada">Nossa jornada</h2>
+            <p class="subtitulo-jornada">Uma vastidão de memórias com meu amor</p>
+            <div class="grid-fases" id="grid-jornada"></div>
         </div>
+
+        <!-- SEÇÃO 2: THE GOOD PLACE -->
+        <div class="secao-fases good-place">
+            <h2 class="titulo-good-place">E agora no The Good Place</h2>
+            <p class="subtitulo-good-place">Nossa eternidade começa aqui ✨</p>
+            <div class="grid-fases" id="grid-good-place"></div>
+        </div>
+
     </div>
 
     <audio id="audio-boing" src="cartoon-boig.mp3" preload="auto"></audio>
@@ -393,7 +428,7 @@
     <div id="cena-carta-aberta">
         <div class="folha-carta">
             <h3>Minha gatinha,</h3>
-            <p>honestamente não sei nem por onde começar, sou definitivamente a pessoa mais feliz do mundo junto da sua presença e o amor que eu sinto por você é algo sobrenatural, só de pensar em você meu coração já sente uma ternura que nada nesse mundo chega perto de dar.</p>
+            <p>honestamente não sei nem por onde começar, sou definitivamente a pessoa mais feliz do mundo junto da sua presença e o amor que eu sinto por você é algo sobrenatural, só de pensar em você meu coração já siente uma ternura que nada nesse mundo chega perto de dar.</p>
             <p>É incrível ter a companhia de uma pessoa como você Lívia, tão carinhosa, tão gentil e engraçada e todas as boas qualidades que alguém pode ter. Eu posso estar tendo o pior dia da minha vida mas só de pensar ou de te ver, o meu dia já se enche de cor.</p>
             <p>Não canso de falar que o tempo voa com você, em um piscar de olhos 6 meses já se passaram e foram 6 meses tão gostosos de se viver. Sentir saudades mesmo antes de nos despedirmos, pensar em você o dia inteiro e sempre mal ver a hora de te encontrar novamente, ter alguém que desfrute esses sentimentos é algo sem igual.</p>
             <p>Eu tenho muita admiração por você e a maior certeza do mundo é que eu quero o resto do tempo do universo ao seu lado, até mesmo quando em algum momento virarmos um casal de lontras marinhas, quero nossas mãos dadas para sempre.</p>
@@ -454,60 +489,58 @@
     </div>
 
     <script>
-        // ==========================================
-        // VARIÁVEIS PRINCIPAIS
-        // ==========================================
         let etapaFalaLaila = 1;
         let magiaRevelada = false; 
         let interacaoMagicaFeita = false; 
         
-        // GERAÇÃO DINÂMICA DE FASES NO MENU
+        // GERAÇÃO DINÂMICA DAS FASES ATÉ O NÍVEL 69 E DEPOIS O INFINITO NO GOOD PLACE
         function carregarMenuFases() {
-            const grid = document.getElementById('grid-fases');
-            let htmlHTML = '';
+            const gridJornada = document.getElementById('grid-jornada');
+            const gridGoodPlace = document.getElementById('grid-good-place');
             
-            // FASE 1: 6 Meses (Desbloqueada)
-            htmlHTML += `
+            // 1. GERAÇÃO DA SEÇÃO: Nossa Jornada (Até Nível 69)
+            let htmlJornada = '';
+            // Nível 1 - Desbloqueado (Corresponde aos 6 Meses + Dia dos Namorados)
+            htmlJornada += `
                 <div class="fase-card desbloqueada" onclick="jogarFase6Meses()">
-                    <div class="fase-tempo">6 Meses</div>
-                    <div class="fase-obs">+ Dia dos Namorados</div>
+                    <div class="fase-tempo">Nível 1</div>
+                    <div class="fase-obs">6 Meses + Dia dos Namorados</div>
                 </div>
             `;
-            
-            // FASES SEGUINTES: De 7 até 11 meses (Bloqueadas)
-            for(let m = 7; m <= 11; m++) {
-                htmlHTML += `
-                    <div class="fase-card bloqueada" onclick="avisoFaseBloqueada('${m} Meses')">
-                        <div class="fase-tempo">${m} Meses</div>
+            // Níveis 2 ao 69 - Bloqueados
+            for(let i = 2; i <= 69; i++) {
+                htmlJornada += `
+                    <div class="fase-card bloqueada" onclick="avisoFaseBloqueada('Nossa Jornada - Nível ${i}')">
+                        <div class="fase-tempo">Nível ${i}</div>
                         <div class="fase-status">🔒</div>
                     </div>
                 `;
             }
+            gridJornada.innerHTML = htmlJornada;
             
-            // FASES ANUAIS: De 1 ano até 50 anos para simular o infinito (Bloqueadas)
-            for(let a = 1; a <= 50; a++) {
-                let textoAno = (a === 1) ? "1 Ano" : `${a} Anos`;
-                htmlHTML += `
-                    <div class="fase-card bloqueada" onclick="avisoFaseBloqueada('${textoAno}')">
-                        <div class="fase-tempo">${textoAno}</div>
+            // 2. GERAÇÃO DA SEÇÃO: The Good Place (Começa do 1 ao Infinito)
+            let htmlGoodPlace = '';
+            // Gerando até o 50 para simular visualmente a rolagem infinita
+            for(let j = 1; j <= 50; j++) {
+                htmlGoodPlace += `
+                    <div class="fase-card bloqueada" onclick="avisoFaseBloqueada('The Good Place - Nível ${j}')">
+                        <div class="fase-tempo">Nível ${j}</div>
                         <div class="fase-status">🔒</div>
                     </div>
                 `;
             }
-
-            // CARD EXTRA: Infinito
-            htmlHTML += `
-                <div class="fase-card bloqueada" onclick="avisoFaseBloqueada('Para Sempre')">
+            // Card representativo do Infinito
+            htmlGoodPlace += `
+                <div class="fase-card bloqueada" onclick="avisoFaseBloqueada('The Good Place - Para Todo o Sempre')">
                     <div class="fase-tempo">∞</div>
                     <div class="fase-status">🔒</div>
                 </div>
             `;
-            
-            grid.innerHTML = htmlHTML;
+            gridGoodPlace.innerHTML = htmlGoodPlace;
         }
 
         function avisoFaseBloqueada(fase) {
-            alert(`Calma, amor! A fase de [${fase}] ainda está bloqueada... Vamos continuar construindo nossas memórias e vivendo um dia lindo de cada vez! 🥰🔒`);
+            alert(`Calma gatinha! A fase [${fase}] ainda está guardada no futuro... Vamos viver o hoje e continuar desbloqueando cada pedacinho do nosso amanhã! 🥰🔒`);
         }
 
         function jogarFase6Meses() {
@@ -695,9 +728,6 @@
             document.getElementById('laila-img').style.cursor = 'pointer';
         }
 
-        // ==========================================
-        // LÓGICA DAS TELAS MÁGICAS
-        // ==========================================
         function interagirComItemMagico() {
             interacaoMagicaFeita = true;
         }
@@ -708,7 +738,6 @@
             document.getElementById('jacare-container').style.display = 'none';
         }
 
-        // TELA 1: CINEMA
         function abrirTV() {
             interagirComItemMagico();
             esconderCenarioPrincipal();
@@ -718,7 +747,6 @@
             video.play().catch(e => console.log("O usuário precisa dar play manual."));
         }
 
-        // TELA 2: PLANILHA / GRÁFICO 
         function wait(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
 
         function adicionarItemLegenda(nome, cor) {
@@ -786,7 +814,6 @@
             erro.style.display = 'block';
         }
 
-        // TELA 3: ÁLBUM DE FOTOS
         let paginaAtualAlbum = 0;
         const totalPaginas = 6; 
 
@@ -841,7 +868,6 @@
             renderizarPaginaAlbum();
         }
 
-        // VOLTAR UNIVERSAL
         function fecharCenaEspecial() {
             document.getElementById('cena-cinema').style.display = 'none';
             document.getElementById('cena-planilha').style.display = 'none';
@@ -862,7 +888,6 @@
             }
         }
 
-        // Inicializa o menu de fases ao abrir a página
         carregarMenuFases();
     </script>
 </body>
