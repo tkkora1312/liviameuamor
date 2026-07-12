@@ -7,7 +7,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Pinyon+Script&display=swap" rel="stylesheet">
 
     <style>
         body {
@@ -29,7 +29,7 @@
         }
         .tremendo { animation: shake 0.4s ease-in-out; }
 
-        /* MENU DE FASES COM GRADIENTE DO ROSA PARA O AZUL CLARO */
+        /* MENU DE FASES */
         #tela-inicio {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: linear-gradient(to bottom, #ffcccc 0%, #ffcccc 30%, #e1f5fe 65%, #b3e5fc 100%);
@@ -91,7 +91,6 @@
             transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
         }
         
-        /* Estilo da Fase Desbloqueada */
         .fase-card.desbloqueada {
             background-color: #fff0f0;
             color: #c13b2b;
@@ -103,7 +102,6 @@
             background-color: #ffe1e1;
         }
         
-        /* Estilo das Fases Bloqueadas */
         .fase-card.bloqueada {
             background-color: rgba(240, 240, 240, 0.6);
             border-color: #95a5a6;
@@ -111,26 +109,11 @@
             cursor: not-allowed;
             backdrop-filter: blur(2px);
         }
-        .secao-fases.good-place .fase-card.bloqueada {
-            border-color: #0288d1;
-            color: #0288d1;
-        }
+        .secao-fases.good-place .fase-card.bloqueada { border-color: #0288d1; color: #0288d1; }
         
-        .fase-tempo {
-            font-size: 24px;
-            font-weight: 700;
-            line-height: 1.2;
-        }
-        .fase-obs {
-            font-size: 12px;
-            margin-top: 8px;
-            font-weight: 600;
-            color: #7a1010;
-        }
-        .fase-status {
-            font-size: 24px;
-            margin-top: 10px;
-        }
+        .fase-tempo { font-size: 24px; font-weight: 700; line-height: 1.2; }
+        .fase-obs { font-size: 12px; margin-top: 8px; font-weight: 600; color: #7a1010; }
+        .fase-status { font-size: 24px; margin-top: 10px; }
 
         /* Textos Principais do Jogo */
         #texto-container {
@@ -151,7 +134,7 @@
             100% { opacity: 1; transform: translateY(0); }
         }
         
-        /* Container do Jacaré Laila */
+        /* Jacaré Laila */
         #jacare-container {
             position: absolute; left: -500px; 
             top: calc(50% - 130px);
@@ -164,7 +147,6 @@
         #laila-img:hover { transform: scale(1.05); }
         #laila-corpo { display: flex; flex-direction: column; align-items: center; }
 
-        /* Balão de Fala Universal */
         .balao-fala {
             display: none; background: white; padding: 15px 20px; border-radius: 20px;
             border: 3px solid #7a1010; max-width: 220px;
@@ -178,7 +160,7 @@
             border-right: 3px solid #7a1010; border-bottom: 3px solid #7a1010;
         }
 
-        /* Blocos das Cenas do Presente (Flutuação) */
+        /* Presentes e Cenas */
         #cena-caixa, #cena-caixa-aberta {
             position: absolute; left: 50%; top: 50%; 
             transform: translate(-50%, -50%); display: none; flex-direction: column; align-items: center; z-index: 30;
@@ -189,7 +171,6 @@
             50% { transform: translate(-50%, -56%); }
         }
 
-        /* Caixa de Presente Verde (#008000) */
         .caixa-madeira {
             width: 220px; height: 220px; background: #008000; border: 6px solid #014d01; position: relative; cursor: pointer;
             box-shadow: 0 20px 35px rgba(0,0,0,0.35), inset 0 0 35px rgba(0,0,0,0.7); border-radius: 15px; animation: brilharCaixa 2s infinite alternate;
@@ -218,12 +199,12 @@
         .mini-carta:hover { transform: scale(1.1) rotate(-2deg); }
         .mini-carta::after { content: ""; position: absolute; top: 0; left: 0; width: 0; height: 0; border-left: 65px solid transparent; border-right: 65px solid transparent; border-top: 48px solid #ebe3d5; }
 
-        @keyframes brilharCaixa { 0% { box-shadow: 0 20px 35px rgba(0,0,0,0.3), inset 0 0 35px rgba(0,0,0,0.7), 0 0 10px rgba(255, 234, 167, 0.1); } 100% { box-shadow: 0 20px 35px rgba(0,0,0,0.3), inset 0 0 35px rgba(0,0,0,0.7), 0 0 35px rgba(255, 234, 167, 0.4); } }
+        @keyframes brilharCaixa { 0% { box-shadow: 0 20px 35px rgba(0,0,0,0.3), inset 0 0 35px rgba(0,0,0,0.7); } 100% { box-shadow: 0 20px 35px rgba(0,0,0,0.3), inset 0 0 35px rgba(0,0,0,0.7), 0 0 35px rgba(255, 234, 167, 0.4); } }
 
         .correndo { animation: correrLaila 1.5s forwards ease-out; }
         @keyframes correrLaila { 0% { left: -500px; } 100% { left: 15%; } }
 
-        /* ENVELOPE */
+        /* ENVELOPE E CARTA MÊS 6 */
         #cena-envelope, #cena-carta-aberta { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 40; display: none; flex-direction: column; align-items: center; }
         .envelope-wrapper { position: relative; width: 340px; height: 230px; background: #fdfbf7; border-radius: 12px; box-shadow: 0 15px 35px rgba(0,0,0,0.2); }
         .flap-top { position: absolute; top: 0; left: 0; width: 0; height: 0; border-left: 170px solid transparent; border-right: 170px solid transparent; border-top: 120px solid #ebe3d5; z-index: 4; transform-origin: top; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); border-radius: 12px 12px 0 0; }
@@ -238,69 +219,46 @@
         #foca-selo-img { width: 80px; height: 80px; object-fit: contain; filter: drop-shadow(0px 5px 8px rgba(0,0,0,0.25)); }
         .destinatario { font-size: 21px; color: #7a1010; font-weight: 600; text-align: center; margin-bottom: 5px; }
 
-        /* FOLHA DA CARTA */
         .folha-carta { width: 350px; max-height: 75vh; background: #fffdf0; border-left: 8px solid #e1d5f5; box-shadow: 0 20px 40px rgba(0,0,0,0.25); padding: 30px; border-radius: 4px; color: #333; font-size: 18px; line-height: 1.6; overflow-y: auto; box-sizing: border-box; animation: abrirFolha 0.5s ease-out forwards; display: flex; flex-direction: column; }
         @keyframes abrirFolha { 0% { opacity: 0; transform: scale(0.85) translateY(30px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
         .folha-carta h3 { margin-top: 0; color: #5a4b75; font-size: 24px; }
         .assinatura { margin-top: 30px; text-align: right; font-weight: bold; color: #5a4b75; }
 
-        .btn-voltar-laila { font-family: 'Fredoka', sans-serif; margin-top: 25px; padding: 12px 30px; font-size: 16px; font-weight: 700; background-color: #008000; color: white; border: none; border-radius: 50px; cursor: pointer; box-shadow: 0 5px 15px rgba(0, 128, 0, 0.3); transition: transform 0.2s, background-color 0.2s; align-self: center; z-index: 100; }
+        .btn-voltar-laila { font-family: 'Fredoka', sans-serif; padding: 12px 30px; font-size: 16px; font-weight: 700; background-color: #008000; color: white; border: none; border-radius: 50px; cursor: pointer; box-shadow: 0 5px 15px rgba(0, 128, 0, 0.3); transition: transform 0.2s, background-color 0.2s; align-self: center; z-index: 100; margin-top: 25px; }
         .btn-voltar-laila:hover { transform: scale(1.05); background-color: #005c00; }
 
-        /* BOTÕES MÁGICOS GIGANTES (EMOJIS) */
+        /* ITENS MÁGICOS E CENAS (MÊS 6) */
         #cena-itens-magicos { position: absolute; top: 10%; left: 0; width: 100%; display: none; justify-content: center; align-items: center; z-index: 50; flex-wrap: wrap; gap: 40px; }
-        
         .item-magico { font-size: 130px; cursor: pointer; background: transparent; border: none; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: transform 0.3s; animation: flutuarItem 3s ease-in-out infinite alternate; text-decoration: none; }
         .item-magico:hover { transform: scale(1.1) translateY(-10px); }
         @keyframes flutuarItem { 0% { transform: translateY(0); } 100% { transform: translateY(-20px); } }
-        .item-magico.album { animation-delay: 0s; }
-        .item-magico.tv { animation-delay: 0.5s; }
-        .item-magico.planilha { animation-delay: 1s; }
 
-        /* CINEMA (TV) */
         #cena-cinema { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: radial-gradient(circle, #333, #000); z-index: 200; display: none; flex-direction: column; justify-content: center; align-items: center; }
         .tela-cinema { width: 80%; max-width: 800px; background: #000; border: 15px solid #222; border-radius: 10px; box-shadow: 0 20px 50px rgba(0,0,0,0.8); position: relative; margin-bottom: 20px; }
         .tela-cinema video { width: 100%; display: block; border-radius: 5px; }
 
-        /* PLANILHA (GRÁFICO) */
         #cena-planilha {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background-color: #fdfbf7;
-            background-image: 
-                linear-gradient(#e0e0e0 1px, transparent 1px),
-                linear-gradient(90deg, #e0e0e0 1px, transparent 1px);
-            background-size: 80px 30px; 
-            z-index: 200; display: none; flex-direction: column; justify-content: center; align-items: center;
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: #fdfbf7;
+            background-image: linear-gradient(#e0e0e0 1px, transparent 1px), linear-gradient(90deg, #e0e0e0 1px, transparent 1px);
+            background-size: 80px 30px; z-index: 200; display: none; flex-direction: column; justify-content: center; align-items: center;
         }
-
-        #chart-label { font-size: 32px; color: #333; margin-bottom: 30px; font-weight: 700; text-align: center; transition: all 0.5s; min-height: 45px; text-shadow: 1px 1px 0 #fff, -1px -1px 0 #fff; }
-        
-        .container-grafico {
-            background: rgba(255, 255, 255, 0.85);
-            padding: 40px; border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            display: flex; align-items: center; gap: 50px;
-        }
-
+        #chart-label { font-size: 32px; color: #333; margin-bottom: 30px; font-weight: 700; text-align: center; min-height: 45px; }
+        .container-grafico { background: rgba(255, 255, 255, 0.85); padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); display: flex; align-items: center; gap: 50px; }
         .pie-chart { width: 300px; height: 300px; border-radius: 50%; background: conic-gradient(#ddd 100%, transparent 0); box-shadow: 0 10px 30px rgba(0,0,0,0.2); transition: transform 0.5s ease; flex-shrink: 0; }
         .explodir { animation: boom 0.6s forwards ease-in; }
         @keyframes boom { 0% { transform: scale(1.5); opacity: 1; } 50% { transform: scale(3); opacity: 1; } 100% { transform: scale(5) rotate(45deg); opacity: 0; } }
-        
-        .chart-legend { display: flex; flex-direction: column; gap: 15px; opacity: 1; transition: opacity 0.3s; }
-        .legend-item { display: flex; align-items: center; gap: 10px; font-size: 20px; color: #333; font-weight: 600; animation: fadeInRight 0.5s ease-out; }
+        .chart-legend { display: flex; flex-direction: column; gap: 15px; }
+        .legend-item { display: flex; align-items: center; gap: 10px; font-size: 20px; color: #333; font-weight: 600; }
         .legend-color { width: 25px; height: 25px; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-        @keyframes fadeInRight { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
-
         .janela-erro { display: none; background: #ece9d8; border: 2px solid #0055ea; width: 350px; border-radius: 5px 5px 0 0; box-shadow: 2px 2px 10px rgba(0,0,0,0.5); font-family: 'Tahoma', sans-serif; z-index: 210; margin-bottom: 20px; }
         .janela-erro-header { background: linear-gradient(to right, #0058ee, #3593ff); color: white; padding: 5px 10px; font-weight: bold; font-size: 14px; display: flex; justify-content: space-between; }
         .janela-erro-body { padding: 20px; text-align: center; font-size: 16px; color: #000; }
         .janela-erro-icon { font-size: 40px; margin-bottom: 15px; color: #d32f2f; }
 
-        /* ÁLBUM DE FOTOS */
         #cena-album { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: url('https://www.transparenttextures.com/patterns/wood-pattern.png') #d5b895; z-index: 200; display: none; flex-direction: column; justify-content: center; align-items: center; }
         .livro { display: flex; width: 800px; height: 500px; background: #fff; box-shadow: 0 20px 50px rgba(0,0,0,0.5); border-radius: 10px; position: relative; margin-bottom: 30px; }
         .capa-album { width: 100%; height: 100%; background: #7a1010; color: white; display: flex; justify-content: center; align-items: center; text-align: center; border-radius: 10px; flex-direction: column; border-left: 15px solid #4a0909; }
-        .capa-album h1 { font-size: 50px; margin: 0 20px; font-family: 'Fredoka', cursive; text-shadow: 2px 2px 5px rgba(0,0,0,0.5); }
+        .capa-album h1 { font-size: 50px; margin: 0 20px; text-shadow: 2px 2px 5px rgba(0,0,0,0.5); }
         .capa-album p { font-size: 22px; opacity: 0.8; }
         .pagina { flex: 1; padding: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; background: #fdfbf7; border-right: 1px solid #ccc; box-sizing: border-box; }
         .pagina:last-child { border-right: none; }
@@ -308,7 +266,79 @@
         .moldura-foto img { width: 100%; max-height: 350px; object-fit: cover; }
         .controles-album { display: flex; gap: 20px; margin-top: 10px; }
         .btn-album { padding: 10px 20px; font-size: 18px; font-weight: bold; background: #333; color: white; border: none; border-radius: 5px; cursor: pointer; }
-        .btn-album:hover { background: #555; }
+
+        /* ================= CENA DO MÊS 7 (AMARELO CLARINHO) ================= */
+        #cena-mes7 {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background-color: #fffde7; z-index: 150; display: none;
+            flex-direction: column; align-items: center; justify-content: center;
+            padding: 30px; box-sizing: border-box; overflow-y: auto;
+        }
+
+        .texto-intro-mes7 {
+            font-size: 28px; color: #5d4037; text-align: center; max-width: 800px;
+            line-height: 1.6; font-weight: 600; margin-bottom: 30px;
+        }
+
+        .titulo-secao-banquete {
+            font-size: 36px; color: #e65100; font-weight: 700; margin-bottom: 40px; text-align: center;
+        }
+
+        /* Grid de Opções Bebidas/Comidas */
+        .container-opcoes-banquete {
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px;
+            width: 100%; max-width: 750px; margin-bottom: 20px;
+        }
+
+        .card-opcao-banquete {
+            background: white; border: 4px solid #ffb300; border-radius: 20px;
+            padding: 20px; display: flex; flex-direction: column; align-items: center;
+            position: relative; cursor: pointer; box-shadow: 0 8px 16px rgba(0,0,0,0.06);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card-opcao-banquete:hover {
+            transform: scale(1.04); box-shadow: 0 12px 24px rgba(230, 81, 0, 0.15);
+        }
+
+        .indice-banquete {
+            position: absolute; top: 12px; left: 15px; font-size: 24px;
+            font-weight: 700; color: #ff8f00; background: #fff8e1;
+            width: 35px; height: 35px; display: flex; justify-content: center;
+            align-items: center; border-radius: 50%; border: 2px solid #ffb300;
+        }
+
+        .wrapper-imagens-banquete {
+            display: flex; align-items: center; justify-content: center;
+            gap: 10px; min-height: 120px; margin-top: 15px; margin-bottom: 15px;
+        }
+        .wrapper-imagens-banquete img {
+            width: 100px; height: 100px; object-fit: contain;
+        }
+        .wrapper-imagens-banquete span {
+            font-size: 32px; font-weight: 700; color: #ff6f00;
+        }
+
+        .nome-opcao-banquete {
+            font-size: 20px; font-weight: 700; color: #5d4037; text-align: center;
+        }
+
+        /* PERGAMINHO INTERATIVO */
+        .pergaminho-container {
+            width: 100%; max-width: 600px; background: #fdf5e6;
+            border: 2px solid #d7ccc8; box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border-radius: 8px; padding: 40px; box-sizing: border-box;
+            display: none; flex-direction: column; align-items: center;
+            background-image: radial-gradient(rgba(0,0,0,0.03) 1px, transparent 0); background-size: 24px 24px;
+        }
+        .titulo-pergaminho {
+            font-family: 'Pinyon Script', cursive; font-size: 55px; color: #4e342e; margin-bottom: 20px; text-align: center;
+        }
+        .textarea-pergaminho {
+            width: 100%; height: 200px; background: transparent; border: none;
+            border-bottom: 1px dashed #a1887f; font-family: 'Fredoka', sans-serif;
+            font-size: 18px; line-height: 1.8; color: #5d4037; resize: none; outline: none;
+            padding: 10px; box-sizing: border-box;
+        }
 
         /* RESPONSIVIDADE */
         @media (max-width: 800px) {
@@ -316,69 +346,36 @@
             #texto-container { font-size: 24px; top: 10%; width: 90%; }
             .palavra-grande { font-size: 70px; margin: 5px; }
             .grid-fases { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 12px; }
-            .fase-tempo { font-size: 18px; }
-
-            #jacare-container { transform: scale(0.55); left: -15%; top: 5%; }
-            .balao-fala { font-size: 18px; max-width: 250px; }
-
-            .caixa-madeira, .caixa-aberta { width: 150px; height: 150px; }
-            .laco-presente { transform: translateX(-50%) scale(0.7); top: -20px; }
-            .envelope-wrapper { width: 280px; height: 180px; }
-            .flap-top { border-left-width: 140px; border-right-width: 140px; border-top-width: 95px; }
-            .flap-left { border-left-width: 140px; border-top-width: 90px; border-bottom-width: 90px; }
-            .flap-right { border-right-width: 140px; border-top-width: 90px; border-bottom-width: 90px; }
-            .flap-bottom { border-left-width: 140px; border-right-width: 140px; border-bottom-width: 100px; }
-            .folha-carta { width: 90vw; padding: 15px; font-size: 15px; max-height: 70vh; }
-            
-            #cena-itens-magicos { top: auto; bottom: 8%; gap: 15px; flex-direction: row; }
-            .item-magico { font-size: 65px; }
-            .tela-cinema { width: 95%; border-width: 8px; }
-            
-            .livro { width: 90vw; height: auto; min-height: 350px; flex-direction: column; }
-            .capa-album h1 { font-size: 28px; }
-            .capa-album p { font-size: 16px; margin-bottom: 20px; }
-            .pagina { padding: 15px; border-right: none; border-bottom: 1px solid #ccc; width: 100%; }
-            .pagina:last-child { border-bottom: none; }
-            .moldura-foto { padding: 5px 5px 25px 5px; }
-            .moldura-foto img { max-height: 220px; }
-            .controles-album { flex-wrap: wrap; justify-content: center; }
-            .btn-album { font-size: 14px; padding: 8px 15px; }
-            
-            .container-grafico { flex-direction: column; gap: 15px; padding: 15px; width: 85%; }
-            .pie-chart { width: 180px; height: 180px; }
-            #chart-label { font-size: 20px; margin-bottom: 5px; }
-            .legend-item { font-size: 14px; }
-            .janela-erro { width: 90%; max-width: 320px; }
-            .janela-erro-body { padding: 15px; font-size: 14px; }
+            .container-opcoes-banquete { grid-template-columns: 1fr; gap: 20px; }
+            .texto-intro-mes7 { font-size: 20px; }
+            .titulo-secao-banquete { font-size: 26px; }
+            .titulo-pergaminho { font-size: 42px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- CONTAINER INICIAL QUE COMPÕE TODAS AS FASES E MUNDOS -->
+    <!-- MENU INICIAL -->
     <div id="tela-inicio">
-        
-        <!-- SEÇÃO 1: NOSSA JORNADA -->
         <div class="secao-fases">
             <h2 class="titulo-jornada">Nossa jornada</h2>
             <p class="subtitulo-jornada">Uma vastidão de memórias com meu amor</p>
             <div class="grid-fases" id="grid-jornada"></div>
         </div>
-
-        <!-- SEÇÃO 2: THE GOOD PLACE -->
         <div class="secao-fases good-place">
             <h2 class="titulo-good-place">E agora no The Good Place</h2>
             <p class="subtitulo-good-place">Nossa eternidade começa aqui ✨</p>
             <div class="grid-fases" id="grid-good-place"></div>
         </div>
-
     </div>
 
+    <!-- AUDIO ELEMENTS -->
     <audio id="audio-boing" src="cartoon-boig.mp3" preload="auto"></audio>
     <audio id="audio-bongos" src="bongo-feet.mp3" preload="auto"></audio>
     <audio id="audio-magia" src="magia.mp3" preload="auto"></audio>
     <audio id="audio-album" src="musica.mp3" preload="auto" loop></audio>
 
+    <!-- PROCESSO MÊS 6 -->
     <div id="texto-container">
         <span id="texto-parte1"></span><br>
         <span id="palavra-alvo" class="palavra-grande">grande</span><br>
@@ -414,7 +411,6 @@
             <div class="flap-left"></div>
             <div class="flap-right"></div>
             <div class="flap-bottom"></div>
-            
             <div class="envelope-conteudo" id="envelope-interativo">
                 <div class="selo-container" onclick="animarEAbrirCarta()">
                     <img id="foca-selo-img" src="foca-selo.png" alt="Selo Foca">
@@ -427,10 +423,7 @@
     <div id="cena-carta-aberta">
         <div class="folha-carta">
             <h3>Minha gatinha,</h3>
-            <p>honestamente não sei nem por onde começar, sou definitivamente a pessoa mais feliz do mundo junto da sua presença e o amor que eu sinto por você é algo sobrenatural, só de pensar em você meu coração já siente uma ternura que nada nesse mundo chega perto de dar.</p>
-            <p>É incrível ter a companhia de uma pessoa como você Lívia, tão carinhosa, tão gentil e engraçada e todas as boas qualidades que alguém pode ter. Eu posso estar tendo o pior dia da minha vida mas só de pensar ou de te ver, o meu dia já se enche de cor.</p>
-            <p>Não canso de falar que o tempo voa com você, em um piscar de olhos 6 meses já se passaram e foram 6 meses tão gostosos de se viver. Sentir saudades mesmo antes de nos despedirmos, pensar em você o dia inteiro e sempre mal ver a hora de te encontrar novamente, ter alguém que desfrute esses sentimentos é algo sem igual.</p>
-            <p>Eu tenho muita admiração por você e a maior certeza do mundo é que eu quero o resto do tempo do universo ao seu lado, até mesmo quando em algum momento virarmos um casal de lontras marinhas, quero nossas mãos dadas para sempre.</p>
+            <p>honestamente não sei nem por onde começar, sou definitivamente a pessoa mais feliz do mundo junto da sua presença...</p>
             <p>Pretendo viver infinitas e uma aventuras com você, minha alma gêmea!</p>
             <div class="assinatura">-Thomas</div>
             <button class="btn-voltar-laila" onclick="voltarParaLaila()">Voltar para Laila</button>
@@ -445,46 +438,142 @@
 
     <div id="cena-cinema">
         <div class="tela-cinema">
-            <video id="meu-video" controls>
-                <source src="video.mp4" type="video/mp4">
-                Seu navegador não suporta o formato de vídeo.
-            </video>
+            <video id="meu-video" controls><source src="video.mp4" type="video/mp4"></video>
         </div>
         <button class="btn-voltar-laila" onclick="fecharCenaEspecial()">Voltar para Laila</button>
     </div>
 
     <div id="cena-planilha">
         <div id="chart-label"></div>
-        
         <div class="container-grafico" id="bloco-grafico">
             <div id="pie-chart" class="pie-chart"></div>
             <div id="grafico-legenda" class="chart-legend"></div>
         </div>
-        
         <div id="erro-planilha" class="janela-erro">
-            <div class="janela-erro-header">
-                <span>Erro no Sistema</span>
-                <span>X</span>
-            </div>
+            <div class="janela-erro-header"><span>Erro no Sistema</span><span>X</span></div>
             <div class="janela-erro-body">
                 <div class="janela-erro-icon">❌</div>
                 <strong>Erro Fatal: Capacidade Excedida.</strong><br><br>
-                O excel travou devido ao amor imensurável que eu sinto por você e não há computador poderoso o suficiente que aguente mensurar o tanto que eu te amo
+                O excel travou devido ao amor imensurável que eu sinto por você...
             </div>
         </div>
-
         <button class="btn-voltar-laila" onclick="fecharCenaEspecial()" style="margin-top: 40px;">Voltar para Laila</button>
     </div>
 
     <div id="cena-album">
         <div class="livro" id="livro-conteudo"></div>
-        
         <div class="controles-album">
             <button class="btn-album" onclick="mudarPaginaAlbum(-1)">⬅️ Anterior</button>
             <button class="btn-album" onclick="mudarPaginaAlbum(1)">Próxima ➡️</button>
         </div>
-
         <button class="btn-voltar-laila" onclick="fecharCenaEspecial()">Voltar para Laila</button>
+    </div>
+
+
+    <!-- ================= CENA DINÂMICA DO MÊS 7 ================= -->
+    <div id="cena-mes7">
+        
+        <!-- Bloco 1: Boas-vindas -->
+        <div id="mes7-intro" class="texto-intro-mes7"></div>
+        <button id="btn-iniciar-banquete" class="btn-voltar-laila" style="display:none;" onclick="irParaBebidas()">Aceitar Banquete 😋</button>
+
+        <!-- Bloco 2: Seleção de Bebidas -->
+        <div id="mes7-bebidas" style="display:none; width:100%; display:flex; flex-direction:column; align-items:center;">
+            <h3 class="titulo-secao-banquete">Primeiro as bebidas</h3>
+            <div class="container-opcoes-banquete">
+                
+                <!-- Opção 1: Vodka + Suco -->
+                <div class="card-opcao-banquete" onclick="escolherBebida(1, 'ôo bebum cansa de beber não né')">
+                    <div class="indice-banquete">1</div>
+                    <div class="wrapper-imagens-banquete">
+                        <img src="vodka.png" alt="Vodka" onerror="this.src='https://via.placeholder.com/100?text=Vodka'">
+                        <span>+</span>
+                        <img src="suco.png" alt="Suco de Maçã" onerror="this.src='https://via.placeholder.com/100?text=Suco'">
+                    </div>
+                    <div class="nome-opcao-banquete">Vodka com Suco de Maçã</div>
+                </div>
+
+                <!-- Opção 2: Chá -->
+                <div class="card-opcao-banquete" onclick="escolherBebida(2, 'mais refrescante que isso impossível')">
+                    <div class="indice-banquete">2</div>
+                    <div class="wrapper-imagens-banquete">
+                        <img src="cha.png" alt="Chá de Pêssego" onerror="this.src='https://via.placeholder.com/100?text=Chá'">
+                    </div>
+                    <div class="nome-opcao-banquete">Chá de Pêssego</div>
+                </div>
+
+                <!-- Opção 3: Boba -->
+                <div class="card-opcao-banquete" onclick="escolherBebida(3, 'tá esbanjando em')">
+                    <div class="indice-banquete">3</div>
+                    <div class="wrapper-imagens-banquete">
+                        <img src="boba.png" alt="Boba Tea" onerror="this.src='https://via.placeholder.com/100?text=Boba'">
+                    </div>
+                    <div class="nome-opcao-banquete">Boba</div>
+                </div>
+
+                <!-- Opção 4: Tap Water -->
+                <div class="card-opcao-banquete" onclick="escolherBebida(4, 'economizando pra comprar várias coisas legais, excelente')">
+                    <div class="indice-banquete">4</div>
+                    <div class="wrapper-imagens-banquete">
+                        <img src="tapwater.png" alt="Tap Water" onerror="this.src='https://via.placeholder.com/100?text=Tap+Water'">
+                    </div>
+                    <div class="nome-opcao-banquete">Tap Water</div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Bloco 3: Seleção de Prato Principal -->
+        <div id="mes7-comidas" style="display:none; width:100%; display:flex; flex-direction:column; align-items:center;">
+            <h3 class="titulo-secao-banquete">Agora, o prato principal</h3>
+            <div class="container-opcoes-banquete">
+                
+                <!-- Opção Marmita -->
+                <div class="card-opcao-banquete" onclick="escolherComida('marmita', 'se abrir uma empresa pra vender essa marmita é um milhão em um dia')">
+                    <div class="indice-banquete" style="font-size:14px; border-radius:8px; width:auto; padding: 0 8px;">marmita</div>
+                    <div class="wrapper-imagens-banquete">
+                        <img src="marmita.png" alt="Marmita" onerror="this.src='https://via.placeholder.com/100?text=Marmita'">
+                    </div>
+                    <div class="nome-opcao-banquete">Marmita Maravilhosa</div>
+                </div>
+
+                <!-- Opção Fried Rice -->
+                <div class="card-opcao-banquete" onclick="escolherComida('fried', 'chinês sempre é maravilhoso')">
+                    <div class="indice-banquete" style="font-size:14px; border-radius:8px; width:auto; padding: 0 8px;">fried</div>
+                    <div class="wrapper-imagens-banquete">
+                        <img src="fried.png" alt="Fried Rice" onerror="this.src='https://via.placeholder.com/100?text=Fried+Rice'">
+                    </div>
+                    <div class="nome-opcao-banquete">Fried Rice</div>
+                </div>
+
+                <!-- Opção Carbonara -->
+                <div class="card-opcao-banquete" onclick="escolherComida('carbonara', 'anota todos os segredos italianos pra a gente aplicar na nossa')">
+                    <div class="indice-banquete" style="font-size:14px; border-radius:8px; width:auto; padding: 0 8px;">carbonara</div>
+                    <div class="wrapper-imagens-banquete">
+                        <img src="carbonara.png" alt="Carbonara" onerror="this.src='https://via.placeholder.com/100?text=Carbonara'">
+                    </div>
+                    <div class="nome-opcao-banquete">Carbonara Autêntica</div>
+                </div>
+
+                <!-- Opção Cavalo -->
+                <div class="card-opcao-banquete" onclick="escolherComida('cavalo', 'isso deve ser tão bom, trás um pouco pra mim')">
+                    <div class="indice-banquete" style="font-size:14px; border-radius:8px; width:auto; padding: 0 8px;">cavalo</div>
+                    <div class="wrapper-imagens-banquete">
+                        <img src="cavalo.png" alt="Carne de Cavalo" onerror="this.src='https://via.placeholder.com/100?text=Carne+Cavalo'">
+                    </div>
+                    <div class="nome-opcao-banquete">Carne de Cavalo</div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Bloco 4: O Pergaminho -->
+        <div id="mes7-pergaminho" class="pergaminho-container">
+            <h4 class="titulo-pergaminho">Deixe sua mensagem</h4>
+            <textarea class="textarea-pergaminho" placeholder="Escreva aqui tudo o que seu coração quiser expressar hoje... 📜✍️"></textarea>
+            <button class="btn-voltar-laila" onclick="finalizarMes7()">Guardar no Coração ❤️</button>
+        </div>
+
     </div>
 
     <script>
@@ -492,24 +581,29 @@
         let magiaRevelada = false; 
         let interacaoMagicaFeita = false; 
         
-        // GERAÇÃO DINÂMICA DAS FASES SEGUINDO A CONTAGEM DE MESES E ANOS
         function carregarMenuFases() {
             const gridJornada = document.getElementById('grid-jornada');
             const gridGoodPlace = document.getElementById('grid-good-place');
-            
-            // 1. SEÇÃO: Nossa Jornada (Começa no Mês 6)
             let htmlJornada = '';
             
-            // Card do Mês 6 - Desbloqueado (O Início)
+            // Mês 6 - Desbloqueado
             htmlJornada += `
                 <div class="fase-card desbloqueada" onclick="jogarFase6Meses()">
                     <div class="fase-tempo">Mês 6</div>
                     <div class="fase-obs">6 Meses + Dia dos Namorados</div>
                 </div>
             `;
+
+            // Mês 7 - AGORA DESBLOQUEADO!
+            htmlJornada += `
+                <div class="fase-card desbloqueada" style="border-color: #ffb300; background-color: #fffde7;" onclick="jogarFase7Meses()">
+                    <div class="fase-tempo" style="color: #e65100;">Mês 7</div>
+                    <div class="fase-obs" style="color: #ff8f00;">Amore Poliglota 👑</div>
+                </div>
+            `;
             
-            // Do Mês 7 ao Mês 11 (Bloqueados)
-            for(let m = 7; m <= 11; m++) {
+            // Do Mês 8 ao Mês 11 (Bloqueados)
+            for(let m = 8; m <= 11; m++) {
                 htmlJornada += `
                     <div class="fase-card bloqueada" onclick="avisoFaseBloqueada('Nossa Jornada - Mês ${m}')">
                         <div class="fase-tempo">Mês ${m}</div>
@@ -529,9 +623,7 @@
             }
             gridJornada.innerHTML = htmlJornada;
             
-            // 2. SEÇÃO: The Good Place (Ano 1 ao Infinito)
             let htmlGoodPlace = '';
-            // Renderizando até o 50 para simulação visual da rolagem
             for(let j = 1; j <= 50; j++) {
                 htmlGoodPlace += `
                     <div class="fase-card bloqueada" onclick="avisoFaseBloqueada('The Good Place - Ano ${j}')">
@@ -540,7 +632,6 @@
                     </div>
                 `;
             }
-            // Card do Infinito
             htmlGoodPlace += `
                 <div class="fase-card bloqueada" onclick="avisoFaseBloqueada('The Good Place - Para Todo o Sempre')">
                     <div class="fase-tempo">∞ Anos</div>
@@ -554,6 +645,53 @@
             alert(`Calma gatinha! O [${tempo}] ainda está guardado no futuro... Vamos viver o hoje e continuar desbloqueando cada pedacinho do nosso amanhã! 🥰🔒`);
         }
 
+        /* LÓGICA DO MÊS 7 */
+        function jogarFase7Meses() {
+            document.getElementById('tela-inicio').style.display = 'none';
+            const cena7 = document.getElementById('cena-mes7');
+            cena7.style.display = 'flex';
+            
+            // Limpa sub-blocos internos
+            document.getElementById('mes7-bebidas').style.display = 'none';
+            document.getElementById('mes7-comidas').style.display = 'none';
+            document.getElementById('mes7-pergaminho').style.display = 'none';
+            
+            const introDiv = document.getElementById('mes7-intro');
+            introDiv.innerHTML = '';
+            introDiv.style.display = 'block';
+
+            const textoMês7 = "Privet! Buonasera my amore poliglota 👑\nFeliz 7 meses de namoro meu amor! Imagino que você esteja com fome e não negaria um banquete agora né, então escolha sua refeição:";
+            
+            typeWriter(textoMês7, 'mes7-intro', 40, () => {
+                document.getElementById('btn-iniciar-banquete').style.display = 'inline-block';
+            });
+        }
+
+        function irParaBebidas() {
+            document.getElementById('mes7-intro').style.display = 'none';
+            document.getElementById('btn-iniciar-banquete').style.display = 'none';
+            document.getElementById('mes7-bebidas').style.display = 'flex';
+        }
+
+        function escolherBebida(id, msg) {
+            alert(msg);
+            document.getElementById('mes7-bebidas').style.display = 'none';
+            document.getElementById('mes7-comidas').style.display = 'flex';
+        }
+
+        function escolherComida(id, msg) {
+            alert(msg);
+            document.getElementById('mes7-comidas').style.display = 'none';
+            document.getElementById('mes7-pergaminho').style.display = 'flex';
+        }
+
+        function finalizarMes7() {
+            alert("Sua resposta e escolhas do banquete foram salvas com sucesso no meu coração! Feliz 7 meses poliglota mais linda do universo! 🌹");
+            document.getElementById('cena-mes7').style.display = 'none';
+            document.getElementById('tela-inicio').style.display = 'flex';
+        }
+
+        /* SISTEMA AUXILIAR DO MÊS 6 */
         function jogarFase6Meses() {
             preCarregarAudios();
             comecarTudo();
@@ -562,14 +700,7 @@
         function preCarregarAudios() {
             ['audio-boing', 'audio-bongos', 'audio-magia'].forEach(id => {
                 const a = document.getElementById(id);
-                if(a) {
-                    a.volume = 0; 
-                    a.play().then(() => { 
-                        a.pause(); 
-                        a.currentTime = 0; 
-                        a.volume = 1; 
-                    }).catch(e => {});
-                }
+                if(a) { a.volume = 0; a.play().then(() => { a.pause(); a.currentTime = 0; a.volume = 1; }).catch(e => {}); }
             });
         }
 
@@ -582,7 +713,8 @@
             const elemento = document.getElementById(elementoId);
             function digitar() {
                 if (index < texto.length) {
-                    elemento.innerHTML += texto.charAt(index);
+                    let char = texto.charAt(index);
+                    elemento.innerHTML += char === '\n' ? '<br>' : char;
                     index++;
                     setTimeout(digitar, velocidade);
                 } else if (callback) { callback(); }
@@ -648,14 +780,9 @@
                 } else if (etapaFalaLaila === 'esperando_magia') {
                     const audioMagia = document.getElementById('audio-magia');
                     if(audioMagia){ audioMagia.currentTime = 0; audioMagia.play().catch(e => {}); }
-
                     document.getElementById('cena-itens-magicos').style.display = 'flex';
-                    
-                    if(!interacaoMagicaFeita) {
-                        balao.innerHTML = "Viu só?! Tem mais tuuudo isso pra você ver";
-                    } else {
-                        balao.style.display = 'none';
-                    }
+                    if(!interacaoMagicaFeita) { balao.innerHTML = "Viu só?! Tem mais tuuudo isso pra você ver"; } 
+                    else { balao.style.display = 'none'; }
                     magiaRevelada = true;
                     etapaFalaLaila = 'fim'; 
                 }
@@ -670,7 +797,6 @@
             
             const jacare = document.getElementById('jacare-container');
             const balao = document.getElementById('balao-jacare');
-            
             jacare.style.left = window.innerWidth <= 800 ? '-5%' : '15%';
             balao.style.display = 'none';
             
@@ -695,14 +821,11 @@
             document.getElementById('cena-caixa-aberta').style.display = 'none';
             document.getElementById('cena-envelope').style.display = 'flex';
             document.getElementById('jacare-container').style.display = 'none';
-            document.getElementById('cena-itens-magicos').style.display = 'none';
         }
 
         function animarEAbrirCarta() {
             document.getElementById('envelope-tampa').classList.add('aberto');
             document.getElementById('envelope-interativo').style.opacity = '0';
-            document.getElementById('envelope-interativo').style.transition = 'opacity 0.3s';
-
             setTimeout(() => {
                 document.getElementById('cena-envelope').style.display = 'none';
                 document.getElementById('cena-carta-aberta').style.display = 'flex';
@@ -719,30 +842,21 @@
             const balao = document.getElementById('balao-jacare');
             jacare.style.display = 'flex';
             
-            if (!interacaoMagicaFeita) {
-                balao.style.display = 'block';
-            } else {
-                balao.style.display = 'none';
-            }
+            if (!interacaoMagicaFeita) { balao.style.display = 'block'; } 
+            else { balao.style.display = 'none'; }
             
             if (!magiaRevelada) {
                 balao.innerHTML = "Eaii gostou da cartinha? Nesse lugar estranho eu sou super poderosa! Clica em mim pra você ver uma mágica!";
                 etapaFalaLaila = 'esperando_magia';
             } else {
-                if(!interacaoMagicaFeita) {
-                    balao.innerHTML = "Viu só?! Tem mais tudo isso pra você ver";
-                }
+                if(!interacaoMagicaFeita) { balao.innerHTML = "Viu só?! Tem mais tudo isso pra você ver"; }
                 document.getElementById('cena-itens-magicos').style.display = 'flex';
             }
-            
             lailaProntaParaClicar = true;
             document.getElementById('laila-img').style.cursor = 'pointer';
         }
 
-        function interagirComItemMagico() {
-            interacaoMagicaFeita = true;
-        }
-
+        function interagirComItemMagico() { interacaoMagicaFeita = true; }
         function esconderCenarioPrincipal() {
             document.getElementById('cena-caixa-aberta').style.display = 'none';
             document.getElementById('cena-itens-magicos').style.display = 'none';
@@ -750,16 +864,13 @@
         }
 
         function abrirTV() {
-            interagirComItemMagico();
-            esconderCenarioPrincipal();
+            interagirComItemMagico(); esconderCenarioPrincipal();
             document.getElementById('cena-cinema').style.display = 'flex';
             const video = document.getElementById('meu-video');
-            video.currentTime = 0;
-            video.play().catch(e => console.log("O usuário precisa dar play manual."));
+            video.currentTime = 0; video.play().catch(e => {});
         }
 
         function wait(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
-
         function adicionarItemLegenda(nome, cor) {
             const legendaBox = document.getElementById('grafico-legenda');
             const div = document.createElement('div');
@@ -769,10 +880,8 @@
         }
 
         async function abrirPlanilha() {
-            interagirComItemMagico();
-            esconderCenarioPrincipal();
-            const cena = document.getElementById('cena-planilha');
-            cena.style.display = 'flex';
+            interagirComItemMagico(); esconderCenarioPrincipal();
+            document.getElementById('cena-planilha').style.display = 'flex';
             
             const blocoGrafico = document.getElementById('bloco-grafico');
             const chart = document.getElementById('pie-chart');
@@ -783,93 +892,55 @@
             blocoGrafico.style.display = 'flex';
             chart.classList.remove('explodir');
             chart.style.background = "conic-gradient(#ddd 100%, transparent 0)";
-            legendaBox.innerHTML = '';
-            legendaBox.style.opacity = '1';
-            
-            erro.style.display = 'none';
-            label.style.fontSize = "32px";
-            label.style.color = "#333";
-            label.innerHTML = "";
+            legendaBox.innerHTML = ''; legendaBox.style.opacity = '1';
+            erro.style.display = 'none'; label.innerHTML = "";
 
             await wait(1000);
             label.innerHTML = "Tamanho do Monte Everest";
             chart.style.background = "conic-gradient(#3498db 100%, transparent 0)";
             adicionarItemLegenda('Monte Everest', '#3498db');
             
-            await wait(3000);
+            await wait(2000);
             label.innerHTML = "Tamanho da Lua";
             chart.style.background = "conic-gradient(#f1c40f 80%, #3498db 80% 100%)";
             adicionarItemLegenda('Lua', '#f1c40f');
             
-            await wait(3000);
+            await wait(2000);
             label.innerHTML = "Tamanho do Sol";
             chart.style.background = "conic-gradient(#e67e22 85%, #f1c40f 85% 97%, #3498db 97% 100%)";
             adicionarItemLegenda('Sol', '#e67e22');
             
-            await wait(3000);
-            label.style.fontSize = "50px";
-            label.innerHTML = "E por fim...";
-            
-            await wait(2500);
-            label.style.color = "#d32f2f";
+            await wait(2000);
             label.innerHTML = " TAMANHO DO MEU AMOR POR VOCÊ!";
             chart.style.background = "conic-gradient(#d32f2f 100%, transparent 0)";
-            adicionarItemLegenda('Tamanho do meu amor por você!', '#d32f2f');
+            adicionarItemLegenda('Meu amor por você!', '#d32f2f');
             
             await wait(1500);
-            chart.classList.add('explodir'); 
-            legendaBox.style.opacity = '0';
-            
+            chart.classList.add('explodir'); legendaBox.style.opacity = '0';
             await wait(600);
-            blocoGrafico.style.display = 'none';
-            erro.style.display = 'block';
+            blocoGrafico.style.display = 'none'; erro.style.display = 'block';
         }
 
-        let paginaAtualAlbum = 0;
-        const totalPaginas = 6; 
-
+        let paginaAtualAlbum = 0; const totalPaginas = 6; 
         function renderizarPaginaAlbum() {
             const container = document.getElementById('livro-conteudo');
             if (paginaAtualAlbum === 0) {
-                container.innerHTML = `
-                    <div class="capa-album">
-                        <h1>Memórias de valor imensurável</h1>
-                        <p>instantes de momentos que eu gostaria que durassem uma eternidade</p>
-                    </div>
-                `;
+                container.innerHTML = `<div class="capa-album"><h1>Memórias de valor imensurável</h1><p>instantes eternos</p></div>`;
             } else {
                 const fotoEsq = (paginaAtualAlbum - 1) * 2 + 1;
                 const fotoDir = (paginaAtualAlbum - 1) * 2 + 2;
-                const rotEsq = Math.random().toFixed(2);
-                const rotDir = Math.random().toFixed(2);
-
                 container.innerHTML = `
-                    <div class="pagina">
-                        <div class="moldura-foto" style="--rand: ${rotEsq}">
-                            <img src="foto${fotoEsq}.jpg" alt="Foto ${fotoEsq}" onerror="this.src='https://via.placeholder.com/300x400?text=Foto+${fotoEsq}'">
-                        </div>
-                    </div>
-                    <div class="pagina">
-                        <div class="moldura-foto" style="--rand: ${rotDir}">
-                            <img src="foto${fotoDir}.jpg" alt="Foto ${fotoDir}" onerror="this.src='https://via.placeholder.com/300x400?text=Foto+${fotoDir}'">
-                        </div>
-                    </div>
-                `;
+                    <div class="pagina"><div class="moldura-foto" style="--rand: 0.2"><img src="foto${fotoEsq}.jpg" onerror="this.src='https://via.placeholder.com/300x400?text=Foto+${fotoEsq}'"></div></div>
+                    <div class="pagina"><div class="moldura-foto" style="--rand: 0.7"><img src="foto${fotoDir}.jpg" onerror="this.src='https://via.placeholder.com/300x400?text=Foto+${fotoDir}'"></div></div>`;
             }
         }
 
         function abrirAlbum() {
-            interagirComItemMagico();
-            esconderCenarioPrincipal();
+            interagirComItemMagico(); esconderCenarioPrincipal();
             document.getElementById('cena-album').style.display = 'flex';
-            paginaAtualAlbum = 0;
-            renderizarPaginaAlbum();
-
+            paginaAtualAlbum = 0; renderizarPaginaAlbum();
             const audioAlbum = document.getElementById('audio-album');
-            if (audioAlbum) {
-                audioAlbum.currentTime = 0;
-                audioAlbum.play().catch(e => console.log("Interaja com a tela para ouvir a música."));
-            }
+            if (audioAlbum) { audioAlbum.currentTime = 0; audioAlbum.play().catch(e => {}); }
         }
 
         function mudarPaginaAlbum(direcao) {
@@ -883,20 +954,12 @@
             document.getElementById('cena-cinema').style.display = 'none';
             document.getElementById('cena-planilha').style.display = 'none';
             document.getElementById('cena-album').style.display = 'none';
-            
-            const video = document.getElementById('meu-video');
-            if (video) video.pause();
-
-            const audioAlbum = document.getElementById('audio-album');
-            if (audioAlbum) { audioAlbum.pause(); audioAlbum.currentTime = 0; }
+            const video = document.getElementById('meu-video'); if (video) video.pause();
+            const audioAlbum = document.getElementById('audio-album'); if (audioAlbum) audioAlbum.pause();
 
             document.getElementById('cena-caixa-aberta').style.display = 'flex';
             document.getElementById('cena-itens-magicos').style.display = 'flex';
             document.getElementById('jacare-container').style.display = 'flex';
-
-            if (interacaoMagicaFeita) {
-                document.getElementById('balao-jacare').style.display = 'none';
-            }
         }
 
         carregarMenuFases();
