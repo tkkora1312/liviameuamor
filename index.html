@@ -367,6 +367,46 @@
             margin-bottom: 15px;
         }
 
+        /* ================= CENA DO MÊS 8 ================= */
+        #cena-mes8 {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: url('https://www.transparenttextures.com/patterns/wood-pattern.png') #a5d6a7;
+            z-index: 150; display: none;
+            flex-direction: column; align-items: center; justify-content: center;
+            padding: 20px; box-sizing: border-box;
+        }
+
+        .livro-mes8 {
+            display: flex; width: 850px; height: 550px; background: #fff;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4); border-radius: 10px;
+            position: relative; border: 4px solid #2e7d32;
+        }
+
+        .pagina-mes8 {
+            flex: 1; padding: 20px; display: flex; flex-direction: column;
+            justify-content: space-evenly; align-items: center; background: #fdfbf7;
+            border-right: 2px solid #e0e0e0; box-sizing: border-box;
+        }
+
+        .pagina-mes8:last-child { border-right: none; }
+
+        .moldura-foto-mes8 {
+            background: white; padding: 8px 8px 25px 8px;
+            box-shadow: 2px 5px 12px rgba(0,0,0,0.18);
+            width: 80%; display: flex; justify-content: center; align-items: center;
+            transform: rotate(calc(-2deg + 4deg * var(--rand)));
+            transition: transform 0.2s ease;
+        }
+
+        .moldura-foto-mes8:hover {
+            transform: scale(1.05) rotate(0deg);
+            z-index: 10;
+        }
+
+        .moldura-foto-mes8 img {
+            width: 100%; height: 170px; object-fit: cover; border-radius: 3px;
+        }
+
         /* RESPONSIVIDADE */
         @media (max-width: 800px) {
             .titulo-jornada, .titulo-good-place { font-size: 32px; }
@@ -379,6 +419,9 @@
             .titulo-pergaminho { font-size: 42px; }
             .texto-chamada-carta { font-size: 24px; }
             .texto-pergaminho { font-size: 16px; }
+            .livro-mes8 { width: 95vw; height: auto; flex-direction: column; overflow-y: auto; max-height: 80vh; }
+            .pagina-mes8 { border-right: none; border-bottom: 2px solid #e0e0e0; padding: 15px; }
+            .moldura-foto-mes8 img { height: 140px; }
         }
     </style>
 </head>
@@ -398,7 +441,7 @@
         </div>
     </div>
 
-    <!-- AUDIO ELEMENTS (Preload retirado para não dar loading infinito na tela inicial) -->
+    <!-- AUDIO ELEMENTS -->
     <audio id="audio-boing" src="cartoon-boig.mp3"></audio>
     <audio id="audio-bongos" src="bongo-feet.mp3"></audio>
     <audio id="audio-magia" src="magia.mp3"></audio>
@@ -450,7 +493,7 @@
         </div>
     </div>
 
-    <!-- CARTA MÊS 6: ORIGINAL RESTAURADA -->
+    <!-- CARTA MÊS 6 -->
     <div id="cena-carta-aberta">
         <div class="folha-carta">
             <h3>Minha gatinha,</h3>
@@ -611,17 +654,42 @@
             </div>
         </div>
 
-        <!-- Bloco 5: O Pergaminho com o novo texto de saudade -->
+        <!-- Bloco 5: Pergaminho -->
         <div id="mes7-pergaminho" class="pergaminho-container">
             <h4 class="titulo-pergaminho">Que saudade meu amor!</h4>
             <div class="texto-pergaminho">
                 <p>Eai gatinha feliz 7 meses de namoro! O que eu tenho pra falar hoje é sobre saudade, nunca senti tanta saudade de alguém na minha vida e algo curioso que você deve saber é que a palavra saudade não tem em nenhuma outra língua, mas se fosse pra descrever o que significa essa palavra pra um gringo é muito fácil, vc poderia dizer: <i>the feeling of missing something or someone</i>, ou pra um latino: <i>la sensación de echar de menos algo o a alguien</i> (me corrige se eu tiver errado em Maestra) e o problema estaria resolvido.</p>
                 <p>Só que se eu tivesse que explicar como é a saudade que eu tenho de você tenho certeza que eu não consigo colocar em palavras. Sempre ao dormir, ao acordar, tomar banho ver os passarinhos pegarem ração aqui em casa me lembro de você e na hora já me surge um sentimento gostoso misturado de uma vontade insaciável de te ter do meu lado e a cada segundo essa saudade aumenta ainda mais daqui a pouco ela vai explodir e eu vou ser arremessado até o seu dormitório em Milão.</p>
-		<p> Te amo muito Lívia ansioso pra quando nos vermos e vivermos muito mais aventuras pelo resto da eternidade!</p>
+                <p> Te amo muito Lívia ansioso pra quando nos vermos e vivermos muito mais aventuras pelo resto da eternidade!</p>
             </div>
             <button class="btn-voltar-laila" style="background-color: #4e342e; box-shadow: 0 5px 15px rgba(78, 52, 46, 0.3); margin-top:20px;" onclick="finalizarMes7()">Voltar ao início ❤️</button>
         </div>
 
+    </div>
+
+    <!-- ================= CENA DO MÊS 8 ================= -->
+    <div id="cena-mes8">
+        <div class="livro-mes8">
+            <!-- Página 1: Fotos 1 e 2 -->
+            <div class="pagina-mes8">
+                <div class="moldura-foto-mes8" style="--rand: 0.3">
+                    <img src="1mes8.png" alt="Foto 1 - Mês 8" onerror="this.src='https://via.placeholder.com/300x200?text=1mes8.png'">
+                </div>
+                <div class="moldura-foto-mes8" style="--rand: 0.8">
+                    <img src="2mes8.png" alt="Foto 2 - Mês 8" onerror="this.src='https://via.placeholder.com/300x200?text=2mes8.png'">
+                </div>
+            </div>
+            <!-- Página 2: Fotos 3 e 4 -->
+            <div class="pagina-mes8">
+                <div class="moldura-foto-mes8" style="--rand: 0.2">
+                    <img src="3mes8.png" alt="Foto 3 - Mês 8" onerror="this.src='https://via.placeholder.com/300x200?text=3mes8.png'">
+                </div>
+                <div class="moldura-foto-mes8" style="--rand: 0.7">
+                    <img src="4mes8.png" alt="Foto 4 - Mês 8" onerror="this.src='https://via.placeholder.com/300x200?text=4mes8.png'">
+                </div>
+            </div>
+        </div>
+        <button class="btn-voltar-laila" style="background-color: #2e7d32; box-shadow: 0 5px 15px rgba(46, 125, 50, 0.3); margin-top: 25px;" onclick="finalizarMes8()">Voltar ao início ❤️</button>
     </div>
 
     <script>
@@ -650,8 +718,16 @@
                     <div class="fase-obs" style="color: #673ab7;">7 meses + Intercâmbio</div>
                 </div>
             `;
+
+            // Mês 8 (Desbloqueado em verde claro)
+            htmlJornada += `
+                <div class="fase-card desbloqueada" style="border-color: #81c784; background-color: #e8f5e9;" onclick="jogarFase8Meses()">
+                    <div class="fase-tempo" style="color: #2e7d32;">Mês 8</div>
+                    <div class="fase-obs" style="color: #1b5e20;">8 meses</div>
+                </div>
+            `;
             
-            for(let m = 8; m <= 11; m++) {
+            for(let m = 9; m <= 11; m++) {
                 htmlJornada += `<div class="fase-card bloqueada" onclick="avisoFaseBloqueada()"><div class="fase-tempo">Mês ${m}</div><div class="fase-status">🔒</div></div>`;
             }
             for(let a = 1; a <= 69; a++) {
@@ -690,6 +766,17 @@
                 lailaProntaParaClicar = true;
                 document.getElementById('laila-img').style.cursor = 'pointer';
             }, 1000);
+        }
+
+        /* SISTEMA DO MÊS 8 */
+        function jogarFase8Meses() {
+            document.getElementById('tela-inicio').style.display = 'none';
+            document.getElementById('cena-mes8').style.display = 'flex';
+        }
+
+        function finalizarMes8() {
+            document.getElementById('cena-mes8').style.display = 'none';
+            document.getElementById('tela-inicio').style.display = 'flex';
         }
 
         /* SISTEMA DE FLUXO DO MÊS 7 */
