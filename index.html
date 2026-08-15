@@ -255,7 +255,7 @@
         .janela-erro-body { padding: 20px; text-align: center; font-size: 16px; color: #000; }
         .janela-erro-icon { font-size: 40px; margin-bottom: 15px; color: #d32f2f; }
 
-        #cena-album { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: url('https://www.transparenttextures.com/patterns/wood-pattern.png') #d5b895; z-index: 200; display: none; flex-direction: column; justify-content: center; align-items: center; }
+        #cena-album { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #d5b895; z-index: 200; display: none; flex-direction: column; justify-content: center; align-items: center; }
         .livro { display: flex; width: 800px; height: 500px; background: #fff; box-shadow: 0 20px 50px rgba(0,0,0,0.5); border-radius: 10px; position: relative; margin-bottom: 30px; }
         .capa-album { width: 100%; height: 100%; background: #7a1010; color: white; display: flex; justify-content: center; align-items: center; text-align: center; border-radius: 10px; flex-direction: column; border-left: 15px solid #4a0909; }
         .capa-album h1 { font-size: 50px; margin: 0 20px; text-shadow: 2px 2px 5px rgba(0,0,0,0.5); }
@@ -370,7 +370,7 @@
         /* ================= CENA DO MÊS 8 ================= */
         #cena-mes8 {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: url('https://www.transparenttextures.com/patterns/wood-pattern.png') #a5d6a7;
+            background: #a5d6a7;
             z-index: 150; display: none;
             flex-direction: column; align-items: center; justify-content: center;
             padding: 20px; box-sizing: border-box;
@@ -391,11 +391,12 @@
         .pagina-mes8:last-child { border-right: none; }
 
         .moldura-foto-mes8 {
-            background: white; padding: 8px 8px 25px 8px;
+            background: white; padding: 10px 10px 15px 10px;
             box-shadow: 2px 5px 12px rgba(0,0,0,0.18);
-            width: 80%; display: flex; justify-content: center; align-items: center;
+            width: 82%; display: flex; flex-direction: column; justify-content: center; align-items: center;
             transform: rotate(calc(-2deg + 4deg * var(--rand)));
             transition: transform 0.2s ease;
+            box-sizing: border-box;
         }
 
         .moldura-foto-mes8:hover {
@@ -404,7 +405,16 @@
         }
 
         .moldura-foto-mes8 img {
-            width: 100%; height: 170px; object-fit: cover; border-radius: 3px;
+            width: 100%; height: 160px; object-fit: cover; border-radius: 3px;
+        }
+
+        .legenda-foto-mes8 {
+            margin: 8px 0 0 0;
+            font-size: 13px;
+            color: #4a4a4a;
+            font-weight: 600;
+            text-align: center;
+            line-height: 1.2;
         }
 
         /* RESPONSIVIDADE */
@@ -441,11 +451,11 @@
         </div>
     </div>
 
-    <!-- AUDIO ELEMENTS -->
-    <audio id="audio-boing" src="cartoon-boig.mp3"></audio>
-    <audio id="audio-bongos" src="bongo-feet.mp3"></audio>
-    <audio id="audio-magia" src="magia.mp3"></audio>
-    <audio id="audio-album" src="musica.mp3" loop></audio>
+    <!-- AUDIO ELEMENTS (preload="none" evita o carregamento infinito na aba do navegador) -->
+    <audio id="audio-boing" src="cartoon-boig.mp3" preload="none"></audio>
+    <audio id="audio-bongos" src="bongo-feet.mp3" preload="none"></audio>
+    <audio id="audio-magia" src="magia.mp3" preload="none"></audio>
+    <audio id="audio-album" src="musica.mp3" loop preload="none"></audio>
 
     <!-- PROCESSO MÊS 6 -->
     <div id="texto-container">
@@ -454,7 +464,7 @@
         <span id="texto-parte2"></span>
     </div>
 
-    <!-- Laila Container -->
+    <!-- Jacaré Laila -->
     <div id="jacare-container">
         <div id="laila-corpo">
             <img id="laila-img" src="laila.png" style="width: 180px;" alt="Jacaré Laila" onclick="clicouNaLaila()">
@@ -515,7 +525,7 @@
 
     <div id="cena-cinema">
         <div class="tela-cinema">
-            <video id="meu-video" controls><source src="video.mp4" type="video/mp4"></video>
+            <video id="meu-video" controls preload="none"><source src="video.mp4" type="video/mp4"></video>
         </div>
         <button class="btn-voltar-laila" onclick="fecharCenaEspecial()">Voltar para Laila</button>
     </div>
@@ -674,18 +684,22 @@
             <div class="pagina-mes8">
                 <div class="moldura-foto-mes8" style="--rand: 0.3">
                     <img src="1mes8.png" alt="Foto 1 - Mês 8" onerror="this.src='https://via.placeholder.com/300x200?text=1mes8.png'">
+                    <p class="legenda-foto-mes8">date de estudos pocando</p>
                 </div>
                 <div class="moldura-foto-mes8" style="--rand: 0.8">
                     <img src="2mes8.png" alt="Foto 2 - Mês 8" onerror="this.src='https://via.placeholder.com/300x200?text=2mes8.png'">
+                    <p class="legenda-foto-mes8">jumpscare do flash</p>
                 </div>
             </div>
             <!-- Página 2: Fotos 3 e 4 -->
             <div class="pagina-mes8">
                 <div class="moldura-foto-mes8" style="--rand: 0.2">
                     <img src="3mes8.png" alt="Foto 3 - Mês 8" onerror="this.src='https://via.placeholder.com/300x200?text=3mes8.png'">
+                    <p class="legenda-foto-mes8">que gosto estranho</p>
                 </div>
                 <div class="moldura-foto-mes8" style="--rand: 0.7">
                     <img src="4mes8.png" alt="Foto 4 - Mês 8" onerror="this.src='https://via.placeholder.com/300x200?text=4mes8.png'">
+                    <p class="legenda-foto-mes8">nova receita pra fazer em casa</p>
                 </div>
             </div>
         </div>
@@ -723,7 +737,7 @@
             htmlJornada += `
                 <div class="fase-card desbloqueada" style="border-color: #81c784; background-color: #e8f5e9;" onclick="jogarFase8Meses()">
                     <div class="fase-tempo" style="color: #2e7d32;">Mês 8</div>
-                    <div class="fase-obs" style="color: #1b5e20;">8 meses + Si Señor </div>
+                    <div class="fase-obs" style="color: #1b5e20;">8 meses</div>
                 </div>
             `;
             
